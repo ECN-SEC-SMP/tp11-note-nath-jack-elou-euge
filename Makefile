@@ -31,17 +31,22 @@ compilPlayer :
 	@echo "Compilation Player"
 	$(GPP) -c $(SRC_CLASS)/Player.cpp -o $(BIN)/Player.o
 
-# La cible "compilBoard" est exécutée en tapant la commande "make compilBoard"
-compilBoard : compilRobot compilPlayer
-	@echo "Compilation Board"
-	$(GPP) -c $(SRC_CLASS)/Board.cpp $(BIN)/Player.o $(BIN)/Robot.o -o $(BIN)/Board.o
+# La cible "compilTarget" est exécutée en tapant la commande "make compilTarget"
+compilTarget :
+	@echo "Compilation Target"
+	$(GPP) -c $(SRC_CLASS)/Target.cpp -o $(BIN)/Target.o
 
 # La cible "compilBoard" est exécutée en tapant la commande "make compilBoard"
+compilBoard : compilRobot compilPlayer compilTarget
+	@echo "Compilation Board"
+	$(GPP) -c $(SRC_CLASS)/Board.cpp $(BIN)/Player.o $(BIN)/Robot.o $(BIN)/Target.o -o $(BIN)/Board.o
+
+# La cible "compilDisplay" est exécutée en tapant la commande "make compilDisplay"
 compilDisplay : compilBoard
-	@echo "Compilation Game"
+	@echo "Compilation Display"
 	$(GPP) -c $(SRC_CLASS)/Display.cpp $(BIN)/Board.o -o $(BIN)/Display.o
 
-# La cible "compilBoard" est exécutée en tapant la commande "make compilBoard"
+# La cible "compilGame" est exécutée en tapant la commande "make compilGame"
 compilGame : compilDisplay
 	@echo "Compilation Game"
 	$(GPP) -c $(SRC_CLASS)/Game.cpp $(BIN)/Display.o -o $(BIN)/Game.o
