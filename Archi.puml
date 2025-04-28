@@ -1,0 +1,26 @@
+@startuml TP11
+
+class main
+
+class Game {
+    + RunGame()
+}
+
+class Board {
+    + GenerateBoard()
+}
+
+class Player {
+    + Name
+}
+
+class Robot {
+
+}
+
+class Interface {
+    + Update()
+    + Display()
+}
+
+@enduml
