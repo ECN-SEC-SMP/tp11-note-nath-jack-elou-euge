@@ -7,4 +7,6 @@
 - Eugénie ROQUAIN
 - Eloi TOURANGIN
 
-## Doc
+## Test
+
+Tests must be done inside class file.
