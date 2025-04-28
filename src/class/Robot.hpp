@@ -1,11 +1,72 @@
 #ifndef _ROBOT_HPP_
 #define _ROBOT_HPP_
 
+#include "Color_Shape.hpp"
+
 class Robot
 {
 
 private:
+    /**
+     * @brief Color of robot
+     *
+     */
+    Color color;
+
+    /**
+     * @brief Shape of robot
+     *
+     */
+    Shape shape;
+
 public:
+    /**
+     * @brief Construct a new Robot object
+     *
+     */
+    Robot();
+
+    /**
+     * @brief Construct a new Robot object
+     * 
+     * @param c color of robot
+     * @param s shape of robot
+     */
+    Robot(Color c, Shape s);
+
+    /**
+     * @brief Destroy the Robot object
+     * 
+     */
+    ~Robot();
+
+    /**
+     * @brief Get the Color object
+     *
+     * @return Color*
+     */
+    Color getColor() const;
+
+    /**
+     * @brief Get the Shape object
+     *
+     * @return Shape*
+     */
+    Shape getShape() const;
+
+    /**
+     * @brief Set the Color object
+     *
+     * @param color color of robot
+     */
+    void setColor(Color color);
+
+    /**
+     * @brief Set the Shape object
+     *
+     * @param shape shape of robot
+     */
+    void setShape(Shape shape);
 };
 
 #endif

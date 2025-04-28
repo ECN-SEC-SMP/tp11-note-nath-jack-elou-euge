@@ -84,9 +84,9 @@ void Case::setWest(bool b)
 
 /**
  * @brief Get north wall
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool Case::getNorth() const
 {
@@ -95,9 +95,9 @@ bool Case::getNorth() const
 
 /**
  * @brief Get east wall
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool Case::getEast() const
 {
@@ -106,9 +106,9 @@ bool Case::getEast() const
 
 /**
  * @brief Get south wall
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool Case::getSouth() const
 {
@@ -117,9 +117,9 @@ bool Case::getSouth() const
 
 /**
  * @brief Get west wall
- * 
- * @return true 
- * @return false 
+ *
+ * @return true
+ * @return false
  */
 bool Case::getWest() const
 {
@@ -128,7 +128,7 @@ bool Case::getWest() const
 
 /**
  * @brief Set robot of the case
- * 
+ *
  * @param robot pointer to robot
  */
 void Case::setRobot(Robot *robot)
@@ -138,8 +138,8 @@ void Case::setRobot(Robot *robot)
 
 /**
  * @brief Get robot of the case
- * 
- * @return Robot* 
+ *
+ * @return Robot*
  */
 Robot *Case::getRobot() const
 {
@@ -148,7 +148,7 @@ Robot *Case::getRobot() const
 
 /**
  * @brief Set target of the case
- * 
+ *
  * @param target pointer to target
  */
 void Case::setTarget(Target *target)
@@ -158,10 +158,15 @@ void Case::setTarget(Target *target)
 
 /**
  * @brief Get target of the case
- * 
- * @return Target* 
+ *
+ * @return Target*
  */
 Target *Case::getTarget() const
 {
     return this->target;
+}
+
+bool Case::isWall()
+{
+    return this->getEast() || this->getNorth() || this->getWest() || this->getSouth();
 }

@@ -156,6 +156,14 @@ public:
      * @param w west bool (1 if wall else 0)
      */
     Case(Robot *robot, Target *target, bool n, bool e, bool s, bool w);
+
+    /**
+     * @brief 1 if there is a wall, else 0
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool isWall();
 };
 
 #endif
