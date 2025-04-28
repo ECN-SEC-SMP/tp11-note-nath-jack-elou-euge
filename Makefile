@@ -36,10 +36,15 @@ compilTarget :
 	@echo "Compilation Target"
 	$(GPP) -c $(SRC_CLASS)/Target.cpp -o $(BIN)/Target.o
 
+# La cible "compilCase" est exécutée en tapant la commande "make compilCase"
+compilCase :
+	@echo "Compilation Case"
+	$(GPP) -c $(SRC_CLASS)/Case.cpp -o $(BIN)/Case.o
+
 # La cible "compilBoard" est exécutée en tapant la commande "make compilBoard"
-compilBoard : compilRobot compilPlayer compilTarget
+compilBoard : compilRobot compilPlayer compilTarget compilCase
 	@echo "Compilation Board"
-	$(GPP) -c $(SRC_CLASS)/Board.cpp $(BIN)/Player.o $(BIN)/Robot.o $(BIN)/Target.o -o $(BIN)/Board.o
+	$(GPP) -c $(SRC_CLASS)/Board.cpp $(BIN)/Player.o $(BIN)/Robot.o $(BIN)/Target.o $(BIN)/Case.o -o $(BIN)/Board.o
 
 # La cible "compilDisplay" est exécutée en tapant la commande "make compilDisplay"
 compilDisplay : compilBoard
