@@ -21,10 +21,11 @@ deleteAll :
 # 	@echo "Compilation PPMImage.cpp"
 # 	$(GPP) -c $< -o $@
 
+
 # La cible "compilRobot" est exécutée en tapant la commande "make compilRobot"
 compilRobot :
 	@echo "Compilation Robot"
-	$(GPP) -c $(SRC_CLASS)/Robot.cpp -o $(BIN)/Robot.o
+	$(GPP) -c $(SRC_CLASS)/Robot.cpp -I ${SRC_CLASS}/Color_Shape.hpp -o $(BIN)/Robot.o
 
 # La cible "compilPlayer" est exécutée en tapant la commande "make compilPlayer"
 compilPlayer :
@@ -34,7 +35,7 @@ compilPlayer :
 # La cible "compilTarget" est exécutée en tapant la commande "make compilTarget"
 compilTarget :
 	@echo "Compilation Target"
-	$(GPP) -c $(SRC_CLASS)/Target.cpp -o $(BIN)/Target.o
+	$(GPP) -c $(SRC_CLASS)/Target.cpp -I ${SRC_CLASS}/Color_Shape.hpp -o $(BIN)/Target.o
 
 # La cible "compilCase" est exécutée en tapant la commande "make compilCase"
 compilCase :
@@ -44,12 +45,12 @@ compilCase :
 # La cible "compilBoard" est exécutée en tapant la commande "make compilBoard"
 compilBoard : compilRobot compilPlayer compilTarget compilCase
 	@echo "Compilation Board"
-	$(GPP) -c $(SRC_CLASS)/Board.cpp $(BIN)/Player.o $(BIN)/Robot.o $(BIN)/Target.o $(BIN)/Case.o -o $(BIN)/Board.o
+	$(GPP) -c $(SRC_CLASS)/Board.cpp $(BIN)/Player.o $(BIN)/Robot.o $(BIN)/Target.o $(BIN)/Case.o -I ${SRC_CLASS}/Color_Shape.hpp -o $(BIN)/Board.o
 
 # La cible "compilDisplay" est exécutée en tapant la commande "make compilDisplay"
 compilDisplay : compilBoard
 	@echo "Compilation Display"
-	$(GPP) -c $(SRC_CLASS)/Display.cpp $(BIN)/Board.o -o $(BIN)/Display.o
+	$(GPP) -c $(SRC_CLASS)/Display.cpp $(BIN)/Board.o -I ${SRC_CLASS}/Color_Shape.hpp -o $(BIN)/Display.o
 
 # La cible "compilGame" est exécutée en tapant la commande "make compilGame"
 compilGame : compilDisplay
