@@ -320,7 +320,7 @@ Board::~Board()
         for (int j = 0; j < SIZE_BOARD; j++)
         {
             delete this->board[i][j].getTarget();
-            delete this->board[i][j].getRobot();
+            this->board[i][j].setRobot(nullptr);
         }
     }
 }
