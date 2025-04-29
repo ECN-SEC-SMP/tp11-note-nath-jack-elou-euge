@@ -52,10 +52,11 @@ using namespace std;
  */
 int main(int argc, char const *argv[])
 {
-    Game game = Game();
+    cout << "Abcdef" << endl;
+    Game* game = new Game();
+    game->play();
     
-    game.play();
-    
+    delete game;
     return 0;
 }
  

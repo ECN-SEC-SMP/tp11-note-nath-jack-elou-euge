@@ -35,6 +35,12 @@ public:
     Robot(Color c);
 
     /**
+     * @brief Destroy the Robot object
+     *
+     */
+    ~Robot();
+
+    /**
      * @brief Get the Color object
      *
      * @return Color*

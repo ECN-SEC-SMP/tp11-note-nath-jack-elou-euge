@@ -10,6 +10,7 @@
  */
 
 #include "Board.hpp"
+#include <iostream>
 
 /**
  * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
@@ -344,10 +345,11 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
  */
 void Board::GenerateBoard(void)
 {
-    GenerateBoardStep1();
-    GenerateBoardStep2();
-    GenerateBoardStep3();
-    GenerateBoardStep4();
+
+    this->GenerateBoardStep1();
+    this->GenerateBoardStep2();
+    this->GenerateBoardStep3();
+    this->GenerateBoardStep4();
 }
 
 /**
@@ -384,6 +386,7 @@ Board::Board()
     std::srand(std::time(nullptr));
     // Génération de la grille de jeu
     this->GenerateBoard();
+
 }
 
 /**

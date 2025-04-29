@@ -5,13 +5,12 @@
 class Target
 {
 private:
-
     Color color;
     Shape shape;
 
 public:
-    
     Target(Color color, Shape shape);
+    ~Target();
 
     Shape GetShape() const;
     Color GetColor() const;
