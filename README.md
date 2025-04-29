@@ -1,13 +1,11 @@
-# TP 11
+# TP 11 noté - Ricochet Robots
 
-## Participants
+## Contributeurs
 
-- Jack HASCOËT
-- Natha ANDRE
-- Eugénie ROQUAIN
-- Eloi TOURANGIN
-
----
+- [Jack HASCOËT](https://github.com/Jaaackoo)
+- [Natha ANDRE](https://github.com/Nandros)
+- [Eugénie ROQUAIN](https://github.com/euge13301)
+- [Eloi TOURANGIN](https://github.com/ioleto)
 
 ## Table des matières
 
@@ -17,8 +15,6 @@
    - [Fonctionnement de la classe Board](#fonctionnement-de-la-classe-board)
    - [Algorithmes de génération](#algorithmes-de-génération)
 4. [Exemples d'utilisation](#exemples-dutilisation)
-
----
 
 ## Build & Compilation
 
