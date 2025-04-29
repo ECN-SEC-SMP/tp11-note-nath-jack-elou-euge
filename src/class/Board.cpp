@@ -10,6 +10,7 @@
  */
 
 #include "Board.hpp"
+#include <iostream>
 
 /**
  * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
@@ -26,7 +27,7 @@ void Board::GenerateBoardStep1(void)
 
     x = 0;
     y = 0;
-    for (y; y < SIZE_BOARD; x++)
+    for (y; y < SIZE_BOARD; y++)
     {
         this->board[x][y].setWest(1);
     }
@@ -40,7 +41,7 @@ void Board::GenerateBoardStep1(void)
 
     x = 15;
     y = 0;
-    for (y; y < SIZE_BOARD; x++)
+    for (y; y < SIZE_BOARD; y++)
     {
         this->board[x][y].setEast(1);
     }
@@ -285,10 +286,11 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
 
 void Board::GenerateBoard(void)
 {
-    GenerateBoardStep1();
-    GenerateBoardStep2();
-    GenerateBoardStep3();
-    GenerateBoardStep4();
+
+    this->GenerateBoardStep1();
+    this->GenerateBoardStep2();
+    this->GenerateBoardStep3();
+    this->GenerateBoardStep4();
 }
 
 Case Board::getBoard(void)
@@ -310,7 +312,9 @@ Board::Board()
             this->board[i][j].setRobot(nullptr);  // 0
         }
     }
+
     this->GenerateBoard();
+
 }
 
 Board::~Board()

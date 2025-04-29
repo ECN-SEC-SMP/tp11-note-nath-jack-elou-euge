@@ -3,8 +3,8 @@
 
 /**
  * @brief Fonction qui attribue une couleur au pointeur de notre objet
- * 
- * @return Color 
+ *
+ * @return Color
  */
 Color Target::GetColor() const
 {
@@ -13,8 +13,8 @@ Color Target::GetColor() const
 
 /**
  * @brief Fonction qui attribue une forme au pointeur de notre objet
- * 
- * @return Shape 
+ *
+ * @return Shape
  */
 Shape Target::GetShape() const
 {
@@ -24,11 +24,20 @@ Shape Target::GetShape() const
 /**
  * @brief Initialisation de Target : Construit une nouvelle Target
 
- * 
- * @param color 
- * @param shape 
+ *
+ * @param color
+ * @param shape
  */
-Target::Target(Color color, Shape shape){
+Target::Target(Color color, Shape shape)
+{
     this->shape = shape;
     this->color = color;
 };
+
+/**
+ * @brief Destroy the Target:: Target object
+ *
+ */
+Target::~Target()
+{
+}

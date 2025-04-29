@@ -62,3 +62,7 @@ void Robot::setShape(Shape s)
 {
     this->shape = s;
 }
+
+Robot::~Robot()
+{
+}
