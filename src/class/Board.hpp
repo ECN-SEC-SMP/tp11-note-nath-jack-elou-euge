@@ -13,6 +13,8 @@
 #define _BOARD_HPP_
 
 #include "Case.hpp"
+#include "Robot.hpp"
+#include "Target.hpp"
 #include "random"
 
 #define SIZE_BOARD int(16)
@@ -25,11 +27,14 @@ private:
     void GenerateBoardStep2(void);
     void GenerateBoardStep3(void);
     void GenerateBoardStep4(void);
-    void GenerateBoardStep5(void);
 
 public:
+    Board();
+    ~Board();
     void GenerateBoard(void);
     Case getBoard(void);
+    void PlaceRobots(std::vector<Robot> *);
+
 };
 
 #endif

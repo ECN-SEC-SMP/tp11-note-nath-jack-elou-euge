@@ -28,15 +28,15 @@ public:
 
     /**
      * @brief Construct a new Robot object
-     * 
+     *
      * @param c color of robot
      * @param s shape of robot
      */
-    Robot(Color c, Shape s);
+    Robot(Color c);
 
     /**
      * @brief Destroy the Robot object
-     * 
+     *
      */
     ~Robot();
 
