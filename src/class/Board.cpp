@@ -10,7 +10,6 @@
  */
 
 #include "Board.hpp"
-#include <iostream>
 
 /**
  * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
