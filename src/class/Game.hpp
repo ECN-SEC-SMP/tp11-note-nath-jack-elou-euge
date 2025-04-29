@@ -9,6 +9,8 @@
 #include <iostream>
 #include <limits>
 #include <string>
+#include "../utils/Timer.hpp"
+
 class Game
 {
 
@@ -19,6 +21,7 @@ private:
 
     bool initPlayers();
     bool initRobots();
+    bool playerThink();
 
 public:
     Game();

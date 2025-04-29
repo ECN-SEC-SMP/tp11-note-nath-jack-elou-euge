@@ -1,5 +1,4 @@
 #include "Game.hpp"
-
 Game::Game() : players{}, robots{}, board(new Board())
 {
 }
@@ -90,6 +89,57 @@ bool Game::play()
     this->initRobots();
     this->initPlayers();
 
+    // init timer while thinking
+    // Choose player that starts.
+
+    this->playerThink();
+    // Apres on lance un timer le temps que les gens réfléchissent
+    // Le premier mec qui dit stop dit le nb de coups qu'il pense fairen
+
+    // Timer &timer = Timer::getInstance();
+    // timer.start(10000, [&azert]()
+    //             {
+    //                  std::cout << "Timer done!\n";
+    //                  azert = true;
+    //                  std::cout << azert << std::endl; });
+
+    return true;
+}
+
+bool Game::playerThink()
+{
+
+    const int timeToThinkSec = 60 * 60;
+    const int milisec = 1000;
+    const int timeToThinkMilisec = timeToThinkSec * milisec;
+    bool findSoluce = false;
+    Timer &timer = Timer::getInstance();
+
+    timer.start(timeToThinkMilisec, []()
+                { std::cout << "Fin timer" << std::endl; });
+
+    int i = timeToThinkSec;
+    int remainingMilisec = 0;
+    while (i > 0 || !findSoluce)
+    {
+        remainingMilisec = timer.getRemainingTimeMs();
+
+        std::cout << "Appuyer sur ENTRE si vous avez trouvé une solution: ";
+        std::string userInput;
+        std::cin >> userInput;
+
+        // Example: check if user entered something specific
+        if (userInput == "")
+        {
+            findSoluce = true;
+            std::cout << "Solution found!\n";
+        }
+
+        std::cout << "Temps restant: " << Timer::formatTime(remainingMilisec / milisec) << " secondes" << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(milisec));
+        i--;
+    }
+
     return true;
 }
 
@@ -109,6 +159,7 @@ bool Game::keepPlaying()
         else
         {
             std::cout << "Veuillez saisir uniquement 'y' ou 'n'" << std::endl;
+            input = NULL;
             std::cin.clear();                                                   // Réinitialise les flags d'erreur
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // vide la mauvaise entrée
         }

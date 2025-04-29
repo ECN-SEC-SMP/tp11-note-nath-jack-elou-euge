@@ -15,6 +15,7 @@
 #include <iostream>
 #include <cstdint>
 #include "class/Game.hpp"
+#include "utils/Timer.hpp"
 
 using namespace std;
 
@@ -53,6 +54,7 @@ int main(int argc, char const *argv[])
 {
     bool keepPlaying = true;
     char input = NULL;
+
     Game game = Game();
 
     while (keepPlaying)
