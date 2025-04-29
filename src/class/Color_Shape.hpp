@@ -5,26 +5,28 @@
  * @brief Enumeration of color
  *
  */
-typedef enum Color
+typedef enum
 {
+    Default,
     Red,
     Blue,
     Green,
     Yellow,
-    Black
-};
+    Black,
+    Rainbow
+} Color;
 
 /**
  * @brief Enumeration of shape
  *
  */
-typedef enum Shape
+typedef enum
 {
     Circle,
     Square,
     Triangle,
     Star,
     Hexagon
-};
+} Shape;
 
 #endif

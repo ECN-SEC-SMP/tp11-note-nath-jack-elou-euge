@@ -16,9 +16,9 @@
 #include <cstdint>
 #include "class/Game.hpp"
 
-using namespace std;
+#include "class/Display.hpp"
 
-// ================================================================
+// ================================================================================
 // Macros
 // ================================================================================
 
@@ -51,21 +51,10 @@ using namespace std;
  */
 int main(int argc, char const *argv[])
 {
-    bool keepPlaying = true;
-    char input = NULL;
-    Game game = Game();
+    std::cout << "START MAIN" << std::endl;
+    Display disp;
 
-    while (keepPlaying)
-    {
-        if (game.play())
-        {
-            keepPlaying = game.keepPlaying();
-        }
-        else
-        {
-            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-        }
-    }
+    disp.print();
 
     return 0;
 }
