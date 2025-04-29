@@ -1,12 +1,12 @@
 /**
  * @file main.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2025-04-28
- * 
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 
 // ================================================================================
@@ -44,10 +44,10 @@
 
 /**
  * @brief Fonction main entrée du programe
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 int main(int argc, char const *argv[])
 {
@@ -58,4 +58,3 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
- 

@@ -10,7 +10,6 @@
  */
 
 #include "Board.hpp"
-#include <iostream>
 
 /**
  * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
@@ -98,8 +97,8 @@ void Board::GenerateBoardStep2(void)
 
 /**
  * @brief Ajout des murs intérieurs. Sur chaque quart, création de 4 "angles" constitués de
-          deux murs chacun. Leur placement est aléatoire, cependant aucun angle
-          ne peut ni en toucher un autre, ni toucher un mur extérieur.
+ *           deux murs chacun. Leur placement est aléatoire, cependant aucun angle
+ *           ne peut ni en toucher un autre, ni toucher un mur extérieur.
  *
  */
 void Board::GenerateBoardStep3(void)
@@ -196,9 +195,9 @@ void Board::GenerateBoardStep3(void)
 
 /**
  * @brief Une fois avoir avons placé 2 murs extérieurs et 4 "angles" par quart, on ajoute un nouvel
-          "angle" de deux murs placé dans un des quarts choisi aléatoirement. De cette manière,
-          on obtient une carte contenant 17 "angles" et 8 murs extérieurs comme sur les grilles
-          du jeu original.
+ *           "angle" de deux murs placé dans un des quarts choisi aléatoirement. De cette manière,
+ *           on obtient une carte contenant 17 "angles" et 8 murs extérieurs comme sur les grilles
+ *           du jeu original.
  *        Il ne faut pas que cet angle touche un autre angle ou un mur extérieur.
  */
 void Board::GenerateBoardStep4(void)
@@ -267,9 +266,9 @@ void Board::GenerateBoardStep4(void)
 
 /**
  * @brief Placez les 4 robots de manière aléatoire. Le choix de la cible (rouge, vert, bleu, jaune ou
-          multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
-          dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
-          chaque couleur et 1 multicolore)
+ *           multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
+ *           dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
+ *           chaque couleur et 1 multicolore)
  *
  */
 void Board::PlaceRobots(std::vector<Robot> *myRobot)
@@ -277,13 +276,71 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
     // récupération du pointeur de vecteur des quatres robots
     std::vector<Robot> *robots = myRobot;
 
-    // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
-    int x = 0;
-    int y = 0;
-    int angle_count = 0;
+    // Récupération du nombre de robots
+    int RobotsCountToPlace = robots->size();
+    int RobotsCountPlaced = 0;
 
+    // Boucle tant que le nombre de robots est différent du nombre de robots à placer
+    while (RobotsCountPlaced != RobotsCountToPlace)
+    {
+        // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
+        // [0,0] to [15,15] without [7,7] to [8,8]
+        int board_case_for_robot[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
+        int x = 0;
+        int y = 0;
+
+        x = board_case_for_robot[rand() % 15];
+        y = board_case_for_robot[rand() % 15];
+
+        // Check if the case is already occupied by a robot
+        if (this->board[x][y].getRobot() != nullptr)
+            continue;
+
+        // Check if the case is already occupied by a target
+        if (this->board[x][y].getTarget() != nullptr)
+            continue;
+
+        // Place the robot on the board
+        this->board[x][y].setRobot(&robots->at(RobotsCountPlaced));
+        RobotsCountPlaced++;
+    }
+
+    bool targetIsPlaced = false;
+
+    // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
+    while (!targetIsPlaced)
+    {
+        // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
+        // [0,0] to [15,15] without [7,7] to [8,8]
+        int board_case_for_target[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
+        int x = 0;
+        int y = 0;
+
+        x = board_case_for_target[rand() % 15];
+        y = board_case_for_target[rand() % 15];
+
+        // Check if the case is already occupied by a robot
+        if (this->board[x][y].getRobot() != nullptr)
+            continue;
+
+        // Check if the case is already occupied by a target
+        if (this->board[x][y].getTarget() != nullptr)
+            continue;
+
+        // Check if the case is occupied by a wall
+        if (this->board[x][y].isWall())
+        {
+            // Place the target on the board
+            this->board[x][y].setTarget(new Target((Color)(rand() % 5), (Shape)(rand() % 5)));
+            targetIsPlaced = true;
+        }
+    }
 }
 
+/**
+ * @brief Génération de la grille de jeu. La grille est générée en 4 étapes
+ *
+ */
 void Board::GenerateBoard(void)
 {
 
@@ -293,10 +350,20 @@ void Board::GenerateBoard(void)
     this->GenerateBoardStep4();
 }
 
+/**
+ * @brief Récupération de la grille de jeu
+ *
+ * @return Case
+ */
 Case Board::getBoard(void)
 {
+    return this->board[0][0];
 }
 
+/**
+ * @brief Construct a new Board object
+ *
+ */
 Board::Board()
 {
     for (int i = 0; i < SIZE_BOARD; i++)
@@ -312,11 +379,17 @@ Board::Board()
             this->board[i][j].setRobot(nullptr);  // 0
         }
     }
-
+    // Initialisation du générateur de nombres aléatoires
+    std::srand(std::time(nullptr));
+    // Génération de la grille de jeu
     this->GenerateBoard();
 
 }
 
+/**
+ * @brief Destroy the Board object
+ *
+ */
 Board::~Board()
 {
     for (int i = 0; i < SIZE_BOARD; i++)
