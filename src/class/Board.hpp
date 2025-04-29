@@ -15,6 +15,8 @@
 #include "Case.hpp"
 #include "Robot.hpp"
 #include "Target.hpp"
+#include "Color_Shape.hpp"
+
 #include <vector>
 #include <cstdlib>
 #include <ctime>

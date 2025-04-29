@@ -293,19 +293,18 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
         y = board_case_for_robot[rand() % 15];
 
         // Check if the case is already occupied by a robot
-        if (this->board[x][y].getRobot != nullptr)
+        if (this->board[x][y].getRobot() != nullptr)
             continue;
 
         // Check if the case is already occupied by a target
-        if (this->board[x][y].getTarget != nullptr)
+        if (this->board[x][y].getTarget() != nullptr)
             continue;
 
         // Place the robot on the board
-        this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
+        this->board[x][y].setRobot(&robots->at(RobotsCountPlaced));
         RobotsCountPlaced++;
     }
 
-    char TargetType[] = {'🟥', '🟨', '🟩', '🟦', '🟪'};
     bool targetIsPlaced = false;
 
     // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
@@ -321,18 +320,18 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
         y = board_case_for_target[rand() % 15];
 
         // Check if the case is already occupied by a robot
-        if (this->board[x][y].getRobot != nullptr)
+        if (this->board[x][y].getRobot() != nullptr)
             continue;
 
         // Check if the case is already occupied by a target
-        if (this->board[x][y].getTarget != nullptr)
+        if (this->board[x][y].getTarget() != nullptr)
             continue;
 
         // Check if the case is occupied by a wall
         if (this->board[x][y].isWall())
         {
             // Place the target on the board
-            this->board[x][y].setTarget(new Target(TargetType[rand() % sizeof(TargetType)], x, y));
+            this->board[x][y].setTarget(new Target((Color)(rand() % 5), (Shape)(rand() % 5)));
             targetIsPlaced = true;
         }
     }
@@ -358,8 +357,7 @@ void Board::GenerateBoard(void)
  */
 Case Board::getBoard(void)
 {
-    Case *board_ptr = this->board;
-    return *board_ptr;
+    return this->board[0][0];
 }
 
 /**
