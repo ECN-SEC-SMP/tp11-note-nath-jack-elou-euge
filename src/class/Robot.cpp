@@ -17,18 +17,10 @@ Robot::Robot()
  * @param c color of robot
  * @param s shape of robot
  */
-Robot::Robot(Color c, Shape s)
+Robot::Robot(Color c)
 {
     this->color = c;
-    this->shape = s;
-}
-
-/**
- * @brief Destroy the Robot object
- *
- */
-Robot::~Robot()
-{
+    this->shape = Triangle;
 }
 
 /**

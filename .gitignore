@@ -1,4 +1,4 @@
 #ignore bin
 bin/*
-
+build/
 .vscode/
