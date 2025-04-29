@@ -26,7 +26,7 @@ void Board::GenerateBoardStep1(void)
 
     x = 0;
     y = 0;
-    for (y; y < SIZE_BOARD; x++)
+    for (y; y < SIZE_BOARD; y++)
     {
         this->board[x][y].setWest(1);
     }
@@ -40,7 +40,7 @@ void Board::GenerateBoardStep1(void)
 
     x = 15;
     y = 0;
-    for (y; y < SIZE_BOARD; x++)
+    for (y; y < SIZE_BOARD; y++)
     {
         this->board[x][y].setEast(1);
     }
