@@ -3,10 +3,6 @@ BUILD = ./build
 
 all: start
 
-build :
-	@echo Build Project
-	cmake . $(BUILD)
-
 compileMain :
 	@echo Compile Project
 	make -C $(BUILD)
