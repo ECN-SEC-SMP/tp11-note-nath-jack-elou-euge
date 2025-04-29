@@ -277,6 +277,10 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
     std::vector<Robot> *robots = myRobot;
 
     // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
+    int x = 0;
+    int y = 0;
+    int angle_count = 0;
+
 }
 
 void Board::GenerateBoard(void)
@@ -289,4 +293,34 @@ void Board::GenerateBoard(void)
 
 Case Board::getBoard(void)
 {
+}
+
+Board::Board()
+{
+    for (int i = 0; i < SIZE_BOARD; i++)
+    {
+        for (int j = 0; j < SIZE_BOARD; j++)
+        {
+            this->board[i][j].setNorth(0);
+            this->board[i][j].setSouth(0);
+            this->board[i][j].setEast(0);
+            this->board[i][j].setWest(0);
+
+            this->board[i][j].setTarget(nullptr); // 0
+            this->board[i][j].setRobot(nullptr);  // 0
+        }
+    }
+    this->GenerateBoard();
+}
+
+Board::~Board()
+{
+    for (int i = 0; i < SIZE_BOARD; i++)
+    {
+        for (int j = 0; j < SIZE_BOARD; j++)
+        {
+            delete this->board[i][j].getTarget();
+            delete this->board[i][j].getRobot();
+        }
+    }
 }
