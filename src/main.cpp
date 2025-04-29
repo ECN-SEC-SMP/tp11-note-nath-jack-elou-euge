@@ -1,12 +1,12 @@
 /**
  * @file main.cpp
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2025-04-28
- * 
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 
 // ================================================================================
@@ -17,7 +17,6 @@
 #include "class/Game.hpp"
 
 using namespace std;
-
 
 // ================================================================
 // Macros
@@ -45,18 +44,28 @@ using namespace std;
 
 /**
  * @brief Fonction main entrée du programe
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ *
+ * @param argc
+ * @param argv
+ * @return int
  */
 int main(int argc, char const *argv[])
 {
-    cout << "Abcdef" << endl;
-    Game* game = new Game();
-    game->play();
-    
-    delete game;
+    bool keepPlaying = true;
+    char input = NULL;
+    Game game = Game();
+
+    while (keepPlaying)
+    {
+        if (game.play())
+        {
+            keepPlaying = game.keepPlaying();
+        }
+        else
+        {
+            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
+        }
+    }
+
     return 0;
 }
- 

@@ -30,6 +30,7 @@ public:
     std::vector<Robot> getRobots() const;
 
     bool play();
+    bool keepPlaying();
 };
 
 #endif
