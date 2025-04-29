@@ -92,3 +92,25 @@ bool Game::play()
 
     return true;
 }
+
+bool Game::keepPlaying()
+{
+    char input = NULL;
+    std::cout << "Souhaitez vous rejouer ? (y/n)" << std::endl;
+    while (input == NULL)
+    {
+        std::cin >> input;
+        input = std::tolower(input); // Make it case-insensitive
+
+        if (input == 'y' || input == 'n')
+        {
+            return input == 'y' ? 1 : 0;
+        }
+        else
+        {
+            std::cout << "Veuillez saisir uniquement 'y' ou 'n'" << std::endl;
+            std::cin.clear();                                                   // Réinitialise les flags d'erreur
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // vide la mauvaise entrée
+        }
+    }
+}
