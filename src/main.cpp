@@ -16,10 +16,9 @@
 #include <cstdint>
 #include "class/Game.hpp"
 
-using namespace std;
+#include "class/Display.hpp"
 
-
-// ================================================================
+// ================================================================================
 // Macros
 // ================================================================================
 
@@ -52,11 +51,11 @@ using namespace std;
  */
 int main(int argc, char const *argv[])
 {
-    cout << "Abcdef" << endl;
-    Game* game = new Game();
-    game->play();
-    
-    delete game;
+    std::cout << "START MAIN" << std::endl;
+    Display disp;
+
+    disp.print();
+
     return 0;
 }
  
