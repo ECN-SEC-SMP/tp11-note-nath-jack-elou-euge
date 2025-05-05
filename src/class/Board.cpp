@@ -66,34 +66,42 @@ void Board::GenerateBoardStep2(void)
     int x = 0;
     int y = 0;
 
-    x = rand() % (SIZE_BOARD / 2);
-    this->board[x][y].setWest(1);
-
-    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2);
+    /* First quadrant (0,0) to (7,7) */
+    x = rand() % (SIZE_BOARD / 2);  // 0 to 7
     this->board[x][y].setEast(1);
+
+    /* Second quadrant (8,0) to (15,7) */
+    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    this->board[x][y].setWest(1);
 
     y = 15;
 
-    x = rand() % (SIZE_BOARD / 2);
-    this->board[x][y].setWest(1);
-
-    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2);
+    /* Third quadrant (0,8) to (7,15) */
+    x = rand() % (SIZE_BOARD / 2);  // 0 to 7
     this->board[x][y].setEast(1);
+
+    /* Fourth quadrant (8,8) to (15,15) */
+    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    this->board[x][y].setWest(1);
 
     x = 0;
 
-    y = rand() % (SIZE_BOARD / 2);
+    /* First quadrant (0,0) to (7,7) */
+    y = rand() % (SIZE_BOARD / 2);  // 0 to 7
     this->board[x][y].setSouth(1);
 
-    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2);
+    /* Third quadrant (0,8) to (7,15) */
+    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
     this->board[x][y].setNorth(1);
 
     x = 15;
 
-    y = rand() % (SIZE_BOARD / 2);
+    /* Second quadrant (8,0) to (15,7) */
+    y = rand() % (SIZE_BOARD / 2);  // 0 to 7
     this->board[x][y].setSouth(1);
 
-    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2);
+    /* Fourth quadrant (8,8) to (15,15) */
+    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
     this->board[x][y].setNorth(1);
 }
 
@@ -149,27 +157,46 @@ void Board::GenerateBoardStep3(void)
             // Generate a random angle for the current case
             int angleType = rand() % 4;
 
-            // Check if the angle is valid
-            // Ensure that the angle does not touch another angle or an outer wall
-            switch (angleType)
-            {
-            case 0:
-                if (this->board[x][y - 1].getSouth() || this->board[x + 1][y].getWest())
-                    continue;
-                break;
-            case 1:
-                if (this->board[x][y + 1].getNorth() || this->board[x - 1][y].getEast())
-                    continue;
-                break;
-            case 2:
-                if (this->board[x][y + 1].getNorth() || this->board[x - 1][y].getEast())
-                    continue;
-                break;
-            case 3:
-                if (this->board[x][y - 1].getSouth() || this->board[x + 1][y].getWest())
-                    continue;
-                break;
-            }
+            /* Simple angle position checker */
+            if(this->board[x-1][y].isWall())
+                continue;
+            if(this->board[x+1][y].isWall())
+                continue;
+            if(this->board[x][y-1].isWall())
+                continue;
+            if(this->board[x][y+1].isWall())
+                continue;
+            if(this->board[x-1][y-1].isWall())
+                continue;
+            if(this->board[x+1][y-1].isWall())
+                continue;
+            if(this->board[x-1][y+1].isWall())  
+                continue;
+            if(this->board[x+1][y+1].isWall())
+                continue;
+
+            /* Complexe angle position checker */
+            // // Check if the angle is valid
+            // // Ensure that the angle does not touch another angle or an outer wall
+            // switch (angleType)
+            // {
+            // case 0:
+            //     if (this->board[x][y - 1].getSouth() || this->board[x + 1][y].getWest())
+            //         continue;
+            //     break;
+            // case 1:
+            //     if (this->board[x][y + 1].getNorth() || this->board[x - 1][y].getEast())
+            //         continue;
+            //     break;
+            // case 2:
+            //     if (this->board[x][y + 1].getNorth() || this->board[x - 1][y].getEast())
+            //         continue;
+            //     break;
+            // case 3:
+            //     if (this->board[x][y - 1].getSouth() || this->board[x + 1][y].getWest())
+            //         continue;
+            //     break;
+            // }
 
             switch (angleType)
             {
