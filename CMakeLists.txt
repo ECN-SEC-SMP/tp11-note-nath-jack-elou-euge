@@ -28,6 +28,8 @@ set(SOURCES
     ${CLASS_DIR}/Robot.cpp
     ${CLASS_DIR}/Target.cpp
     ${UTILS_DIR}/Timer.cpp
+    ${UTILS_DIR}/Utils.cpp
+
 )
 
 add_executable(${PROJECT_NAME}.bin ${SOURCES})

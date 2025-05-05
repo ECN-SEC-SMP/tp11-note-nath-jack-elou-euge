@@ -19,6 +19,18 @@ void inputThreadFunction()
     }
 }
 
+void Game::resetGame() {
+
+    delete this->board;
+    this->board = new Board();
+    this->players = {};
+    this->robots = {};
+    this->findSoluce = false;
+    this->currentPlayer = nullptr;
+    this->startingPlayer = nullptr;
+}
+
+
 Game::Game() : players{}, robots{}, board(new Board())
 {
 }
@@ -47,6 +59,26 @@ std::vector<Player> Game::getPlayers() const
 std::vector<Robot> Game::getRobots() const
 {
     return this->robots;
+}
+
+Player *Game::getCurrentPlayer() const
+{
+    return this->currentPlayer;
+}
+
+Player *Game::getStartingPlayer() const
+{
+    return this->startingPlayer;
+}
+
+void Game::setCurrentPlayer(Player *currentP)
+{
+    this->currentPlayer = currentP;
+}
+
+void Game::setStartingPlayer(Player *startP)
+{
+    this->startingPlayer = startP;
 }
 
 bool Game::initRobots()
@@ -81,27 +113,7 @@ bool Game::initPlayers()
 {
 
     std::cout << "Choisissez un nombre de joueurs inférieur ou égale à 16." << std::endl;
-    int nbPlayer;
-
-    while (true)
-    {
-        std::cin >> nbPlayer;
-
-        if (std::cin.fail())
-        {
-            std::cout << "Erreur : vous n'avez pas entré un nobmbre valide." << std::endl;
-            std::cin.clear();                                                   // Réinitialise les flags d'erreur
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // vide la mauvaise entrée
-        }
-        else if (nbPlayer < 0 || nbPlayer > 16)
-        {
-            std::cout << "Vous devez choisir un nombre compris entre [0, 16]" << std::endl;
-        }
-        else
-        {
-            break;
-        }
-    }
+    int nbPlayer = inputNumber(0 , 16);
 
     for (int i = 0; i < nbPlayer; i++)
     {
@@ -129,6 +141,10 @@ bool Game::play()
     if (this->playerThink())
     {
         int index = this->whoStart();
+        this->setStartingPlayer(&this->players.at(index));
+        std::cout << this->getStartingPlayer()->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
+        int nbCoups = inputNumber(0, 10000);
+    
     }
     else
     {

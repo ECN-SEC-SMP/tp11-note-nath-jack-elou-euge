@@ -62,6 +62,9 @@ int main(int argc, char const *argv[])
         if (game.play())
         {
             keepPlaying = game.keepPlaying();
+            if (keepPlaying == true) {
+                game.resetGame();
+            }
         }
         else
         {
