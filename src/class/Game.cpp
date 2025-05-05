@@ -19,7 +19,8 @@ void inputThreadFunction()
     }
 }
 
-void Game::resetGame() {
+void Game::resetGame()
+{
 
     delete this->board;
     this->board = new Board();
@@ -30,12 +31,11 @@ void Game::resetGame() {
     this->startingPlayer = nullptr;
 }
 
-
 Game::Game() : players{}, robots{}, board(new Board())
 {
 }
 
-Game::Game(std::vector<Player> players, std::vector<Robot> robots)
+Game::Game(std::vector<Player *> players, std::vector<Robot> robots)
 {
     this->players = players;
     this->robots = robots;
@@ -46,12 +46,12 @@ Game::~Game()
     delete this->board;
 }
 
-void Game::setPlayers(std::vector<Player> players)
+void Game::setPlayers(std::vector<Player *> players)
 {
     this->players = players;
 }
 
-std::vector<Player> Game::getPlayers() const
+std::vector<Player *> Game::getPlayers() const
 {
     return this->players;
 }
@@ -99,9 +99,9 @@ bool Game::initRobots()
 
 bool Game::playerExists(Player *p)
 {
-    for (Player player : this->players)
+    for (Player *player : this->players)
     {
-        if (p->getPseudo() == player.getPseudo())
+        if (p->getPseudo() == player->getPseudo())
         {
             return true;
         }
@@ -113,7 +113,7 @@ bool Game::initPlayers()
 {
 
     std::cout << "Choisissez un nombre de joueurs inférieur ou égale à 16." << std::endl;
-    int nbPlayer = inputNumber(0 , 16);
+    int nbPlayer = inputNumber(0, 16);
 
     for (int i = 0; i < nbPlayer; i++)
     {
@@ -121,14 +121,16 @@ bool Game::initPlayers()
         std::string pseudo;
 
         std::cin >> pseudo;
-        Player player = Player(pseudo);
-        while (this->playerExists(&player))
+        Player *player = new Player(pseudo);
+
+        while (this->playerExists(player))
         {
             std::cout << "Ce joueur existe déjà, choisissez un autre pseudonyme pour le joueur #" << i + 1 << std::endl;
             std::cin >> pseudo;
-            player = Player(pseudo);
+            player->setPseudo(pseudo);
         }
-        this->players.push_back(Player(player));
+
+        this->players.push_back(player);
     }
 
     return true;
@@ -141,10 +143,9 @@ bool Game::play()
     if (this->playerThink())
     {
         int index = this->whoStart();
-        this->setStartingPlayer(&this->players.at(index));
+        this->setStartingPlayer(this->players.at(index));
         std::cout << this->getStartingPlayer()->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
         int nbCoups = inputNumber(0, 10000);
-    
     }
     else
     {
@@ -156,7 +157,7 @@ bool Game::play()
 
 bool Game::playerThink()
 {
-
+    findSoluce = false;
     const int timeToThinkSec = 60 * 60;
     const int milisec = 1000;
     const int timeToThinkMilisec = timeToThinkSec * milisec;
@@ -168,6 +169,8 @@ bool Game::playerThink()
     int remainingMilisec = timer.getRemainingTimeMs();
     int prevRemaining = 0;
     std::thread inputThread(inputThreadFunction); // Start input in parallel
+
+    std::cout << findSoluce << std::endl;
 
     while (remainingMilisec > 0 && !findSoluce)
     {
@@ -186,7 +189,7 @@ void Game::displayPlayers()
     size_t i = 0;
     for (i; i < this->players.size(); i++)
     {
-        std::cout << "Joueur: " + this->players.at(i).getPseudo() << "\t";
+        std::cout << "Joueur: " << this->players.at(i)->getPseudo() << "\t";
         if ((i + 1) % 4 == 0)
         {
             std::cout << std::endl;
@@ -198,14 +201,14 @@ void Game::displayPlayers()
     }
 }
 
-int Game::findIndex(std::vector<Player> *players, Player *toFind)
+int Game::findIndex(std::vector<Player *> vPlayers, Player *toFind)
 {
 
     size_t idJoueur = 0;
     bool find = false;
-    while (idJoueur < players->size() && !find)
+    while (idJoueur < vPlayers.size() && !find)
     {
-        if (players->at(idJoueur).getPseudo() == toFind->getPseudo())
+        if (vPlayers.at(idJoueur)->getPseudo() == toFind->getPseudo())
         {
             find = true;
         }
@@ -234,7 +237,7 @@ int Game::whoStart()
         player = Player(pseudo);
     }
 
-    return this->findIndex(&this->players, &player);
+    return this->findIndex(this->players, &player);
 }
 
 bool Game::keepPlaying()
