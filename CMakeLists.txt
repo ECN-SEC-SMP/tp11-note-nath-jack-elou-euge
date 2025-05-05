@@ -34,5 +34,7 @@ set(SOURCES
 
 add_executable(${PROJECT_NAME}.bin ${SOURCES})
 
+target_link_libraries(${PROJECT_NAME}.bin PRIVATE pthread)
+
 # Add a message to indicate success
 message(STATUS "Compilation succeed")

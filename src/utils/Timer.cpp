@@ -13,6 +13,7 @@ Timer::~Timer()
 
 Timer &Timer::getInstance()
 {
+
     static Timer instance;
     return instance;
 }
@@ -20,7 +21,7 @@ Timer &Timer::getInstance()
 void Timer::start(int delay_ms, std::function<void()> callback)
 {
     stop();
-    running = true;
+    this->running = true;
     delayMs = delay_ms;
     startTime = std::chrono::steady_clock::now();
 
@@ -30,14 +31,15 @@ void Timer::start(int delay_ms, std::function<void()> callback)
         if (running) {
             callback();
         } });
+
 }
 
 void Timer::stop()
 {
-    running = false;
-    if (worker.joinable())
+    this->running = false;
+    if (this->worker.joinable())
     {
-        worker.join();
+        this->worker.join();
     }
 }
 
@@ -62,6 +64,6 @@ std::string Timer::formatTime(int toFormat)
 {
     int seconde = toFormat % 60;
     std::string minute = std::to_string(toFormat / 60);
-    std::string sec = (seconde  < 10 ? "0" : "") + std::to_string(seconde);
+    std::string sec = (seconde < 10 ? "0" : "") + std::to_string(seconde);
     return minute + ":" + sec;
 }

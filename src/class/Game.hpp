@@ -16,7 +16,7 @@ class Game
 {
 
 private:
-    std::vector<Player> players;
+    std::vector<Player *> players;
     std::vector<Robot> robots;
     Board *board;
     bool findSoluce;
@@ -24,7 +24,7 @@ private:
     Player *currentPlayer;
 
     bool initPlayers();
-    int findIndex(std::vector<Player> *players, Player *toFind);
+    int findIndex(std::vector<Player *> players, Player *toFind);
     bool playerExists(Player *p);
     void displayPlayers();
     bool initRobots();
@@ -33,11 +33,11 @@ private:
 
 public:
     Game();
-    Game(std::vector<Player> players, std::vector<Robot> robots);
+    Game(std::vector<Player *> players, std::vector<Robot> robots);
     ~Game();
 
-    void setPlayers(std::vector<Player> players);
-    std::vector<Player> getPlayers() const;
+    void setPlayers(std::vector<Player *> players);
+    std::vector<Player *> getPlayers() const;
     std::vector<Robot> getRobots() const;
 
     bool play();
