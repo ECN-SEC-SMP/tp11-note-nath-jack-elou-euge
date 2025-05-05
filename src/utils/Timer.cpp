@@ -60,7 +60,8 @@ int Timer::getRemainingTimeMs() const
 
 std::string Timer::formatTime(int toFormat)
 {
+    int seconde = toFormat % 60;
     std::string minute = std::to_string(toFormat / 60);
-    std::string sec = std::to_string(toFormat % 60);
+    std::string sec = (seconde  < 10 ? "0" : "") + std::to_string(seconde);
     return minute + ":" + sec;
 }

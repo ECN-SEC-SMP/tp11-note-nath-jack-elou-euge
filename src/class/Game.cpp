@@ -1,4 +1,24 @@
 #include "Game.hpp"
+
+std::atomic<bool> findSoluce(false); // Shared safely between threads
+
+void inputThreadFunction()
+{
+    std::string userInput;
+    while (!findSoluce)
+    {
+        std::cout << "Enter something: ";
+        std::getline(std::cin, userInput);
+
+        if (userInput.size() > 0)
+        {
+            Timer &timer = Timer::getInstance();
+            timer.stop();
+            findSoluce = true;
+        }
+    }
+}
+
 Game::Game() : players{}, robots{}, board(new Board())
 {
 }
@@ -45,6 +65,18 @@ bool Game::initRobots()
     return true;
 }
 
+bool Game::playerExists(Player *p)
+{
+    for (Player player : this->players)
+    {
+        if (p->getPseudo() == player.getPseudo())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Game::initPlayers()
 {
 
@@ -78,6 +110,12 @@ bool Game::initPlayers()
 
         std::cin >> pseudo;
         Player player = Player(pseudo);
+        while (this->playerExists(&player))
+        {
+            std::cout << "Ce joueur existe déjà, choisissez un autre pseudonyme pour le joueur #" << i + 1 << std::endl;
+            std::cin >> pseudo;
+            player = Player(pseudo);
+        }
         this->players.push_back(Player(player));
     }
 
@@ -88,20 +126,14 @@ bool Game::play()
 {
     this->initRobots();
     this->initPlayers();
-
-    // init timer while thinking
-    // Choose player that starts.
-
-    this->playerThink();
-    // Apres on lance un timer le temps que les gens réfléchissent
-    // Le premier mec qui dit stop dit le nb de coups qu'il pense fairen
-
-    // Timer &timer = Timer::getInstance();
-    // timer.start(10000, [&azert]()
-    //             {
-    //                  std::cout << "Timer done!\n";
-    //                  azert = true;
-    //                  std::cout << azert << std::endl; });
+    if (this->playerThink())
+    {
+        int index = this->whoStart();
+    }
+    else
+    {
+        std::cout << "Aucun joueur n'a trouvé de solution" << std::endl;
+    }
 
     return true;
 }
@@ -112,35 +144,81 @@ bool Game::playerThink()
     const int timeToThinkSec = 60 * 60;
     const int milisec = 1000;
     const int timeToThinkMilisec = timeToThinkSec * milisec;
-    bool findSoluce = false;
     Timer &timer = Timer::getInstance();
 
     timer.start(timeToThinkMilisec, []()
                 { std::cout << "Fin timer" << std::endl; });
 
-    int i = timeToThinkSec;
-    int remainingMilisec = 0;
-    while (i > 0 || !findSoluce)
+    int remainingMilisec = timer.getRemainingTimeMs();
+    int prevRemaining = 0;
+    std::thread inputThread(inputThreadFunction); // Start input in parallel
+
+    while (remainingMilisec > 0 && !findSoluce)
     {
         remainingMilisec = timer.getRemainingTimeMs();
+        std::cout << "Temps restant: " << Timer::formatTime(remainingMilisec / 1000) << " minutes" << std::endl;
 
-        std::cout << "Appuyer sur ENTRE si vous avez trouvé une solution: ";
-        std::string userInput;
-        std::cin >> userInput;
-
-        // Example: check if user entered something specific
-        if (userInput == "")
-        {
-            findSoluce = true;
-            std::cout << "Solution found!\n";
-        }
-
-        std::cout << "Temps restant: " << Timer::formatTime(remainingMilisec / milisec) << " secondes" << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(milisec));
-        i--;
     }
 
+    inputThread.detach();
     return true;
+}
+
+void Game::displayPlayers()
+{
+    size_t i = 0;
+    for (i; i < this->players.size(); i++)
+    {
+        std::cout << "Joueur: " + this->players.at(i).getPseudo() << "\t";
+        if ((i + 1) % 4 == 0)
+        {
+            std::cout << std::endl;
+        }
+    }
+    if ((i + 1) % 4 != 0)
+    {
+        std::cout << std::endl;
+    }
+}
+
+int Game::findIndex(std::vector<Player> *players, Player *toFind)
+{
+
+    size_t idJoueur = 0;
+    bool find = false;
+    while (idJoueur < players->size() && !find)
+    {
+        if (players->at(idJoueur).getPseudo() == toFind->getPseudo())
+        {
+            find = true;
+        }
+        else
+        {
+            idJoueur++;
+        }
+    }
+
+    return find ? idJoueur : -1;
+}
+int Game::whoStart()
+{
+
+    std::cout << "Qui à trouvé ?\n";
+    this->displayPlayers();
+    std::string pseudo;
+    std::cin >> pseudo;
+    Player player = Player(pseudo);
+
+    while (!this->playerExists(&player))
+    {
+        std::cout << "Ce joueur n'existe pas, saisissez un nom de joueur valide" << std::endl;
+        this->displayPlayers();
+        std::cin >> pseudo;
+        player = Player(pseudo);
+    }
+
+    return this->findIndex(&this->players, &player);
 }
 
 bool Game::keepPlaying()

@@ -18,10 +18,15 @@ private:
     std::vector<Player> players;
     std::vector<Robot> robots;
     Board *board;
+    bool findSoluce;
 
     bool initPlayers();
+    int findIndex(std::vector<Player>* players, Player* toFind);
+    bool playerExists(Player *p);
+    void displayPlayers();
     bool initRobots();
     bool playerThink();
+    int whoStart();
 
 public:
     Game();
