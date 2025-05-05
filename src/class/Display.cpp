@@ -109,12 +109,12 @@
 // Constantes
 // ================================================================================
 std::map<Color, std::string> COLOR_MAP = {
-    {Default, "\033[0m"},
-    {Red, "\033[31m"},
-    {Blue, "\033[34m"},
-    {Green, "\033[32m"},
-    {Yellow, "\033[33m"},
-    {Rainbow, "\33[30m"},
+    {Default, "\33[38;5;0m"},
+    {Red, "\33[38;5;1m"},
+    {Blue, "\33[38;5;4m"},
+    {Green, "\33[38;5;2m"},
+    {Yellow, "\33[38;5;3m"},
+    {Rainbow, "\33[38;5;0m"},
 };
 
 std::map<Shape, std::string> SHAPE_MAP = {
