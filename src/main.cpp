@@ -16,7 +16,7 @@
 #include <cstdint>
 
 #include "class/Game.hpp"
-
+#include "class/Player.hpp"
 #include "class/Display.hpp"
 
 // ================================================================================
