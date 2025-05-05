@@ -21,6 +21,8 @@
 #include <cstring>
 #include <map>
 
+#include "Target.hpp"
+
 #include "Color_Shape.hpp"
 
 // ================================================================================
@@ -324,5 +326,40 @@ void Display::put_robots(void) {
  * 
  */
 void Display::put_targets(void) {
+    uint8_t x, y;
+    Case curCase;
+    Target* curTarget;
+    std::string strTarget = "";
 
+    for (uint8_t i = 0; i < SIZE_BOARD; i++)
+    {
+        for (uint8_t j = 0; j < SIZE_BOARD; j++) 
+        {
+            // Get current case
+            curCase = this->board[i][j];
+
+            // Get dispBoard Coord
+            y = i*2 + 1;
+            x = j*2 + 1;
+
+            curTarget = curCase.getTarget();
+
+            if (curTarget == nullptr)
+            {
+                continue;
+            }
+            
+            Color clr = curTarget->GetColor();
+            Shape shp = curTarget->GetShape();
+
+            strTarget = "";
+            strTarget.append(COLOR_MAP[clr]);
+            strTarget.append(SHAPE_MAP[shp]);
+            strTarget.append(COLOR_MAP[Default]);
+
+            this->dispBoard[x][y].erase(DISP_TARGET_PLACE); // Remove Space
+            this->dispBoard[x][y].insert(DISP_TARGET_PLACE, strTarget);
+
+        }
+    }
 }
