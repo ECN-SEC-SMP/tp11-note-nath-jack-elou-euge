@@ -87,12 +87,24 @@ public:
 
     /**
      * @brief Placez les 4 robots de manière aléatoire. Le choix de la cible (rouge, vert, bleu, jaune ou
-     *           multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
-     *           dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
-     *           chaque couleur et 1 multicolore)
+     *        multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
+     *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
+     *        chaque couleur et 1 multicolore)
      *
      */
     void PlaceRobots(std::vector<Robot> *);
+
+    /**
+     * @brief Fonction permettant de déplacer les robots sur le plateau de jeu
+     *        Si il y a un mur, le robot avance jusqu'au mur
+     *        Si il n'y a pas de mur, le robot avance jusqu'au bord du plateau 
+     *        Si il y a un robot, le robot avance jusqu'au robot
+     * 
+     * @param robot Robot à déplacer
+     * @param direction Direction du déplacement (N, S, E, O)
+     * 
+     */
+    void MoveRobot(Robot *, char);
 };
 
 #endif

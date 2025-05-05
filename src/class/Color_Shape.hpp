@@ -12,7 +12,6 @@ typedef enum
     Blue,
     Green,
     Yellow,
-    Black,
     Rainbow
 } Color;
 

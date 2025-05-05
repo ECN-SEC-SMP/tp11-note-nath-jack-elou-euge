@@ -302,6 +302,9 @@ void Board::PlaceRobots(std::vector<Robot> *myRobot)
 
         // Place the robot on the board
         this->board[x][y].setRobot(&robots->at(RobotsCountPlaced));
+        this->board[x][y].getRobot()->setX(x);
+        this->board[x][y].getRobot()->setY(y);
+        this->board[x][y].getRobot()->setColor((Color)(RobotsCountPlaced + 1));
         RobotsCountPlaced++;
     }
 
@@ -401,3 +404,18 @@ Board::~Board()
         }
     }
 }
+
+    /**
+     * @brief Fonction permettant de déplacer les robots sur le plateau de jeu
+     *        Si il y a un mur, le robot avance jusqu'au mur
+     *        Si il n'y a pas de mur, le robot avance jusqu'au bord du plateau 
+     *        Si il y a un robot, le robot avance jusqu'au robot
+     * 
+     * @param robot Robot à déplacer
+     * @param direction Direction du déplacement (N, S, E, O)
+     * 
+     */
+    void Board::MoveRobot(Robot *, char)
+    {
+        
+    }
