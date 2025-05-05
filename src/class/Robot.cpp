@@ -66,3 +66,43 @@ void Robot::setShape(Shape s)
 Robot::~Robot()
 {
 }
+
+/**
+ * @brief Get the X object
+ *
+ * @return int
+ */
+int Robot::getX() const
+{
+    return this->x;
+}
+
+/**
+ * @brief Get the Y object
+ *
+ * @return int
+ */
+int Robot::getY() const
+{
+    return this->y;
+}
+
+/**
+ * @brief Set the X object
+ *
+ * @param x coordonate x of robot
+ */
+void Robot::setX(int x)
+{
+    this->x = x;
+}
+
+/**
+ * @brief Set the Y object
+ *
+ * @param y coordonate y of robot
+ */
+void Robot::setY(int y)
+{
+    this->y = y;
+}

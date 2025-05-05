@@ -87,6 +87,18 @@
 #define CROSSING_CROSS_WALL_VERTI           "╫"
 #define CROSSING_CROSS_WALL_HORIZ           "╪"
 
+// Ansi Escapes Codes
+// ESC Code Sequence 	Description
+// ESC[38;5;{ID}m 	    Set foreground color.
+// ESC[48;5;{ID}m 	    Set background color.
+
+#define ANSI_CODE_ERASE "\33[J"
+#define ANSI_CODE_CURSOR_RESET "\33[H"
+#define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"
+
+#define ANSI_CODE_BACKGROUND_APP "\33[48;5;15m"
+#define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"
+
 // ================================================================================
 // Types
 // ================================================================================
@@ -125,11 +137,14 @@ std::map<Shape, std::string> SHAPE_MAP = {
 
 
 Display::Display(void) {
-    
+    std::cout << ANSI_CODE_BACKGROUND_APP;
+    std::cout << ANSI_CODE_FOREGROUND_APP;
+    std::cout << ANSI_CODE_CURSOR_RESET << ANSI_CODE_ERASE;
 }
 
 Display::~Display(void) {
-    
+    std::cout << ANSI_CODE_BACKGROUND_RESET;
+    std::cout << ANSI_CODE_ERASE;
 }
 
 /**

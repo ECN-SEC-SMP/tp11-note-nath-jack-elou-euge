@@ -16,8 +16,7 @@
 #include <cstdint>
 
 #include "class/Game.hpp"
-#include "class/Player.hpp"
-#include "class/Display.hpp"
+#include "utils/Timer.hpp"
 
 // ================================================================================
 // Macros
@@ -52,17 +51,25 @@
  */
 int main(int argc, char const *argv[])
 {
-    std::cout << "START MAIN" << std::endl;
-    
-    Display disp = Display();
-    Board board = Board();
-    Case terrain[SIZE_BOARD][SIZE_BOARD];
+    bool keepPlaying = true;
+    char input = NULL;
 
-    board.GenerateBoard();
-    board.getBoard(terrain);
-    
-    disp.update(terrain);
-    disp.print();
+    Game game = Game();
+
+    while (keepPlaying)
+    {
+        if (game.play())
+        {
+            keepPlaying = game.keepPlaying();
+            if (keepPlaying == true) {
+                game.resetGame();
+            }
+        }
+        else
+        {
+            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
+        }
+    }
 
     return 0;
 }

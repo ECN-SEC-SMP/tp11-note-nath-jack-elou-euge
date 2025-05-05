@@ -14,8 +14,7 @@ class Player
 {
 
 private:
-    std::string name;
-    std::vector<uint8_t> inputs; //Stockage des touches
+    std::vector<uint8_t> inputs; // Stockage des touches
     std::string pseudo;
 
 public:
@@ -24,9 +23,9 @@ public:
      *
      * @param pseudo
      */
-    Player(std::string name); //Constructeur
-    ~Player(void); //Destructeur
-    void readInput();
+    Player(std::string pseudo); // Constructeur
+    ~Player();                  // Destructeur
+    // void readInput();
 
     /**
      * @brief Set the pseudo of the player
