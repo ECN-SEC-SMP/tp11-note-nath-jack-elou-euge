@@ -83,7 +83,7 @@ public:
      *
      * @return Case
      */
-    Case getBoard(void);
+    void getBoard(Case board[SIZE_BOARD][SIZE_BOARD]) const;
 
     /**
      * @brief Placez les 4 robots de manière aléatoire. Le choix de la cible (rouge, vert, bleu, jaune ou
