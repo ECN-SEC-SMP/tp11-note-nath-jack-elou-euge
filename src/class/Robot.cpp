@@ -8,7 +8,7 @@
 Robot::Robot()
 {
     this->color = Green;
-    this->shape = R;
+    this->shape = RobotSign;
 }
 
 /**
@@ -20,7 +20,7 @@ Robot::Robot()
 Robot::Robot(Color c)
 {
     this->color = c;
-    this->shape = R;
+    this->shape = RobotSign;
 }
 
 /**
