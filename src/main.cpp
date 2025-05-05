@@ -15,10 +15,8 @@
 #include <iostream>
 #include <cstdint>
 #include "class/Game.hpp"
-
-using namespace std;
-
-// ================================================================
+#include "class/Player.hpp"
+// ================================================================================
 // Macros
 // ================================================================================
 
@@ -51,21 +49,7 @@ using namespace std;
  */
 int main(int argc, char const *argv[])
 {
-    bool keepPlaying = true;
-    char input = NULL;
-    Game game = Game();
-
-    while (keepPlaying)
-    {
-        if (game.play())
-        {
-            keepPlaying = game.keepPlaying();
-        }
-        else
-        {
-            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-        }
-    }
-
+    Player Nathan = Player("Nath");
+    Nathan.readInput();
     return 0;
 }

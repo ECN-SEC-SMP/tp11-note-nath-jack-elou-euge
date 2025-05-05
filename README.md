@@ -7,6 +7,27 @@
 - [Eugénie ROQUAIN](https://github.com/euge13301)
 - [Eloi TOURANGIN](https://github.com/ioleto)
 
+## Classes
+ Notre classe Game comprend deux classes : Board et Display. Elle permet d'initialiser le jeu et ainsi démarrer une partie.
+
+ Dans notre classe Board on a 4 attributs :
+ - MoveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
+ - GenerateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
+ - CheckWall(x,y) qui prend en argument les coordonnées de la case et qui vérifie si notre pion robot est face à un mur
+ - CheckTarget(x,y) qui prend en argument les coordonnées de la case et qui vérifie si la case x,y à un pion robot ou non
+
+ La classe Board utilise les enum Colors et Shapes qui ont respectivement chacune des couleurs des cibles et robots ainsi que les formes deux cibles
+
+ Dans notre classe Display on a 2 arguments :
+ - Updates()
+ - Print()
+
+ Notre classe Robot possède deux arguments :
+ - getShape()
+ - getColor()
+ - Robot(Enum Colors) qui lui attribut une couleur
+ - Robot(Color c, Shape s)
+
 ## Table des matières
 
 1. [Build & Compilation](#build--compilation)
