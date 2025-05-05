@@ -12,7 +12,6 @@ typedef enum
     Blue,
     Green,
     Yellow,
-    Black,
     Rainbow
 } Color;
 
@@ -22,11 +21,11 @@ typedef enum
  */
 typedef enum
 {
-    Circle,
-    Square,
-    Triangle,
-    Star,
-    Hexagon
+    Target1,
+    Target2,
+    Target3,
+    Target4,
+    R
 } Shape;
 
 #endif

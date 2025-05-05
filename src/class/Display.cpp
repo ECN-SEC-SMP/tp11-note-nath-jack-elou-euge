@@ -94,21 +94,21 @@
 // ================================================================================
 // Constantes
 // ================================================================================
-std::map<Color, char> COLOR_MAP = {
-    {Default, 'c'},
-    {Red, 'c'},
-    {Blue, 'c'},
-    {Green, 'c'},
-    {Yellow, 'c'},
-    {Rainbow, 'c'}
+std::map<Color, std::string> COLOR_MAP = {
+    {Default, "\033[0m"},
+    {Red, "\033[31m"},
+    {Blue, "\033[34m"},
+    {Green, "\033[32m"},
+    {Yellow, "\033[33m"},
+    {Rainbow, "\33[30m"},
 };
 
 std::map<Shape, std::string> SHAPE_MAP = {
-    {Circle,    "O"},
-    {Square,    "\xfe"},
-    {Triangle,  "\xb2"},
-    {Star,      "\xc6"},
-    {Hexagon,   "⬢"},
+    {Target1,    "♣"},
+    {Target2,    "♥"},
+    {Target3,    "♦"},
+    {Target4,    "♠"},
+    {R,          "☻"},
 };
 
 // ================================================================================
@@ -225,6 +225,7 @@ void Display::print(void) {
         }   // Fin j
         std::cout << std::endl;
     }   // Fin i
+    std::cout << COLOR_MAP[Rainbow] << "abc" << std::endl;
 }
 
 // ================================================================================
