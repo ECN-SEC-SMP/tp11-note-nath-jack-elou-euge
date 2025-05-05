@@ -46,6 +46,8 @@ private:
 
     std::string fill_case(uint8_t x, uint8_t y);
     void put_walls(void);
+    void put_robots(void);
+    void put_targets(void);
 
 public:
     Display(void);
