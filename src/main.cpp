@@ -16,6 +16,8 @@
 #include <cstdint>
 
 #include "class/Game.hpp"
+#include "class/Display.hpp"
+#include "class/Board.hpp"
 #include "utils/Timer.hpp"
 
 // ================================================================================
@@ -51,25 +53,13 @@
  */
 int main(int argc, char const *argv[])
 {
-    bool keepPlaying = true;
-    char input = NULL;
+    Board board = Board();
+    Display disp = Display();
+    Case plateau[16][16]; 
 
-    Game game = Game();
-
-    while (keepPlaying)
-    {
-        if (game.play())
-        {
-            keepPlaying = game.keepPlaying();
-            if (keepPlaying == true) {
-                game.resetGame();
-            }
-        }
-        else
-        {
-            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-        }
-    }
+    board.getBoard(plateau);
+    disp.update(plateau);
+    disp.print();
 
     return 0;
 }

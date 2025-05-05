@@ -25,7 +25,7 @@ public:
      */
     Player(std::string pseudo); // Constructeur
     ~Player();                  // Destructeur
-    // void readInput();
+    void readInput();
 
     /**
      * @brief Set the pseudo of the player
@@ -33,6 +33,8 @@ public:
      * @param pseudo type std::string
      */
     void setPseudo(std::string pseudo);
+
+    std::vector<uint8_t> getInput() const;
 
     /**
      * @brief Get the pseudo of the player

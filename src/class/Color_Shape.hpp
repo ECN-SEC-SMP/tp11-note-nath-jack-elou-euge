@@ -21,11 +21,11 @@ typedef enum
  */
 typedef enum
 {
-    Circle,
-    Square,
-    Triangle,
-    Star,
-    Hexagon
+    Target1,
+    Target2,
+    Target3,
+    Target4,
+    RobotSign
 } Shape;
 
 #endif

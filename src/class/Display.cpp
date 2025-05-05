@@ -27,11 +27,13 @@
 // Macros
 // ================================================================================
 
-#define ESCAPE  "\x1b"
-#define BACKGROUND_WHITE "\x1b[48;5;15m"
-#define BACKGROUND_DEFAULT "\x1b[48;5;0m"
-#define FOREGROUND_BLACK    "\x1b[38;5;0m"
-#define FOREGROUND_WHITE    "\x1b[38;5;15m"
+/**
+ * A Case is made with 3 spaces for the board to be square.
+ * The first space is where robot can be displayed
+ * The last space is where the target can be displayed
+ */
+#define DISP_ROBOT_PLACE    0
+#define DISP_TARGET_PLACE    2
 
 // Lines
 #define LINE_HORIZ  "───" // Vertical Line
@@ -106,21 +108,21 @@
 // ================================================================================
 // Constantes
 // ================================================================================
-std::map<Color, char> COLOR_MAP = {
-    {Default, 'c'},
-    {Red, 'c'},
-    {Blue, 'c'},
-    {Green, 'c'},
-    {Yellow, 'c'},
-    {Rainbow, 'c'}
+std::map<Color, std::string> COLOR_MAP = {
+    {Default, "\033[0m"},
+    {Red, "\033[31m"},
+    {Blue, "\033[34m"},
+    {Green, "\033[32m"},
+    {Yellow, "\033[33m"},
+    {Rainbow, "\33[30m"},
 };
 
 std::map<Shape, std::string> SHAPE_MAP = {
-    {Circle,    "O"},
-    {Square,    "\xfe"},
-    {Triangle,  "\xb2"},
-    {Star,      "\xc6"},
-    {Hexagon,   "⬢"},
+    {Target1,    "♣"},
+    {Target2,    "♥"},
+    {Target3,    "♦"},
+    {Target4,    "♠"},
+    {RobotSign,  "☻"},
 };
 
 // ================================================================================
@@ -222,6 +224,8 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
     }
 
     this->put_walls();
+    this->put_robots();
+    this->put_targets();
 }
 void printcolors(void);
 /**
@@ -240,6 +244,7 @@ void Display::print(void) {
         }   // Fin j
         std::cout << std::endl;
     }   // Fin i
+    std::cout << COLOR_MAP[Rainbow] << "abc" << std::endl;
 }
 
 // ================================================================================
@@ -304,6 +309,20 @@ void Display::put_walls(void) {
 
         }   // Fin j
     }   // Fin i
-    
-    
+}
+
+/**
+ * @brief Put Robots in Display Board
+ * 
+ */
+void Display::put_robots(void) {
+
+}
+
+/**
+ * @brief Put Targets in Display Board
+ * 
+ */
+void Display::put_targets(void) {
+
 }
