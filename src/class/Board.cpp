@@ -417,7 +417,73 @@ Board::~Board()
      * @param direction Direction du déplacement (N, S, E, O)
      * 
      */
-    void Board::MoveRobot(Robot *, char)
+    void Board::MoveRobot(Robot *robot, char direction)
     {
+        int start_x = robot->getX();
+        int start_y = robot->getY();
+
+        int end_x = start_x;
+        int end_y = start_y;
+
+        switch (direction)
+        {
+        case 'N':
+            if(this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
+            {
+                while (end_y > 0 && this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
+                {
+                    end_y--;
+                }
+
+                robot->setY(end_y);
+                this->board[end_x][end_y].setRobot(robot);
+                this->board[start_x][start_y].setRobot(nullptr);
+            }
+            break;
+        
+        case 'S':
+            if(this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
+            {
+                while (end_y < SIZE_BOARD - 1 && this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
+                {
+                    end_y++;
+                }
+
+                robot->setY(end_y);
+                this->board[end_x][end_y].setRobot(robot);
+                this->board[start_x][start_y].setRobot(nullptr);
+            }
+            break;
+        
+        case 'E':
+            if(this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
+            {
+                while (end_x < SIZE_BOARD - 1 && this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
+                {
+                    end_x++;
+                }
+
+                robot->setX(end_x);
+                this->board[end_x][end_y].setRobot(robot);
+                this->board[start_x][start_y].setRobot(nullptr);
+            }
+            break;
+
+        case 'W':
+            if(this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
+            {
+                while (end_x > 0 && this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
+                {
+                    end_x--;
+                }
+
+                robot->setX(end_x);
+                this->board[end_x][end_y].setRobot(robot);
+                this->board[start_x][start_y].setRobot(nullptr);
+            }
+            break;
+        default:
+            break;
+        }
         
     }
