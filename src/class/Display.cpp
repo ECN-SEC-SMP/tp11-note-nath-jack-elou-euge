@@ -94,7 +94,7 @@
 
 #define ANSI_CODE_ERASE "\33[J"
 #define ANSI_CODE_CURSOR_RESET "\33[H"
-#define ANSI_CODE_BACKGROUND_RESET "\033[39m \033[49m"
+#define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"
 
 #define ANSI_CODE_BACKGROUND_APP "\33[48;5;15m"
 #define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"
@@ -143,7 +143,6 @@ Display::Display(void) {
 }
 
 Display::~Display(void) {
-    std::cout << std::endl << std::endl << std::endl;
     std::cout << ANSI_CODE_BACKGROUND_RESET;
     std::cout << ANSI_CODE_ERASE;
 }
