@@ -11,6 +11,8 @@
 
 #include "Board.hpp"
 
+#include <cstring>
+
 /**
  * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
  *
@@ -358,9 +360,9 @@ void Board::GenerateBoard(void)
  *
  * @return Case
  */
-Case Board::getBoard(void)
+void Board::getBoard(Case board[SIZE_BOARD][SIZE_BOARD]) const
 {
-    return this->board[0][0];
+    std::memcpy(board, this->board, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
 }
 
 /**

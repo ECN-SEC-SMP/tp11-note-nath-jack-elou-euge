@@ -14,8 +14,9 @@
 // ================================================================================
 #include <iostream>
 #include <cstdint>
-#include "class/Game.hpp"
 
+#include "class/Game.hpp"
+#include "class/Player.hpp"
 #include "class/Display.hpp"
 
 // ================================================================================
@@ -52,8 +53,15 @@
 int main(int argc, char const *argv[])
 {
     std::cout << "START MAIN" << std::endl;
-    Display disp;
+    
+    Display disp = Display();
+    Board board = Board();
+    Case terrain[SIZE_BOARD][SIZE_BOARD];
 
+    board.GenerateBoard();
+    board.getBoard(terrain);
+    
+    disp.update(terrain);
     disp.print();
 
     return 0;
