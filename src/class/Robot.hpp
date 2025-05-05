@@ -19,6 +19,18 @@ private:
      */
     Shape shape;
 
+    /**
+     * @brief coordonate x of robot
+     * 
+     */
+    int x;
+
+    /**
+     * @brief coordonate y of robot
+     * 
+     */
+    int y;
+
 public:
     /**
      * @brief Construct a new Robot object
@@ -67,6 +79,34 @@ public:
      * @param shape shape of robot
      */
     void setShape(Shape shape);
+
+    /**
+     * @brief Get the X object
+     *
+     * @return int
+     */
+    int getX() const;
+
+    /**
+     * @brief Get the Y object
+     *
+     * @return int
+     */
+    int getY() const;
+
+    /**
+     * @brief Set the X object
+     *
+     * @param x coordonate x of robot
+     */
+    void setX(int x);
+
+    /**
+     * @brief Set the Y object
+     *
+     * @param y coordonate y of robot
+     */
+    void setY(int y);
 };
 
 #endif
