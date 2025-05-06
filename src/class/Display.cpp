@@ -24,6 +24,7 @@
 #include "Target.hpp"
 
 #include "Color_Shape.hpp"
+#include "Timer.hpp"
 
 // ================================================================================
 // Macros
@@ -159,11 +160,13 @@ Display::Display(void) {
     std::cout << ANSI_CODE_BACKGROUND_APP;
     std::cout << ANSI_CODE_FOREGROUND_APP;
     std::cout << ANSI_CODE_CURSOR_RESET << ANSI_CODE_ERASE;
+    // std::cout << ANSI_CODE_ERASE;
 }
 
 Display::~Display(void) {
     std::cout << ANSI_CODE_BACKGROUND_RESET;
-    std::cout << ANSI_CODE_ERASE;
+    std::cout << ANSI_CODE_CURSOR_RESET << ANSI_CODE_ERASE;
+    // std::cout << ANSI_CODE_ERASE;
 }
 
 /**
@@ -254,7 +257,10 @@ void printcolors(void);
  * 
  */
 void Display::print(void) {
+    std::cout << ANSI_CODE_CURSOR_RESET << ANSI_CODE_ERASE;
+    // std::cout  << ANSI_CODE_ERASE;
 
+    this->put_time();
     for (uint8_t i = 0; i < BOARD_DISP_SIZE; i++)
     {
         for (uint8_t j = 0; j < BOARD_DISP_SIZE; j++) 
@@ -265,7 +271,10 @@ void Display::print(void) {
         }   // Fin j
         std::cout << std::endl;
     }   // Fin i
-    std::cout << COLOR_MAP[Rainbow] << "abc" << std::endl;
+}
+
+void Display::printTime(void) {
+
 }
 
 // ================================================================================
@@ -282,6 +291,27 @@ void Display::print(void) {
 std::string Display::fill_case(uint8_t x, uint8_t y) {
     
     return SPACE;
+}
+
+/**
+ * @brief 
+ * 
+ */
+void Display::put_time(void) {
+    Timer& time = Timer::getInstance();
+    int t = time.getRemainingTimeMs();
+
+    std::string timeStr = time.formatTime(t/1000);
+    timeStr.insert(0, "Remaining Time : ");
+
+    uint8_t strLength = timeStr.size();
+
+    for (uint8_t i = 0; i < ((BOARD_DISP_SIZE / 2) - (strLength / 2)); i++)
+    {
+        std::cout << " ";
+    }
+
+    std::cout << timeStr << std::endl;
 }
 
 /**

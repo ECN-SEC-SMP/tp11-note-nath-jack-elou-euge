@@ -49,8 +49,11 @@ private:
     void put_robots(void);
     void put_targets(void);
     void put_center(void);
+    void put_time(void);
 
     std::string getWallStr(std::string wall_chr);
+
+    void cursorSetPos(uint8_t h, uint8_t w);
 
 public:
     Display(void);
@@ -58,6 +61,7 @@ public:
 
     void update(Case board[SIZE_BOARD][SIZE_BOARD]);
     void print(void);
+    void printTime(void);
 };
 
 #endif  // _DISPLAY_HPP_
