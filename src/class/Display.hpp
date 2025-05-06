@@ -50,6 +50,8 @@ private:
     void put_targets(void);
     void put_center(void);
 
+    std::string getWallStr(std::string wall_chr);
+
 public:
     Display(void);
     ~Display(void);

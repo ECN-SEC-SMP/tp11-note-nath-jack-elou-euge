@@ -37,14 +37,16 @@
 #define DISP_ROBOT_PLACE    0
 #define DISP_TARGET_PLACE   2
 
-#define CENTER_INDEX_START  14
-#define CENTER_INDEX_END    18
+#define CENTER_INDEX_START  15
+#define CENTER_INDEX_END    17
 
 // Lines
 #define LINE_HORIZ  "───" // Vertical Line
 #define LINE_HORIZ_WALL  "═══" // Vertical Line
+#define CROSSING_LINE_HORIZ_WALL  "═" // Vertical Line
 #define LINE_VERTI  "│" // Horizontal Line
 #define LINE_VERTI_WALL  "║" // Horizontal Line
+#define CROSSING_LINE_VERTI_WALL  "║" // Horizontal Line
 #define SPACE       "   "
 
 // Corners
@@ -94,6 +96,11 @@
 #define CROSSING_CROSS_WALL_VERTI           "╫"
 #define CROSSING_CROSS_WALL_HORIZ           "╪"
 
+#define CENTER_BLOCKS_FULL      "█"
+#define CENTER_BLOCKS_BOTTOM    "▄"
+#define CENTER_BLOCKS_LEFT      "▌"
+#define CENTER_BLOCKS_RIGHT     "▐"
+#define CENTER_BLOCKS_TOP       "▀"
 // Ansi Escapes Codes
 // ESC Code Sequence 	Description
 // ESC[38;5;{ID}m 	    Set foreground color.
@@ -193,20 +200,19 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
             
             // // Crossing
             else if (i == 0 && !(j % 2)) {
-                to_put = CROSSING_HORIZ_TO_BOT;
+                to_put = this->getWallStr(CROSSING_HORIZ_TO_BOT_WALL_HORIZ);
                 // to_put = this->put_line(CROSSING_HORIZ_TO_BOT, x, y, DISP_CASE_NONE);
             }
             else if (i == (SIZE_BOARD * 2) && !(j % 2)) {
-                to_put = CROSSING_HORIZ_TO_TOP;
-                to_put = CROSSING_HORIZ_TO_TOP;
+                to_put = this->getWallStr(CROSSING_HORIZ_TO_TOP_WALL_HORIZ);
                 // to_put = this->put_line(CROSSING_HORIZ_TO_TOP, x, y, DISP_CASE_NONE);
             }
             else if (!(i % 2) && j == 0) {
-                to_put = CROSSING_VERTI_TO_RIGHT;
+                to_put = this->getWallStr(CROSSING_VERTI_TO_RIGHT_WALL_VERTI);
                 // to_put = this->put_line(CROSSING_VERTI_TO_RIGHT, x, y, DISP_CASE_NONE);
             }
             else if (!(i % 2) && j == (SIZE_BOARD * 2)) {
-                to_put = CROSSING_VERTI_TO_LEFT;
+                to_put = this->getWallStr(CROSSING_VERTI_TO_LEFT_WALL_VERTI);
                 // to_put = this->put_line(CROSSING_VERTI_TO_LEFT, x, y, DISP_CASE_NONE);
             }
             else if (!(i % 2) && !(j % 2)) {
@@ -290,6 +296,8 @@ void Display::put_walls(void) {
 
     uint8_t x, y;
 
+
+    // ===== Put Sides Walls
     for (uint8_t i = 0; i < SIZE_BOARD; i++)
     {
         for (uint8_t j = 0; j < SIZE_BOARD; j++) 
@@ -324,6 +332,188 @@ void Display::put_walls(void) {
 
         }   // Fin j
     }   // Fin i
+
+    // ===== Puts intersections
+
+    // Bot, Top, Right, Left has a wall
+    bool wbot, wtop, wrgt, wlft;
+    std::string to_put;
+    for (uint8_t i = 0; i < BOARD_DISP_SIZE; i += 2)
+    {
+        for (uint8_t j = 0; j < BOARD_DISP_SIZE; j += 2)
+        {
+            to_put = "";
+            // ===== Check Corners
+            // Top Left
+            if (i == 0 && j == 0) {
+                // Righ
+                wrgt = (this->dispBoard[i][j + 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                
+                // Bot
+                wbot = (this->dispBoard[i + 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+
+                if (wrgt && wbot) {
+                    to_put = CORNER_TOPLEFT_WALL_FULL;
+                }
+                else if (wbot) {
+                    to_put = CORNER_TOPLEFT_WALL_BOT;
+                }
+                else if (wrgt) {
+                    to_put = CORNER_TOPLEFT_WALL_RIGHT;
+                }
+            }
+            // Top Right
+            else if (i == 0 && j == (BOARD_DISP_SIZE - 1)) {
+                // Left
+                wlft = (this->dispBoard[i][j - 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                
+                // Bot
+                wbot = (this->dispBoard[i + 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+    
+                if (wlft && wbot) {
+                    to_put = CORNER_TOPRIGHT_WALL_FULL;
+                }
+                else if (wbot) {
+                    to_put = CORNER_TOPRIGHT_WALL_BOT;
+                }
+                else if (wlft) {
+                    to_put = CORNER_TOPRIGHT_WALL_LEFT;
+                }
+            }
+            // Bottom Left
+            else if (i == (BOARD_DISP_SIZE - 1) && j == 0) {
+                // Left
+                wrgt = (this->dispBoard[i][j + 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                
+                // Bot
+                wtop = (this->dispBoard[i - 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+    
+                if (wrgt && wtop) {
+                    to_put = CORNER_BOTLEFT_WALL_FULL;
+                }
+                else if (wtop) {
+                    to_put = CORNER_BOTLEFT_WALL_TOP;
+                }
+                else if (wrgt) {
+                    to_put = CORNER_BOTLEFT_WALL_RIGHT;
+                }
+            }
+            // Bottom Right
+            else if (i == (BOARD_DISP_SIZE - 1) && j == (BOARD_DISP_SIZE - 1)) {
+                // Left
+                wlft = (this->dispBoard[i][j - 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                
+                // Bot
+                wtop = (this->dispBoard[i - 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+    
+                if (wlft && wtop) {
+                    to_put = CORNER_BOTRIGHT_WALL_FULL;
+                }
+                else if (wtop) {
+                    to_put = CORNER_BOTRIGHT_WALL_TOP;
+                }
+                else if (wlft) {
+                    to_put = CORNER_BOTRIGHT_WALL_LEFT;
+                }
+            }
+
+            // ===== Check Sides intersections
+            // Top Side
+            else if (i == 0) {
+                wbot = (this->dispBoard[i + 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+                if (wbot) {
+                    to_put = CROSSING_HORIZ_TO_BOT_WALL_FULL;
+                }
+            }
+            // Bot Side
+            else if (i == (BOARD_DISP_SIZE - 1)) {
+                wtop = (this->dispBoard[i - 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+                if (wtop) {
+                    to_put = CROSSING_HORIZ_TO_TOP_WALL_FULL;
+                }
+            }
+            // Left Side
+            else if (j == 0) {
+                wrgt = (this->dispBoard[i][j + 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                if (wrgt) {
+                    to_put = CROSSING_VERTI_TO_RIGHT_WALL_FULL;
+                }
+            }
+            // Right Side
+            else if (j == (BOARD_DISP_SIZE - 1)) {
+                wlft = (this->dispBoard[i][j - 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                if (wlft) {
+                    to_put = CROSSING_VERTI_TO_LEFT_WALL_FULL;
+                }
+            }
+            
+            // ===== Check Cross intersections
+            else {
+                wtop = (this->dispBoard[i - 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+                wbot = (this->dispBoard[i + 1][j].find(LINE_VERTI_WALL) != std::string::npos) ? true : false;
+                wrgt = (this->dispBoard[i][j + 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+                wlft = (this->dispBoard[i][j - 1].find(LINE_HORIZ_WALL) != std::string::npos) ? true : false;
+
+                // Count true booleans
+                uint8_t nb_true = (uint8_t)wtop + (uint8_t)wbot + (uint8_t)wlft + (uint8_t)wrgt;
+
+                if (nb_true == 4) {
+                    to_put = this->getWallStr(CROSSING_CROSS_WALL_FULL);
+                }
+                else if (nb_true == 3)
+                {
+                    if (wtop && wbot) {
+                        // Crossing Vertical
+                        to_put = wrgt ? CROSSING_VERTI_TO_RIGHT_WALL_FULL : CROSSING_VERTI_TO_LEFT_WALL_FULL;
+                    }
+                    else if (wrgt && wlft) {
+                        // Crossing Horizontal
+                        to_put = wtop ? CROSSING_HORIZ_TO_TOP_WALL_FULL : CROSSING_HORIZ_TO_BOT_WALL_FULL;
+                    }
+                }
+                else if (nb_true == 2)
+                {
+                    // Corner and lines
+                    if (wtop && wbot) {
+                        // Line Vertial
+                        to_put = this->getWallStr(CROSSING_LINE_VERTI_WALL);
+                    }
+                    else if (wlft && wrgt) {
+                        // Line Horizontal
+                        to_put = this->getWallStr(CROSSING_LINE_HORIZ_WALL);
+                    }
+                    else if (wtop && wlft) {
+                        // Corner Bottom Right
+                        to_put = this->getWallStr(CORNER_BOTRIGHT_WALL_FULL);
+                    }
+                    else if (wtop && wrgt) {
+                        // Corner Bottom Left
+                        to_put = this->getWallStr(CORNER_BOTLEFT_WALL_FULL);
+                    }
+                    else if (wbot && wlft) {
+                        // Corner Top Right
+                        to_put = this->getWallStr(CORNER_TOPRIGHT_WALL_FULL);
+                    }
+                    else if (wbot && wrgt) {
+                        // Corner Top Left
+                        to_put = this->getWallStr(CORNER_TOPLEFT_WALL_FULL);
+                    }
+                }
+                
+
+
+            }
+            
+            
+            
+            // ===== Put string
+            if (to_put != "") {
+                this->dispBoard[i][j] = this->getWallStr(to_put);
+            }
+        }
+        
+    }
+    
 }
 
 /**
@@ -402,4 +592,8 @@ void Display::put_center(void) {
     // Put target in middle
 
 
+}
+
+std::string Display::getWallStr(std::string wall_chr) {
+    return std::string(ANSI_CODE_WALL_COLOR) + wall_chr + std::string(ANSI_CODE_BACKGROUND_APP);
 }

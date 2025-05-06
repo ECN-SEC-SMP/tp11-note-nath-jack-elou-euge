@@ -55,11 +55,50 @@ int main(int argc, char const *argv[])
 {
     Board board = Board();
     Display disp = Display();
-    Case plateau[16][16]; 
+    Case plateau[16][16];
 
+    Target* listTarg[] = {
+        new Target(Blue, Target1),
+        new Target(Red, Target2),
+        new Target(Green, Target3),
+        new Target(Yellow, Target4)
+    };
+    
     board.getBoard(plateau);
+
+    plateau[0][0].setTarget(listTarg[0]);
+    plateau[15][0].setTarget(listTarg[1]);
+    plateau[4][6].setTarget(listTarg[2]);
+    plateau[13][10].setTarget(listTarg[3]);
+
     disp.update(plateau);
     disp.print();
 
     return 0;
 }
+
+// int main(int argc, char const *argv[])
+// {
+//     bool keepPlaying = true;
+//     char input = NULL;
+
+//     Display disp = Display();
+//     Game game = Game();
+
+//     while (keepPlaying)
+//     {
+//         if (game.play())
+//         {
+//             keepPlaying = game.keepPlaying();
+//             if (keepPlaying == true) {
+//                 game.resetGame();
+//             }
+//         }
+//         else
+//         {
+//             std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
+//         }
+//     }
+
+//     return 0;
+// }
