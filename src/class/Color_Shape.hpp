@@ -25,7 +25,7 @@ typedef enum
     Target2,
     Target3,
     Target4,
-    R
+    RobotSign
 } Shape;
 
 #endif

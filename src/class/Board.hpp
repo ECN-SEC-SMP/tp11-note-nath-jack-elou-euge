@@ -92,7 +92,7 @@ public:
      *        chaque couleur et 1 multicolore)
      *
      */
-    void PlaceRobots(std::vector<Robot> *);
+    void PlaceRobots(std::vector<Robot *> *myRobot);
 
     /**
      * @brief Fonction permettant de déplacer les robots sur le plateau de jeu

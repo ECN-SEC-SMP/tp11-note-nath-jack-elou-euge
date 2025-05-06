@@ -67,7 +67,7 @@ void Board::GenerateBoardStep2(void)
     int y = 0;
 
     /* First quadrant (0,0) to (7,7) */
-    x = rand() % (SIZE_BOARD / 2);  // 0 to 7
+    x = rand() % (SIZE_BOARD / 2); // 0 to 7
     this->board[x][y].setEast(1);
 
     /* Second quadrant (8,0) to (15,7) */
@@ -77,7 +77,7 @@ void Board::GenerateBoardStep2(void)
     y = 15;
 
     /* Third quadrant (0,8) to (7,15) */
-    x = rand() % (SIZE_BOARD / 2);  // 0 to 7
+    x = rand() % (SIZE_BOARD / 2); // 0 to 7
     this->board[x][y].setEast(1);
 
     /* Fourth quadrant (8,8) to (15,15) */
@@ -87,7 +87,7 @@ void Board::GenerateBoardStep2(void)
     x = 0;
 
     /* First quadrant (0,0) to (7,7) */
-    y = rand() % (SIZE_BOARD / 2);  // 0 to 7
+    y = rand() % (SIZE_BOARD / 2); // 0 to 7
     this->board[x][y].setSouth(1);
 
     /* Third quadrant (0,8) to (7,15) */
@@ -97,7 +97,7 @@ void Board::GenerateBoardStep2(void)
     x = 15;
 
     /* Second quadrant (8,0) to (15,7) */
-    y = rand() % (SIZE_BOARD / 2);  // 0 to 7
+    y = rand() % (SIZE_BOARD / 2); // 0 to 7
     this->board[x][y].setSouth(1);
 
     /* Fourth quadrant (8,8) to (15,15) */
@@ -158,21 +158,21 @@ void Board::GenerateBoardStep3(void)
             int angleType = rand() % 4;
 
             /* Simple angle position checker */
-            if(this->board[x-1][y].isWall())
+            if (this->board[x - 1][y].isWall())
                 continue;
-            if(this->board[x+1][y].isWall())
+            if (this->board[x + 1][y].isWall())
                 continue;
-            if(this->board[x][y-1].isWall())
+            if (this->board[x][y - 1].isWall())
                 continue;
-            if(this->board[x][y+1].isWall())
+            if (this->board[x][y + 1].isWall())
                 continue;
-            if(this->board[x-1][y-1].isWall())
+            if (this->board[x - 1][y - 1].isWall())
                 continue;
-            if(this->board[x+1][y-1].isWall())
+            if (this->board[x + 1][y - 1].isWall())
                 continue;
-            if(this->board[x-1][y+1].isWall())  
+            if (this->board[x - 1][y + 1].isWall())
                 continue;
-            if(this->board[x+1][y+1].isWall())
+            if (this->board[x + 1][y + 1].isWall())
                 continue;
 
             /* Complexe angle position checker */
@@ -300,40 +300,27 @@ void Board::GenerateBoardStep4(void)
  *           chaque couleur et 1 multicolore)
  *
  */
-void Board::PlaceRobots(std::vector<Robot> *myRobot)
+void Board::PlaceRobots(std::vector<Robot*> *myRobot)
 {
-    // récupération du pointeur de vecteur des quatres robots
-    std::vector<Robot> *robots = myRobot;
+    // Update the implementation to handle Robot* instead of Robot
+    std::vector<Robot*> *robots = myRobot;
 
-    // Récupération du nombre de robots
     int RobotsCountToPlace = robots->size();
     int RobotsCountPlaced = 0;
 
-    // Boucle tant que le nombre de robots est différent du nombre de robots à placer
     while (RobotsCountPlaced != RobotsCountToPlace)
     {
-        // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
-        // [0,0] to [15,15] without [7,7] to [8,8]
         int board_case_for_robot[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
-        int x = 0;
-        int y = 0;
+        int x = board_case_for_robot[rand() % 15];
+        int y = board_case_for_robot[rand() % 15];
 
-        x = board_case_for_robot[rand() % 15];
-        y = board_case_for_robot[rand() % 15];
-
-        // Check if the case is already occupied by a robot
-        if (this->board[x][y].getRobot() != nullptr)
+        if (this->board[x][y].getRobot() != nullptr || this->board[x][y].getTarget() != nullptr)
             continue;
 
-        // Check if the case is already occupied by a target
-        if (this->board[x][y].getTarget() != nullptr)
-            continue;
-
-        // Place the robot on the board
-        this->board[x][y].setRobot(&robots->at(RobotsCountPlaced));
-        this->board[x][y].getRobot()->setX(x);
-        this->board[x][y].getRobot()->setY(y);
-        this->board[x][y].getRobot()->setColor((Color)(RobotsCountPlaced + 1));
+        this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
+        robots->at(RobotsCountPlaced)->setX(x);
+        robots->at(RobotsCountPlaced)->setY(y);
+        robots->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
         RobotsCountPlaced++;
     }
 
@@ -412,10 +399,11 @@ Board::Board()
         }
     }
     // Initialisation du générateur de nombres aléatoires
-    std::srand(std::time(nullptr));
+    std::random_device rd;
+    std::srand(rd());
+    
     // Génération de la grille de jeu
     this->GenerateBoard();
-
 }
 
 /**
@@ -434,83 +422,84 @@ Board::~Board()
     }
 }
 
-    /**
-     * @brief Fonction permettant de déplacer les robots sur le plateau de jeu
-     *        Si il y a un mur, le robot avance jusqu'au mur
-     *        Si il n'y a pas de mur, le robot avance jusqu'au bord du plateau 
-     *        Si il y a un robot, le robot avance jusqu'au robot
-     * 
-     * @param robot Robot à déplacer
-     * @param direction Direction du déplacement (N, S, E, O)
-     * 
-     */
-    void Board::MoveRobot(Robot *robot, char direction)
+/**
+ * @brief Fonction permettant de déplacer les robots sur le plateau de jeu
+ *        Si il y a un mur, le robot avance jusqu'au mur
+ *        Si il n'y a pas de mur, le robot avance jusqu'au bord du plateau
+ *        Si il y a un robot, le robot avance jusqu'au robot
+ *
+ * @param robot Robot à déplacer
+ * @param direction Direction du déplacement (N, S, E, O)
+ *
+ */
+void Board::MoveRobot(Robot *robot, char direction)
+{
+    int start_x = robot->getX();
+    int start_y = robot->getY();
+
+    int end_x = start_x;
+    int end_y = start_y;
+
+    switch (direction)
     {
-        int start_x = robot->getX();
-        int start_y = robot->getY();
-
-        int end_x = start_x;
-        int end_y = start_y;
-
-        switch (direction)
+    // Move UP
+    case 'N':
+        if (this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
         {
-        case 'N':
-            if(this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
+            while (end_y > 0 && this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
             {
-                while (end_y > 0 && this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
-                {
-                    end_y--;
-                }
-
-                robot->setY(end_y);
-                this->board[end_x][end_y].setRobot(robot);
-                this->board[start_x][start_y].setRobot(nullptr);
+                end_y--;
             }
-            break;
-        
-        case 'S':
-            if(this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
-            {
-                while (end_y < SIZE_BOARD - 1 && this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
-                {
-                    end_y++;
-                }
 
-                robot->setY(end_y);
-                this->board[end_x][end_y].setRobot(robot);
-                this->board[start_x][start_y].setRobot(nullptr);
-            }
-            break;
-        
-        case 'E':
-            if(this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
-            {
-                while (end_x < SIZE_BOARD - 1 && this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
-                {
-                    end_x++;
-                }
-
-                robot->setX(end_x);
-                this->board[end_x][end_y].setRobot(robot);
-                this->board[start_x][start_y].setRobot(nullptr);
-            }
-            break;
-
-        case 'W':
-            if(this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
-            {
-                while (end_x > 0 && this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
-                {
-                    end_x--;
-                }
-
-                robot->setX(end_x);
-                this->board[end_x][end_y].setRobot(robot);
-                this->board[start_x][start_y].setRobot(nullptr);
-            }
-            break;
-        default:
-            break;
+            robot->setY(end_y);
+            this->board[end_x][end_y].setRobot(robot);
+            this->board[start_x][start_y].setRobot(nullptr);
         }
-        
+        break;
+
+    // Move DOWN
+    case 'S':
+        if (this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
+        {
+            while (end_y < SIZE_BOARD - 1 && this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
+            {
+                end_y++;
+            }
+
+            robot->setY(end_y);
+            this->board[end_x][end_y].setRobot(robot);
+            this->board[start_x][start_y].setRobot(nullptr);
+        }
+        break;
+    // Move RIGHT
+    case 'E':
+        if (this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
+        {
+            while (end_x < SIZE_BOARD - 1 && this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
+            {
+                end_x++;
+            }
+
+            robot->setX(end_x);
+            this->board[end_x][end_y].setRobot(robot);
+            this->board[start_x][start_y].setRobot(nullptr);
+        }
+        break;
+    // Move LEFT
+    case 'W':
+        if (this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
+        {
+            while (end_x > 0 && this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
+            {
+                end_x--;
+            }
+
+            robot->setX(end_x);
+            this->board[end_x][end_y].setRobot(robot);
+            this->board[start_x][start_y].setRobot(nullptr);
+        }
+        break;
+    default:
+        break;
     }
+}
