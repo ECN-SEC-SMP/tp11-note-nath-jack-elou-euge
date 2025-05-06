@@ -35,7 +35,10 @@
  * The last space is where the target can be displayed
  */
 #define DISP_ROBOT_PLACE    0
-#define DISP_TARGET_PLACE    2
+#define DISP_TARGET_PLACE   2
+
+#define CENTER_INDEX_START  14
+#define CENTER_INDEX_END    18
 
 // Lines
 #define LINE_HORIZ  "───" // Vertical Line
@@ -101,7 +104,10 @@
 #define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"
 
 #define ANSI_CODE_BACKGROUND_APP "\33[48;5;15m"
+#define ANSI_CODE_BACKGROUND_CENTER "\33[48;5;0m"
 #define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"
+#define ANSI_CODE_FOREGROUND_CENTER "\33[38;5;15m"
+
 
 // ================================================================================
 // Types
@@ -228,6 +234,7 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
     this->put_walls();
     this->put_robots();
     this->put_targets();
+    this->put_center();
 }
 void printcolors(void);
 /**
@@ -362,4 +369,31 @@ void Display::put_targets(void) {
 
         }
     }
+}
+
+/**
+ * @brief 
+ * 
+ */
+void Display::put_center(void) {
+
+    // Draw center
+    for (uint8_t i = CENTER_INDEX_START; i <= CENTER_INDEX_END; i++)
+    {
+        for (uint8_t j = CENTER_INDEX_START; j <= CENTER_INDEX_END; j++)
+        {
+            // Wall
+            if (!(j%2)) {
+                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_CENTER) + " " + std::string(ANSI_CODE_BACKGROUND_APP);
+            } 
+            // Case
+            else {
+                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_CENTER) + std::string(SPACE) + std::string(ANSI_CODE_BACKGROUND_APP);
+            }
+        }   // Fin j
+    }   // Fin i
+
+    // Put target in middle
+
+
 }

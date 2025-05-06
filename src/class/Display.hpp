@@ -48,6 +48,7 @@ private:
     void put_walls(void);
     void put_robots(void);
     void put_targets(void);
+    void put_center(void);
 
 public:
     Display(void);
