@@ -412,7 +412,9 @@ Board::Board()
         }
     }
     // Initialisation du générateur de nombres aléatoires
-    std::srand(std::time(nullptr));
+    std::random_device rd;
+    std::srand(rd());
+    
     // Génération de la grille de jeu
     this->GenerateBoard();
 }
