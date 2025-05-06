@@ -21,6 +21,8 @@
 #include <cstring>
 #include <map>
 
+#include "Target.hpp"
+
 #include "Color_Shape.hpp"
 
 // ================================================================================
@@ -33,7 +35,10 @@
  * The last space is where the target can be displayed
  */
 #define DISP_ROBOT_PLACE    0
-#define DISP_TARGET_PLACE    2
+#define DISP_TARGET_PLACE   2
+
+#define CENTER_INDEX_START  14
+#define CENTER_INDEX_END    18
 
 // Lines
 #define LINE_HORIZ  "───" // Vertical Line
@@ -99,7 +104,12 @@
 #define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"
 
 #define ANSI_CODE_BACKGROUND_APP "\33[48;5;15m"
+#define ANSI_CODE_BACKGROUND_CENTER "\33[48;5;0m"
 #define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"
+#define ANSI_CODE_FOREGROUND_CENTER "\33[38;5;15m"
+
+#define ANSI_CODE_LINE_COLOR "\33[38;5;253m"
+#define ANSI_CODE_WALL_COLOR "\33[38;5;0m"
 
 // ================================================================================
 // Types
@@ -109,12 +119,12 @@
 // Constantes
 // ================================================================================
 std::map<Color, std::string> COLOR_MAP = {
-    {Default, "\033[0m"},
-    {Red, "\033[31m"},
-    {Blue, "\033[34m"},
-    {Green, "\033[32m"},
-    {Yellow, "\033[33m"},
-    {Rainbow, "\33[30m"},
+    {Default, "\33[38;5;0m"},
+    {Red, "\33[38;5;1m"},
+    {Blue, "\33[38;5;4m"},
+    {Green, "\33[38;5;2m"},
+    {Yellow, "\33[38;5;220m"},
+    {Rainbow, "\33[38;5;0m"},
 };
 
 std::map<Shape, std::string> SHAPE_MAP = {
@@ -219,6 +229,10 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
             }
             
             // Add to board disp
+            if (to_put != SPACE) {
+                to_put.insert(0, ANSI_CODE_LINE_COLOR);
+                to_put.append(ANSI_CODE_FOREGROUND_APP);
+            }
             this->dispBoard[i][j] = to_put;
         }
     }
@@ -226,6 +240,7 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
     this->put_walls();
     this->put_robots();
     this->put_targets();
+    this->put_center();
 }
 void printcolors(void);
 /**
@@ -324,5 +339,67 @@ void Display::put_robots(void) {
  * 
  */
 void Display::put_targets(void) {
+    uint8_t x, y;
+    Case curCase;
+    Target* curTarget;
+    std::string strTarget = "";
+
+    for (uint8_t i = 0; i < SIZE_BOARD; i++)
+    {
+        for (uint8_t j = 0; j < SIZE_BOARD; j++) 
+        {
+            // Get current case
+            curCase = this->board[i][j];
+
+            // Get dispBoard Coord
+            y = i*2 + 1;
+            x = j*2 + 1;
+
+            curTarget = curCase.getTarget();
+
+            if (curTarget == nullptr)
+            {
+                continue;
+            }
+            
+            Color clr = curTarget->GetColor();
+            Shape shp = curTarget->GetShape();
+
+            strTarget = "";
+            strTarget.append(COLOR_MAP[clr]);
+            strTarget.append(SHAPE_MAP[shp]);
+            strTarget.append(COLOR_MAP[Default]);
+
+            this->dispBoard[x][y].erase(DISP_TARGET_PLACE); // Remove Space
+            this->dispBoard[x][y].insert(DISP_TARGET_PLACE, strTarget);
+
+        }
+    }
+}
+
+/**
+ * @brief 
+ * 
+ */
+void Display::put_center(void) {
+
+    // Draw center
+    for (uint8_t i = CENTER_INDEX_START; i <= CENTER_INDEX_END; i++)
+    {
+        for (uint8_t j = CENTER_INDEX_START; j <= CENTER_INDEX_END; j++)
+        {
+            // Wall
+            if (!(j%2)) {
+                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_CENTER) + " " + std::string(ANSI_CODE_BACKGROUND_APP);
+            } 
+            // Case
+            else {
+                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_CENTER) + std::string(SPACE) + std::string(ANSI_CODE_BACKGROUND_APP);
+            }
+        }   // Fin j
+    }   // Fin i
+
+    // Put target in middle
+
 
 }

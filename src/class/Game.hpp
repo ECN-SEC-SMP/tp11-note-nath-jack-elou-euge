@@ -17,7 +17,7 @@ class Game
 
 private:
     std::vector<Player *> players;
-    std::vector<Robot> robots;
+    std::vector<Robot *> robots;
     Board *board;
     bool findSoluce;
     Player *startingPlayer;
@@ -33,12 +33,12 @@ private:
 
 public:
     Game();
-    Game(std::vector<Player *> players, std::vector<Robot> robots);
+    Game(std::vector<Player *> players, std::vector<Robot *> robots);
     ~Game();
 
     void setPlayers(std::vector<Player *> players);
     std::vector<Player *> getPlayers() const;
-    std::vector<Robot> getRobots() const;
+    std::vector<Robot *> getRobots() const;
 
     bool play();
     bool keepPlaying();
