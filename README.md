@@ -7,34 +7,14 @@
 - [Eugénie ROQUAIN](https://github.com/euge13301)
 - [Eloi TOURANGIN](https://github.com/ioleto)
 
-## Classes
- Notre classe Game comprend deux classes : Board et Display. Elle permet d'initialiser le jeu et ainsi démarrer une partie.
-
- Dans notre classe Board on a 4 attributs :
- - MoveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
- - GenerateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
- - CheckWall(x,y) qui prend en argument les coordonnées de la case et qui vérifie si notre pion robot est face à un mur
- - CheckTarget(x,y) qui prend en argument les coordonnées de la case et qui vérifie si la case x,y à un pion robot ou non
-
- La classe Board utilise les enum Colors et Shapes qui ont respectivement chacune des couleurs des cibles et robots ainsi que les formes deux cibles
-
- Dans notre classe Display on a 2 arguments :
- - Updates()
- - Print()
-
- Notre classe Robot possède deux arguments :
- - getShape()
- - getColor()
- - Robot(Enum Colors) qui lui attribut une couleur
- - Robot(Color c, Shape s)
-
 ## Table des matières
 
 1. [Build & Compilation](#build--compilation)
 2. [Tests](#tests)
 3. [Explications et algorithmes](#explications-et-algorithmes)
-   - [Fonctionnement de la classe Board](#fonctionnement-de-la-classe-board)
-   - [Algorithmes de génération](#algorithmes-de-génération)
+    - [Classe Game](#classe-game)
+    - [Classe Board](#classe-board)
+        - [Algorithmes de génération](#algorithmes-de-génération)
 4. [Exemples d'utilisation](#exemples-dutilisation)
 
 ## Build & Compilation
@@ -61,7 +41,32 @@ Tests must be done inside class file.
 
 ## Explications et algorithmes
 
-### Fonctionnement de la classe Board
+## Classe Game
+
+ Notre classe Game comprend deux classes : Board et Display. Elle permet d'initialiser le jeu et ainsi démarrer une partie.
+
+ Dans notre classe Board on a 4 attributs :
+
+- MoveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
+- GenerateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
+- CheckWall(x,y) qui prend en argument les coordonnées de la case et qui vérifie si notre pion robot est face à un mur
+- CheckTarget(x,y) qui prend en argument les coordonnées de la case et qui vérifie si la case x,y à un pion robot ou non
+
+ La classe Board utilise les enum Colors et Shapes qui ont respectivement chacune des couleurs des cibles et robots ainsi que les formes deux cibles
+
+ Dans notre classe Display on a 2 arguments :
+
+- Updates()
+- Print()
+
+ Notre classe Robot possède deux arguments :
+
+- getShape()
+- getColor()
+- Robot(Enum Colors) qui lui attribut une couleur
+- Robot(Color c, Shape s)
+
+### Classe Board
 
 La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un jeu de type puzzle. Elle contient des méthodes pour générer la grille, placer des murs, des angles, des robots, et des cibles.
 
@@ -228,4 +233,3 @@ algorithme
     jusqu'à ce qu'une cible soit placée
 fin fonction
 ```
-
