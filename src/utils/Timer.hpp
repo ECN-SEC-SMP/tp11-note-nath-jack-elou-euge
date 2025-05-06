@@ -30,6 +30,8 @@ public:
     int getElapsedTimeMs() const;
     int getRemainingTimeMs() const;
 
+    bool isRunning(void);
+
     void start(int ms, std::function<void()> callback);
     void stop();
 

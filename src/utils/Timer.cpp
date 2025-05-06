@@ -18,6 +18,14 @@ Timer &Timer::getInstance()
     return instance;
 }
 
+/**
+ * @brief Start Timer thread
+ * 
+ * DO NOT Call Timer::stop in the callback
+ * 
+ * @param delay_ms Timer duration in ms
+ * @param callback Callback when the timer end
+ */
 void Timer::start(int delay_ms, std::function<void()> callback)
 {
     stop();
@@ -26,11 +34,12 @@ void Timer::start(int delay_ms, std::function<void()> callback)
     startTime = std::chrono::steady_clock::now();
 
     worker = std::thread([=]()
-                         {
+    {
         std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));
-        if (running) {
+        if (this->running) {
             callback();
-        } });
+        } 
+    });
 
 }
 
@@ -43,9 +52,13 @@ void Timer::stop()
     }
 }
 
+bool Timer::isRunning(void) {
+    return this->running;
+}
+
 int Timer::getElapsedTimeMs() const
 {
-    if (!running)
+    if (!this->running)
         return 0;
     auto now = std::chrono::steady_clock::now();
     return static_cast<int>(std::chrono::duration_cast<std::chrono::milliseconds>(now - startTime).count());
@@ -53,7 +66,7 @@ int Timer::getElapsedTimeMs() const
 
 int Timer::getRemainingTimeMs() const
 {
-    if (!running)
+    if (!this->running)
         return 0;
     int elapsed = getElapsedTimeMs();
     int remaining = delayMs - elapsed;
