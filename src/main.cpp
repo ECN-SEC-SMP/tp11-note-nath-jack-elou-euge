@@ -44,6 +44,11 @@
 // Fonctions definitions
 // ================================================================================
 
+bool running = true;
+void stop(void) {
+    running = false;
+}
+
 /**
  * @brief Fonction main entrée du programe
  *
@@ -56,6 +61,9 @@ int main(int argc, char const *argv[])
     Board board = Board();
     Display disp = Display();
     Case plateau[16][16];
+
+    Timer& time = Timer::getInstance();
+    time.start(2000, stop);
 
     Target* listTarg[] = {
         new Target(Blue, Target1),
@@ -72,7 +80,19 @@ int main(int argc, char const *argv[])
     plateau[13][10].setTarget(listTarg[3]);
 
     disp.update(plateau);
-    disp.print();
+
+    while (running)
+    {
+        if (!time.isRunning()) {
+            break;
+        }
+
+        if ((time.getElapsedTimeMs() % 1000) == 0) {
+            disp.print();
+        }
+    }
+
+    time.stop();
 
     return 0;
 }
