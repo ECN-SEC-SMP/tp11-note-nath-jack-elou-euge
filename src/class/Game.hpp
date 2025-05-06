@@ -11,6 +11,7 @@
 #include <string>
 #include "../utils/Utils.hpp"
 #include "../utils/Timer.hpp"
+#include "Display.hpp"
 
 class Game
 {
@@ -19,6 +20,7 @@ private:
     std::vector<Player *> players;
     std::vector<Robot *> robots;
     Board *board;
+    Display *display;
     bool findSoluce;
     Player *startingPlayer;
     Player *currentPlayer;

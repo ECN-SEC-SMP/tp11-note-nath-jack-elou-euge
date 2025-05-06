@@ -44,11 +44,6 @@
 // Fonctions definitions
 // ================================================================================
 
-bool running = true;
-void stop(void) {
-    running = false;
-}
-
 /**
  * @brief Fonction main entrée du programe
  *
@@ -56,69 +51,44 @@ void stop(void) {
  * @param argv
  * @return int
  */
+
 int main(int argc, char const *argv[])
 {
-    Board board = Board();
-    Display disp = Display();
-    Case plateau[16][16];
+    bool keepPlaying = true;
+    char input = NULL;
 
-    Timer& time = Timer::getInstance();
-    time.start(2000, stop);
-
-    Target* listTarg[] = {
-        new Target(Blue, Target1),
-        new Target(Red, Target2),
-        new Target(Green, Target3),
-        new Target(Yellow, Target4)
-    };
-    
-    board.getBoard(plateau);
-
-    plateau[0][0].setTarget(listTarg[0]);
-    plateau[15][0].setTarget(listTarg[1]);
-    plateau[4][6].setTarget(listTarg[2]);
-    plateau[13][10].setTarget(listTarg[3]);
-
-    disp.update(plateau);
-
-    while (running)
+    Game game = Game();
+    std::cout << "test" << std::endl;
+    while (keepPlaying)
     {
-        if (!time.isRunning()) {
-            break;
+        if (game.play())
+        {
+            keepPlaying = game.keepPlaying();
+            if (keepPlaying == true)
+            {
+                game.resetGame();
+            }
         }
-
-        if ((time.getElapsedTimeMs() % 1000) == 0) {
-            disp.print();
+        else
+        {
+            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
         }
     }
 
-    time.stop();
+    std::cout << "Fin du jeu" << std::endl;
 
     return 0;
 }
 
 // int main(int argc, char const *argv[])
 // {
-//     bool keepPlaying = true;
-//     char input = NULL;
-
+//     Board board = Board();
 //     Display disp = Display();
-//     Game game = Game();
+//     Case plateau[16][16];
 
-//     while (keepPlaying)
-//     {
-//         if (game.play())
-//         {
-//             keepPlaying = game.keepPlaying();
-//             if (keepPlaying == true) {
-//                 game.resetGame();
-//             }
-//         }
-//         else
-//         {
-//             std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-//         }
-//     }
+//     board.getBoard(plateau);
+//     disp.update(plateau);
+//     disp.print();
 
 //     return 0;
 // }
