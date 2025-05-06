@@ -93,7 +93,7 @@ bool Game::initRobots()
     this->robots.push_back(robot_3);
     this->robots.push_back(robot_4);
 
-    this->board->PlaceRobots(&this->robots);
+    // this->board->PlaceRobots(&this->robots);
     return true;
 }
 
@@ -132,14 +132,22 @@ bool Game::initPlayers()
 
         this->players.push_back(player);
     }
-
     return true;
 }
 
 bool Game::play()
 {
     this->initRobots();
+
+    this->display = new Display();
+    Case plateau[16][16];
+
+    this->board->getBoard(plateau);
+    this->display->update(plateau);
+    this->display->print();
+
     this->initPlayers();
+
     if (this->playerThink())
     {
         int index = this->whoStart();
