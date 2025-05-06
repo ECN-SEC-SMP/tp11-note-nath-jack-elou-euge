@@ -317,26 +317,26 @@ void Board::PlaceRobots(std::vector<Robot *> *myRobot)
         if (this->board[x][y].getRobot() != nullptr || this->board[x][y].getTarget() != nullptr)
             continue;
 
-        this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
         robots->at(RobotsCountPlaced)->setX(x);
         robots->at(RobotsCountPlaced)->setY(y);
         robots->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
+
+        this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
+
         RobotsCountPlaced++;
     }
 
-    bool targetIsPlaced = false;
+    int NBtargetIsPlaced = 0;
+    int NBtargetToPlace = 4; // 4 targets
 
     // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
-    while (!targetIsPlaced)
+    while (NBtargetIsPlaced != NBtargetToPlace)
     {
         // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
         // [0,0] to [15,15] without [7,7] to [8,8]
         int board_case_for_target[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
-        int x = 0;
-        int y = 0;
-
-        x = board_case_for_target[rand() % 14];
-        y = board_case_for_target[rand() % 14];
+        int x = board_case_for_target[rand() % 14];
+        int y = board_case_for_target[rand() % 14];
 
         // Check if the case is already occupied by a robot
         if (this->board[x][y].getRobot() != nullptr)
@@ -346,12 +346,15 @@ void Board::PlaceRobots(std::vector<Robot *> *myRobot)
         if (this->board[x][y].getTarget() != nullptr)
             continue;
 
-        // Check if the case is occupied by a wall
-        if (this->board[x][y].isWall())
+        // Check if the case is occupied by an angle
+        if ((this->board[x][y].getNorth() == 1 && this->board[x][y].getEast() == 1) ||
+            (this->board[x][y].getNorth() == 1 && this->board[x][y].getWest() == 1) ||
+            (this->board[x][y].getSouth() == 1 && this->board[x][y].getEast() == 1) ||
+            (this->board[x][y].getSouth() == 1 && this->board[x][y].getWest() == 1))
         {
             // Place the target on the board
-            this->board[x][y].setTarget(new Target((Color)(rand() % 5), (Shape)(rand() % 5)));
-            targetIsPlaced = true;
+            this->board[x][y].setTarget(new Target((Color)(rand() % 5), (Shape)(rand() % 4)));
+            NBtargetIsPlaced++;
         }
     }
 }
