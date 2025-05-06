@@ -108,6 +108,8 @@
 #define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"
 #define ANSI_CODE_FOREGROUND_CENTER "\33[38;5;15m"
 
+#define ANSI_CODE_LINE_COLOR "\33[38;5;253m"
+#define ANSI_CODE_WALL_COLOR "\33[38;5;0m"
 
 // ================================================================================
 // Types
@@ -121,7 +123,7 @@ std::map<Color, std::string> COLOR_MAP = {
     {Red, "\33[38;5;1m"},
     {Blue, "\33[38;5;4m"},
     {Green, "\33[38;5;2m"},
-    {Yellow, "\33[38;5;3m"},
+    {Yellow, "\33[38;5;220m"},
     {Rainbow, "\33[38;5;0m"},
 };
 
@@ -227,6 +229,10 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
             }
             
             // Add to board disp
+            if (to_put != SPACE) {
+                to_put.insert(0, ANSI_CODE_LINE_COLOR);
+                to_put.append(ANSI_CODE_FOREGROUND_APP);
+            }
             this->dispBoard[i][j] = to_put;
         }
     }
