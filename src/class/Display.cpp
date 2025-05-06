@@ -107,7 +107,7 @@
 // ESC[38;5;{ID}m 	    Set foreground color.
 // ESC[48;5;{ID}m 	    Set background color.
 
-#define ANSI_CODE_ERASE "\33[J"
+#define ANSI_CODE_ERASE "\33[0J"
 #define ANSI_CODE_CURSOR_RESET "\33[H"
 #define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"
 
@@ -118,6 +118,11 @@
 
 #define ANSI_CODE_LINE_COLOR "\33[38;5;253m"
 #define ANSI_CODE_WALL_COLOR "\33[38;5;0m"
+
+#define ANSI_CODE_ERASE_LINE "\33[K"
+
+#define ANSI_CODE_CURSOR_POS_SAVE   "\33[s"
+#define ANSI_CODE_CURSOR_POS_LOAD   "\33[u"
 
 // ================================================================================
 // Types
@@ -274,7 +279,18 @@ void Display::print(void) {
 }
 
 void Display::printTime(void) {
+    // Save cursor pos
+    std::cout << ANSI_CODE_CURSOR_POS_SAVE;
+    // Goes to 0 0
+    std::cout << ANSI_CODE_CURSOR_RESET;
+    
+    // Erase Line
+    std::cout << ANSI_CODE_ERASE_LINE;
 
+    this->put_time();
+    
+    // Return to cursor pos
+    std::cout << ANSI_CODE_CURSOR_POS_LOAD;
 }
 
 // ================================================================================
