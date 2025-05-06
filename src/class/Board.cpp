@@ -300,10 +300,10 @@ void Board::GenerateBoardStep4(void)
  *           chaque couleur et 1 multicolore)
  *
  */
-void Board::PlaceRobots(std::vector<Robot*> *myRobot)
+void Board::PlaceRobots(std::vector<Robot *> *myRobot)
 {
     // Update the implementation to handle Robot* instead of Robot
-    std::vector<Robot*> *robots = myRobot;
+    std::vector<Robot *> *robots = myRobot;
 
     int RobotsCountToPlace = robots->size();
     int RobotsCountPlaced = 0;
@@ -311,8 +311,8 @@ void Board::PlaceRobots(std::vector<Robot*> *myRobot)
     while (RobotsCountPlaced != RobotsCountToPlace)
     {
         int board_case_for_robot[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
-        int x = board_case_for_robot[rand() % 15];
-        int y = board_case_for_robot[rand() % 15];
+        int x = board_case_for_robot[rand() % 14];
+        int y = board_case_for_robot[rand() % 14];
 
         if (this->board[x][y].getRobot() != nullptr || this->board[x][y].getTarget() != nullptr)
             continue;
@@ -335,8 +335,8 @@ void Board::PlaceRobots(std::vector<Robot*> *myRobot)
         int x = 0;
         int y = 0;
 
-        x = board_case_for_target[rand() % 15];
-        y = board_case_for_target[rand() % 15];
+        x = board_case_for_target[rand() % 14];
+        y = board_case_for_target[rand() % 14];
 
         // Check if the case is already occupied by a robot
         if (this->board[x][y].getRobot() != nullptr)
@@ -401,7 +401,7 @@ Board::Board()
     // Initialisation du générateur de nombres aléatoires
     std::random_device rd;
     std::srand(rd());
-    
+
     // Génération de la grille de jeu
     this->GenerateBoard();
 }

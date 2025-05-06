@@ -93,7 +93,7 @@ bool Game::initRobots()
     this->robots.push_back(robot_3);
     this->robots.push_back(robot_4);
 
-    // this->board->PlaceRobots(&this->robots);
+    this->board->PlaceRobots(&this->robots);
     return true;
 }
 
