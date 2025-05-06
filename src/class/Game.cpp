@@ -56,7 +56,7 @@ std::vector<Player *> Game::getPlayers() const
     return this->players;
 }
 
-std::vector<Robot*> Game::getRobots() const
+std::vector<Robot *> Game::getRobots() const
 {
     return this->robots;
 }
@@ -83,17 +83,17 @@ void Game::setStartingPlayer(Player *startP)
 
 bool Game::initRobots()
 {
-    Robot* robot_1 = new Robot(Green);
-    Robot* robot_2 = new Robot(Red);
-    Robot* robot_3 = new Robot(Yellow);
-    Robot* robot_4 = new Robot(Blue);
+    Robot *robot_1 = new Robot(Green);
+    Robot *robot_2 = new Robot(Red);
+    Robot *robot_3 = new Robot(Yellow);
+    Robot *robot_4 = new Robot(Blue);
 
     this->robots.push_back(robot_1);
     this->robots.push_back(robot_2);
     this->robots.push_back(robot_3);
     this->robots.push_back(robot_4);
 
-    // this->board. TODO
+    this->board->PlaceRobots(&this->robots);
     return true;
 }
 

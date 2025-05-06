@@ -300,40 +300,27 @@ void Board::GenerateBoardStep4(void)
  *           chaque couleur et 1 multicolore)
  *
  */
-void Board::PlaceRobots(std::vector<Robot> *myRobot)
+void Board::PlaceRobots(std::vector<Robot*> *myRobot)
 {
-    // récupération du pointeur de vecteur des quatres robots
-    std::vector<Robot> *robots = myRobot;
+    // Update the implementation to handle Robot* instead of Robot
+    std::vector<Robot*> *robots = myRobot;
 
-    // Récupération du nombre de robots
     int RobotsCountToPlace = robots->size();
     int RobotsCountPlaced = 0;
 
-    // Boucle tant que le nombre de robots est différent du nombre de robots à placer
     while (RobotsCountPlaced != RobotsCountToPlace)
     {
-        // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
-        // [0,0] to [15,15] without [7,7] to [8,8]
         int board_case_for_robot[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
-        int x = 0;
-        int y = 0;
+        int x = board_case_for_robot[rand() % 15];
+        int y = board_case_for_robot[rand() % 15];
 
-        x = board_case_for_robot[rand() % 15];
-        y = board_case_for_robot[rand() % 15];
-
-        // Check if the case is already occupied by a robot
-        if (this->board[x][y].getRobot() != nullptr)
+        if (this->board[x][y].getRobot() != nullptr || this->board[x][y].getTarget() != nullptr)
             continue;
 
-        // Check if the case is already occupied by a target
-        if (this->board[x][y].getTarget() != nullptr)
-            continue;
-
-        // Place the robot on the board
-        this->board[x][y].setRobot(&robots->at(RobotsCountPlaced));
-        this->board[x][y].getRobot()->setX(x);
-        this->board[x][y].getRobot()->setY(y);
-        this->board[x][y].getRobot()->setColor((Color)(RobotsCountPlaced + 1));
+        this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
+        robots->at(RobotsCountPlaced)->setX(x);
+        robots->at(RobotsCountPlaced)->setY(y);
+        robots->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
         RobotsCountPlaced++;
     }
 
