@@ -1,24 +1,23 @@
 #include "Game.hpp"
 
-std::atomic<bool> findSoluce(false); // Shared safely between threads
+std::atomic<bool> findSoluce{false}; // Shared safely between threads
+std::atomic<bool> stopInput{false};
 
 void inputThreadFunction()
 {
     std::string userInput;
-    while (!findSoluce)
+    while (!findSoluce.load() && !stopInput.load())
     {
         std::cout << "Enter something: ";
-        std::getline(std::cin, userInput);
-
-        if (userInput.size() > 0)
+        if (!std::getline(std::cin, userInput))
+            break; // EOF or error => bail out
+        if (!userInput.empty())
         {
-            Timer &timer = Timer::getInstance();
-            timer.stop();
+            Timer::getInstance().stop();
             findSoluce = true;
         }
     }
 }
-
 void Game::resetGame()
 {
 
@@ -166,6 +165,7 @@ bool Game::play()
 bool Game::playerThink()
 {
     findSoluce = false;
+    stopInput = false;
     const int timeToThinkSec = 60 * 60;
     const int milisec = 1000;
     const int timeToThinkMilisec = timeToThinkSec * milisec;
@@ -178,17 +178,18 @@ bool Game::playerThink()
     int prevRemaining = 0;
     std::thread inputThread(inputThreadFunction); // Start input in parallel
 
-    std::cout << findSoluce << std::endl;
-
     while (remainingMilisec > 0 && !findSoluce)
     {
-        remainingMilisec = timer.getRemainingTimeMs();
-        std::cout << "Temps restant: " << Timer::formatTime(remainingMilisec / 1000) << " minutes" << std::endl;
+        if (!findSoluce)
+        {
+            remainingMilisec = timer.getRemainingTimeMs();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(milisec));
+            std::cout << "Temps restant: " << Timer::formatTime(remainingMilisec / 1000) << " minutes" << std::endl;
+            std::this_thread::sleep_for(std::chrono::milliseconds(milisec));
+        }
     }
-
-    inputThread.detach();
+    if (inputThread.joinable())
+        inputThread.join();
     return true;
 }
 
