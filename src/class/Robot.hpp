@@ -21,15 +21,21 @@ private:
 
     /**
      * @brief coordonate x of robot
-     * 
+     *
      */
     int x;
 
     /**
      * @brief coordonate y of robot
-     * 
+     *
      */
     int y;
+
+    /**
+     * @brief 1 if reached the target, else 0
+     *
+     */
+    bool reachTarget;
 
 public:
     /**
@@ -107,6 +113,21 @@ public:
      * @param y coordonate y of robot
      */
     void setY(int y);
+
+    /**
+     * @brief Get the Reach Target object
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool getReachTarget() const;
+
+    /**
+     * @brief Set the Reach Target object
+     * 
+     * @param b new b
+     */
+    void setReachTarget(bool b);
 };
 
 #endif

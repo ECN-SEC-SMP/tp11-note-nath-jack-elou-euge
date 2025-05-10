@@ -7,6 +7,8 @@ class Target
 private:
     Color color;
     Shape shape;
+    int x;
+    int y;
 
 public:
     /**
@@ -37,6 +39,33 @@ public:
      * @return Color
      */
     Color GetColor() const;
+
+    /**
+     * @brief
+     *
+     * @return int
+     */
+    int getX() const;
+
+    /**
+     * @brief
+     *
+     * @return int
+     */
+    int getY() const;
+
+    /**
+     * @brief
+     *
+     * @param x new x
+     */
+    void setX(int x);
+
+    /**
+     * @brief new y
+     *
+     */
+    void setY(int y);
 };
 
 #endif

@@ -9,6 +9,7 @@ Robot::Robot()
 {
     this->color = Green;
     this->shape = RobotSign;
+    this->reachTarget = 0;
 }
 
 /**
@@ -21,6 +22,7 @@ Robot::Robot(Color c)
 {
     this->color = c;
     this->shape = RobotSign;
+    this->reachTarget = 0;
 }
 
 /**
@@ -105,4 +107,25 @@ void Robot::setX(int x)
 void Robot::setY(int y)
 {
     this->y = y;
+}
+
+/**
+ * @brief
+ *
+ * @return true
+ * @return false
+ */
+bool Robot::getReachTarget() const
+{
+    return this->reachTarget;
+}
+
+/**
+ * @brief
+ *
+ * @param b new b
+ */
+void Robot::setReachTarget(bool b)
+{
+    this->reachTarget = b;
 }

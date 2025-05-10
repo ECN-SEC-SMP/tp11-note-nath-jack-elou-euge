@@ -506,3 +506,15 @@ void Board::MoveRobot(Robot *robot, char direction)
         break;
     }
 }
+
+bool Board::targetReached(Robot *robot, Target *target)
+{
+    bool reach = 0;
+    if (robot->getX() == target->getX() && robot->getY() == target->getY())
+    {
+        robot->setReachTarget(true);
+        reach = 1;
+    }
+
+    return reach;
+}

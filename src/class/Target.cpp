@@ -41,3 +41,43 @@ Target::Target(Color color, Shape shape)
 Target::~Target()
 {
 }
+
+/**
+ * @brief
+ *
+ * @return int
+ */
+int Target::getX() const
+{
+    return this->x;
+}
+
+/**
+ * @brief
+ *
+ * @return int
+ */
+int Target::getY() const
+{
+    return this->y;
+}
+
+/**
+ * @brief
+ *
+ * @param x new x
+ */
+void Target::setX(int x)
+{
+    this->x = x;
+}
+
+/**
+ * @brief
+ *
+ * @param y new y
+ */
+void Target::setY(int y)
+{
+    this->y = y;
+}
