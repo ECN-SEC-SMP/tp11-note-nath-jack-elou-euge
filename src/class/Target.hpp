@@ -1,22 +1,35 @@
+/**
+ * @file Target.cpp
+ * @brief Target object that store color and shape
+ * @version 0.1
+ * @date 2025-05-11
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef _TARGET_HPP_
 #define _TARGET_HPP_
+// ================================================================================
+// Include
+// ================================================================================
 #include "Color_Shape.hpp"
 
+// ================================================================================
+// Class declaration
+// ================================================================================
 class Target
 {
 private:
-    Color color;
-    Shape shape;
-    int x;
-    int y;
+    Color color;    // Color of the target
+    Shape shape;    // Shape of the target
 
 public:
     /**
      * @brief Initialisation de Target : Construit une nouvelle Target
 
      *
-     * @param color
-     * @param shape
+     * @param color Color to asign
+     * @param shape Shape to asign
      */
     Target(Color color, Shape shape);
 
@@ -40,32 +53,6 @@ public:
      */
     Color GetColor() const;
 
-    /**
-     * @brief
-     *
-     * @return int
-     */
-    int getX() const;
-
-    /**
-     * @brief
-     *
-     * @return int
-     */
-    int getY() const;
-
-    /**
-     * @brief
-     *
-     * @param x new x
-     */
-    void setX(int x);
-
-    /**
-     * @brief new y
-     *
-     */
-    void setY(int y);
 };
 
 #endif
