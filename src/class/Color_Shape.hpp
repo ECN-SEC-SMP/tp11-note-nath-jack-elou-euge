@@ -1,8 +1,17 @@
+/**
+ * @file Color_Shape.hpp
+ * @brief Define colors and shapes to use in the board
+ * @version 0.1
+ * @date 2025-05-11
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef _COLOR_SHAPE_HPP_
 #define _COLOR_SHAPE_HPP_
 
 /**
- * @brief Enumeration of color
+ * @brief Enumeration of colors
  *
  */
 typedef enum
@@ -16,7 +25,7 @@ typedef enum
 } Color;
 
 /**
- * @brief Enumeration of shape
+ * @brief Enumeration of shapes
  *
  */
 typedef enum
