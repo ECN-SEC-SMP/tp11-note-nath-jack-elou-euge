@@ -1,4 +1,17 @@
+/**
+ * @file Case.cpp
+ * @brief Case object is used to store walls, robots and targets
+ * @version 0.1
+ * @date 2025-05-11
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #include "Case.hpp"
+
+// ================================================================================
+// Public Fonctions definitions
+// ================================================================================
 
 /**
  * @brief Destroy the Case:: Case object
@@ -166,6 +179,12 @@ Target *Case::getTarget() const
     return this->target;
 }
 
+/**
+ * @brief Return if there is a wall
+ * 
+ * @return true if there is a wall on one of the cardinal direction
+ * @return false when case store no wall
+ */
 bool Case::isWall()
 {
     return this->getEast() || this->getNorth() || this->getWest() || this->getSouth();

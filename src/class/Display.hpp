@@ -1,7 +1,6 @@
 /**
  * @file main.cpp
- * @author Nathan ANDRE, Jack HASCOET, Eugenie ROQUAIN, Eloi TOURANGIN
- * @brief 
+ * @brief Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters
  * @version 0.1
  * @date 2025-04-28
  * 
@@ -38,14 +37,6 @@ void Display_Test(void);
 
 class Display {
 private:
-    typedef enum {
-        DISP_CASE_NONE = 0,
-        DISP_CASE_UP,
-        DISP_CASE_DOWN,
-        DISP_CASE_LEFT,
-        DISP_CASE_RIGHT
-    } DispCaseDir_t;
-
     Case board[SIZE_BOARD][SIZE_BOARD];
     std::string dispBoard[BOARD_DISP_SIZE][BOARD_DISP_SIZE];
 

@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
- * @author your name (you@domain.com)
- * @brief
+ * @author Nathan ANDRE, Jack HASCOET, Eugenie ROQUAIN, Eloi TOURANGIN
+ * @brief Main file for the game
  * @version 0.1
  * @date 2025-04-28
  *

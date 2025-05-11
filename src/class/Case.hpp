@@ -1,12 +1,26 @@
+/**
+ * @file Case.hpp
+ * @brief Case object is used to store walls, robots and targets
+ * @version 0.1
+ * @date 2025-05-11
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef _CASE_HPP_
 #define _CASE_HPP_
-
+// ================================================================================
+// Include
+// ================================================================================
 #include "Target.hpp"
 #include "Robot.hpp"
 
+// ================================================================================
+// Class declaration
+// ================================================================================
+
 class Case
 {
-
 private:
     /**
      * @brief North wall
@@ -48,32 +62,32 @@ public:
     /**
      * @brief Get north wall
      *
-     * @return true
-     * @return false
+     * @return true is there is a wall
+     * @return false when there is no wall
      */
     bool getNorth() const;
 
     /**
      * @brief Get east wall
      *
-     * @return true
-     * @return false
+     * @return true is there is a wall
+     * @return false when there is no wall
      */
     bool getEast() const;
 
     /**
      * @brief Get south wall
      *
-     * @return true
-     * @return false
+     * @return true is there is a wall
+     * @return false when there is no wall
      */
     bool getSouth() const;
 
     /**
      * @brief Get west wall
      *
-     * @return true
-     * @return false
+     * @return true is there is a wall
+     * @return false when there is no wall
      */
     bool getWest() const;
 
