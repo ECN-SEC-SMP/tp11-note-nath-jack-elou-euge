@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief PLayer object are used to save players names and identify them
+ * @brief Player object are used to save players names and identify them
  * @version 0.1
  * @date 2025-04-28
  * 
@@ -9,9 +9,14 @@
  */
 #ifndef _PLAYER_HPP_
 #define _PLAYER_HPP_
-
+// ================================================================================
+// Include
+// ================================================================================
 #include <string>
 
+// ================================================================================
+// Class declaration
+// ================================================================================
 /**
  * @brief Player class. Save the pseudo
  * 
