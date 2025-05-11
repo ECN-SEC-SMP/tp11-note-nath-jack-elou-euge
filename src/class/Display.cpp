@@ -97,7 +97,7 @@
 #define CROSSING_CROSS_WALL_VERTI           "╫"
 #define CROSSING_CROSS_WALL_HORIZ           "╪"
 
-#define CENTER_BLOCKS_FULL      "█"
+#define CENTER_BLOCKS_FULL      std::string("█")
 #define CENTER_BLOCKS_BOTTOM    "▄"
 #define CENTER_BLOCKS_LEFT      "▌"
 #define CENTER_BLOCKS_RIGHT     "▐"
@@ -567,7 +567,43 @@ void Display::put_walls(void) {
  * 
  */
 void Display::put_robots(void) {
+    uint8_t x, y;
+    Case curCase;
+    Robot* curRobot;
+    std::string strTarget = "";
 
+    for (uint8_t i = 0; i < SIZE_BOARD; i++)
+    {
+        for (uint8_t j = 0; j < SIZE_BOARD; j++) 
+        {
+            // Get current case
+            curCase = this->board[i][j];
+
+            // Get dispBoard Coord
+            y = i*2 + 1;
+            x = j*2 + 1;
+
+            curRobot = curCase.getRobot();
+
+            if (curRobot == nullptr)
+            {
+                continue;
+            }
+            
+            Color clr = curRobot->getColor();
+            Shape shp = curRobot->getShape();
+
+            strTarget = "";
+            strTarget.append(COLOR_MAP[clr]);
+            // strTarget.append(SHAPE_MAP[RobotSign]);
+            strTarget.append(CENTER_BLOCKS_FULL + CENTER_BLOCKS_FULL);
+            strTarget.append(COLOR_MAP[Default]);
+
+            this->dispBoard[x][y].erase(DISP_ROBOT_PLACE, 2); // Remove Space
+            this->dispBoard[x][y].insert(DISP_ROBOT_PLACE, strTarget);
+
+        }
+    }
 }
 
 /**
@@ -606,9 +642,8 @@ void Display::put_targets(void) {
             strTarget.append(SHAPE_MAP[shp]);
             strTarget.append(COLOR_MAP[Default]);
 
-            this->dispBoard[x][y].erase(DISP_TARGET_PLACE); // Remove Space
+            this->dispBoard[x][y].erase(DISP_TARGET_PLACE, 1); // Remove Space
             this->dispBoard[x][y].insert(DISP_TARGET_PLACE, strTarget);
-
         }
     }
 }
