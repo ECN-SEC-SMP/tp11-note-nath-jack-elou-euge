@@ -1,25 +1,21 @@
+/**
+ * @file Target.cpp
+ * @brief Target object that store color and shape
+ * @version 0.1
+ * @date 2025-05-11
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+// ================================================================================
+// Include
+// ================================================================================
 #include "Color_Shape.hpp"
 #include "Target.hpp"
 
-/**
- * @brief Fonction qui attribue une couleur au pointeur de notre objet
- *
- * @return Color
- */
-Color Target::GetColor() const
-{
-    return this->color;
-}
-
-/**
- * @brief Fonction qui attribue une forme au pointeur de notre objet
- *
- * @return Shape
- */
-Shape Target::GetShape() const
-{
-    return this->shape;
-}
+// ================================================================================
+// Public Fonctions definitions
+// ================================================================================
 
 /**
  * @brief Initialisation de Target : Construit une nouvelle Target
@@ -43,41 +39,21 @@ Target::~Target()
 }
 
 /**
- * @brief
+ * @brief Fonction qui attribue une couleur au pointeur de notre objet
  *
- * @return int
+ * @return Color
  */
-int Target::getX() const
+Color Target::GetColor() const
 {
-    return this->x;
+    return this->color;
 }
 
 /**
- * @brief
+ * @brief Fonction qui attribue une forme au pointeur de notre objet
  *
- * @return int
+ * @return Shape
  */
-int Target::getY() const
+Shape Target::GetShape() const
 {
-    return this->y;
-}
-
-/**
- * @brief
- *
- * @param x new x
- */
-void Target::setX(int x)
-{
-    this->x = x;
-}
-
-/**
- * @brief
- *
- * @param y new y
- */
-void Target::setY(int y)
-{
-    this->y = y;
+    return this->shape;
 }

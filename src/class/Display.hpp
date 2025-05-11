@@ -17,7 +17,6 @@
 #include <string>
 
 #include "Board.hpp"
-#include "Case.hpp"
 
 // ================================================================================
 // Macro
@@ -26,6 +25,12 @@
 // Code page 437
 #define CODE_PAGE_437_CHAR_WIDTH    4
 #define BOARD_DISP_SIZE  (SIZE_BOARD * 2) + 1
+
+// ================================================================================
+// Tests declaration
+// ================================================================================
+
+void Display_Test(void);
 
 // ================================================================================
 // Class declaration
@@ -44,7 +49,6 @@ private:
     Case board[SIZE_BOARD][SIZE_BOARD];
     std::string dispBoard[BOARD_DISP_SIZE][BOARD_DISP_SIZE];
 
-    std::string fill_case(uint8_t x, uint8_t y);
     void put_walls(void);
     void put_robots(void);
     void put_targets(void);

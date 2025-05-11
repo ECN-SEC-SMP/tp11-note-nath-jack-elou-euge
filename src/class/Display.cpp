@@ -21,9 +21,6 @@
 #include <cstring>
 #include <map>
 
-#include "Target.hpp"
-
-#include "Color_Shape.hpp"
 #include "Timer.hpp"
 
 // ================================================================================
@@ -35,94 +32,89 @@
  * The first space is where robot can be displayed
  * The last space is where the target can be displayed
  */
-#define DISP_ROBOT_PLACE    0
-#define DISP_TARGET_PLACE   2
+#define DISP_ROBOT_PLACE    0   // Robot place in a case
+#define DISP_TARGET_PLACE   2   // Target place in a case
 
-#define CENTER_INDEX_START  15
-#define CENTER_INDEX_END    17
+#define CENTER_INDEX_START  15  // Start of center zone
+#define CENTER_INDEX_END    17  // End of center zone
 
 // Lines
-#define LINE_HORIZ  "───" // Vertical Line
-#define LINE_HORIZ_WALL  "═══" // Vertical Line
-#define CROSSING_LINE_HORIZ_WALL  "═" // Vertical Line
-#define LINE_VERTI  "│" // Horizontal Line
-#define LINE_VERTI_WALL  "║" // Horizontal Line
-#define CROSSING_LINE_VERTI_WALL  "║" // Horizontal Line
-#define SPACE       "   "
+#define LINE_HORIZ  "───"               // Vertical grid line x3 for case printing
+#define LINE_HORIZ_WALL  "═══"          // Vertical wall line x3 for case printing
+#define CROSSING_LINE_HORIZ_WALL  "═"   // Vertical wall line
+#define LINE_VERTI  "│"                 // Horizontal grid line
+#define LINE_VERTI_WALL  "║"            // Horizontal wall line
+#define CROSSING_LINE_VERTI_WALL  "║"   // Horizontal wall line
+#define SPACE       "   "               // Empty space for case
 
 // Corners
-#define CORNER_TOPLEFT  "┌" // Top left Corner
-#define CORNER_TOPLEFT_WALL_FULL    "╔"
-#define CORNER_TOPLEFT_WALL_BOT     "╓"
-#define CORNER_TOPLEFT_WALL_RIGHT   "╒"
+#define CORNER_TOPLEFT  "┌"             // Top left corner grid
+#define CORNER_TOPLEFT_WALL_FULL    "╔" // Top left corner wall
+#define CORNER_TOPLEFT_WALL_BOT     "╓" // Top left corner bottom wall
+#define CORNER_TOPLEFT_WALL_RIGHT   "╒" // Top left corner right wall
 
-#define CORNER_TOPRIGHT "┐" // Top right Corner
-#define CORNER_TOPRIGHT_WALL_FULL   "╗"
-#define CORNER_TOPRIGHT_WALL_BOT    "╖"
-#define CORNER_TOPRIGHT_WALL_LEFT   "╕"
+#define CORNER_TOPRIGHT "┐"             // Top right corner grid
+#define CORNER_TOPRIGHT_WALL_FULL   "╗" // Top right corner wall
+#define CORNER_TOPRIGHT_WALL_BOT    "╖" // Top right corner bottom wall
+#define CORNER_TOPRIGHT_WALL_LEFT   "╕" // Top right corner left wall
 
-#define CORNER_BOTLEFT  "└" // Bottom left Corner
-#define CORNER_BOTLEFT_WALL_FULL    "╚"
-#define CORNER_BOTLEFT_WALL_TOP     "╙"
-#define CORNER_BOTLEFT_WALL_RIGHT   "╘"
+#define CORNER_BOTLEFT  "└"             // Bottom left corner grid
+#define CORNER_BOTLEFT_WALL_FULL    "╚" // Bottom left corner wall
+#define CORNER_BOTLEFT_WALL_TOP     "╙" // Bottom left corner top wall
+#define CORNER_BOTLEFT_WALL_RIGHT   "╘" // Bottom left corner right wall
 
-#define CORNER_BOTRIGHT "┘" // Bottom right Corner
-#define CORNER_BOTRIGHT_WALL_FULL   "╝"
-#define CORNER_BOTRIGHT_WALL_TOP    "╜"
-#define CORNER_BOTRIGHT_WALL_LEFT   "╛"
+#define CORNER_BOTRIGHT "┘"             // Bottom right corner grid
+#define CORNER_BOTRIGHT_WALL_FULL   "╝" // Bottom right corner wall
+#define CORNER_BOTRIGHT_WALL_TOP    "╜" // Bottom right corner top wall
+#define CORNER_BOTRIGHT_WALL_LEFT   "╛" // Bottom right corner left wall
 
 // Intersections
-#define CROSSING_VERTI_TO_RIGHT "├"
-#define CROSSING_VERTI_TO_RIGHT_WALL_FULL   "╠"
-#define CROSSING_VERTI_TO_RIGHT_WALL_RIGHT  "╞"
-#define CROSSING_VERTI_TO_RIGHT_WALL_VERTI  "╟"
+#define CROSSING_VERTI_TO_RIGHT "├"             // Vertical grid with extension to the right
+#define CROSSING_VERTI_TO_RIGHT_WALL_FULL   "╠" // Vertical wall with extension to the right
+#define CROSSING_VERTI_TO_RIGHT_WALL_RIGHT  "╞" // Vertical grid with wall extension to the right
+#define CROSSING_VERTI_TO_RIGHT_WALL_VERTI  "╟" // Vertical wall with grid extension to the right
 
-#define CROSSING_VERTI_TO_LEFT  "┤"
-#define CROSSING_VERTI_TO_LEFT_WALL_FULL    "╣"
-#define CROSSING_VERTI_TO_LEFT_WALL_LEFT    "╡"
-#define CROSSING_VERTI_TO_LEFT_WALL_VERTI   "╢"
+#define CROSSING_VERTI_TO_LEFT  "┤"             // Vertical grid with extension to the left
+#define CROSSING_VERTI_TO_LEFT_WALL_FULL    "╣" // Vertical wall with extension to the left
+#define CROSSING_VERTI_TO_LEFT_WALL_LEFT    "╡" // Vertical grid with wall extension to the left
+#define CROSSING_VERTI_TO_LEFT_WALL_VERTI   "╢" // Vertical wall with grid extension to the left
 
-#define CROSSING_HORIZ_TO_TOP   "┴"
-#define CROSSING_HORIZ_TO_TOP_WALL_FULL     "╩"
-#define CROSSING_HORIZ_TO_TOP_WALL_TOP      "╨"
-#define CROSSING_HORIZ_TO_TOP_WALL_HORIZ    "╧"
+#define CROSSING_HORIZ_TO_TOP   "┴"             // Horizontal grid with extension at the top
+#define CROSSING_HORIZ_TO_TOP_WALL_FULL     "╩" // Horizontal wall with extension at the top
+#define CROSSING_HORIZ_TO_TOP_WALL_TOP      "╨" // Horizontal grid with wall extension at the top
+#define CROSSING_HORIZ_TO_TOP_WALL_HORIZ    "╧" // Horizontal wall with grid extension at the top
 
-#define CROSSING_HORIZ_TO_BOT   "┬"
-#define CROSSING_HORIZ_TO_BOT_WALL_FULL     "╦"
-#define CROSSING_HORIZ_TO_BOT_WALL_HORIZ    "╤"
-#define CROSSING_HORIZ_TO_BOT_WALL_BOT      "╥"
+#define CROSSING_HORIZ_TO_BOT   "┬"             // Horizontal grid with extension at the bottom
+#define CROSSING_HORIZ_TO_BOT_WALL_FULL     "╦" // Horizontal wall with extension at the bottom
+#define CROSSING_HORIZ_TO_BOT_WALL_BOT      "╥" // Horizontal grid with wall extension at the bottom
+#define CROSSING_HORIZ_TO_BOT_WALL_HORIZ    "╤" // Horizontal wall with grid extension at the bottom
 
-#define CROSSING_CROSS          "┼"
-#define CROSSING_CROSS_WALL_FULL            "╬"
-#define CROSSING_CROSS_WALL_VERTI           "╫"
-#define CROSSING_CROSS_WALL_HORIZ           "╪"
+#define CROSSING_CROSS          "┼"             // Crossing grid
+#define CROSSING_CROSS_WALL_FULL            "╬" // Crossing wall
+#define CROSSING_CROSS_WALL_VERTI           "╫" // Crossing with vertical wall
+#define CROSSING_CROSS_WALL_HORIZ           "╪" // Crossing with horizontal wall
 
-#define CENTER_BLOCKS_FULL      "█"
-#define CENTER_BLOCKS_BOTTOM    "▄"
-#define CENTER_BLOCKS_LEFT      "▌"
-#define CENTER_BLOCKS_RIGHT     "▐"
-#define CENTER_BLOCKS_TOP       "▀"
 // Ansi Escapes Codes
 // ESC Code Sequence 	Description
 // ESC[38;5;{ID}m 	    Set foreground color.
 // ESC[48;5;{ID}m 	    Set background color.
 
-#define ANSI_CODE_ERASE "\33[0J"
-#define ANSI_CODE_CURSOR_RESET "\33[H"
-#define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"
+#define ANSI_CODE_ERASE "\33[0J"                        // ANSI ESCAPE CODE TO erase terminal
+#define ANSI_CODE_CURSOR_RESET "\33[H"                  // ANSI ESCAPE CODE TO put cursor at x : 0, y : 0
+#define ANSI_CODE_BACKGROUND_RESET "\033[39m\033[49m"   // ANSI ESCAPE CODE TO reset background color to default
 
-#define ANSI_CODE_BACKGROUND_APP "\33[48;5;15m"
-#define ANSI_CODE_BACKGROUND_CENTER "\33[48;5;0m"
-#define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"
-#define ANSI_CODE_FOREGROUND_CENTER "\33[38;5;15m"
+#define ANSI_CODE_BACKGROUND_APP "\33[48;5;15m"         // ANSI ESCAPE CODE TO set the app background white
+#define ANSI_CODE_BACKGROUND_CENTER "\33[48;5;0m"       // ANSI ESCAPE CODE TO set the app background black
+#define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"          // ANSI ESCAPE CODE TO set the app foreground black
+#define ANSI_CODE_FOREGROUND_CENTER "\33[38;5;15m"      // ANSI ESCAPE CODE TO set the app foreground white
 
-#define ANSI_CODE_LINE_COLOR "\33[38;5;253m"
-#define ANSI_CODE_WALL_COLOR "\33[38;5;0m"
+#define ANSI_CODE_LINE_COLOR "\33[38;5;253m"            // ANSI ESCAPE CODE TO set color for grid lines in grey
+#define ANSI_CODE_WALL_COLOR "\33[38;5;0m"              // ANSI ESCAPE CODE TO set color for wall in black
 
-#define ANSI_CODE_ERASE_LINE "\33[K"
+#define ANSI_CODE_ERASE_LINE "\33[K"                    // ANSI ESCAPE CODE TO erase a line
 
-#define ANSI_CODE_CURSOR_POS_SAVE   "\33[s"
-#define ANSI_CODE_CURSOR_POS_LOAD   "\33[u"
+#define ANSI_CODE_CURSOR_POS_SAVE   "\33[s"             // ANSI ESCAPE CODE TO save cursor position
+#define ANSI_CODE_CURSOR_POS_LOAD   "\33[u"             // ANSI ESCAPE CODE TO load a saved cursor position
 
 // ================================================================================
 // Types
@@ -131,6 +123,10 @@
 // ================================================================================
 // Constantes
 // ================================================================================
+/**
+ * @brief Map to get ANSI ESCAPE CODE to set colors
+ * 
+ */
 std::map<Color, std::string> COLOR_MAP = {
     {Default, "\33[38;5;0m"},
     {Red, "\33[38;5;1m"},
@@ -140,12 +136,16 @@ std::map<Color, std::string> COLOR_MAP = {
     {Rainbow, "\33[38;5;0m"},
 };
 
+/**
+ * @brief Map to get differents symbols for targets and robots
+ * 
+ */
 std::map<Shape, std::string> SHAPE_MAP = {
     {Target1,    "♣"},
     {Target2,    "♥"},
     {Target3,    "♦"},
     {Target4,    "♠"},
-    {RobotSign,  "☻"},
+    {RobotSign,  "██"},
 };
 
 // ================================================================================
@@ -160,18 +160,27 @@ std::map<Shape, std::string> SHAPE_MAP = {
 // Public Fonctions definitions
 // ================================================================================
 
-
+/**
+ * @brief Construct a new Display:: Display object
+ * 
+ * Set colors for terminal
+ * 
+ */
 Display::Display(void) {
     std::cout << ANSI_CODE_BACKGROUND_APP;
     std::cout << ANSI_CODE_FOREGROUND_APP;
     std::cout << ANSI_CODE_CURSOR_RESET << ANSI_CODE_ERASE;
-    // std::cout << ANSI_CODE_ERASE;
 }
 
+/**
+ * @brief Destroy the Display:: Display object
+ * 
+ * Reset colors and clear terminal
+ * 
+ */
 Display::~Display(void) {
     std::cout << ANSI_CODE_BACKGROUND_RESET;
     std::cout << ANSI_CODE_CURSOR_RESET << ANSI_CODE_ERASE;
-    // std::cout << ANSI_CODE_ERASE;
 }
 
 /**
@@ -278,6 +287,10 @@ void Display::print(void) {
     }   // Fin i
 }
 
+/**
+ * @brief Print Time on the first line of terminal
+ * 
+ */
 void Display::printTime(void) {
     // Save cursor pos
     std::cout << ANSI_CODE_CURSOR_POS_SAVE;
@@ -298,19 +311,7 @@ void Display::printTime(void) {
 // ================================================================================
 
 /**
- * @brief 
- * 
- * @param x [in]
- * @param y [in]
- * @param to_put [out]
- */
-std::string Display::fill_case(uint8_t x, uint8_t y) {
-    
-    return SPACE;
-}
-
-/**
- * @brief 
+ * @brief Get Timer Singleton instance and print remaining time
  * 
  */
 void Display::put_time(void) {
@@ -335,13 +336,8 @@ void Display::put_time(void) {
  * 
  */
 void Display::put_walls(void) {
-    // BOARD_DISP_SIZE
-    // SIZE_BOARD
-    
     Case curCase;
-
     uint8_t x, y;
-
 
     // ===== Put Sides Walls
     for (uint8_t i = 0; i < SIZE_BOARD; i++)
@@ -380,7 +376,6 @@ void Display::put_walls(void) {
     }   // Fin i
 
     // ===== Puts intersections
-
     // Bot, Top, Right, Left has a wall
     bool wbot, wtop, wrgt, wlft;
     std::string to_put;
@@ -556,10 +551,8 @@ void Display::put_walls(void) {
             if (to_put != "") {
                 this->dispBoard[i][j] = this->getWallStr(to_put);
             }
-        }
-        
-    }
-    
+        }   // End for j
+    }   // End for i
 }
 
 /**
@@ -567,7 +560,42 @@ void Display::put_walls(void) {
  * 
  */
 void Display::put_robots(void) {
+    uint8_t x, y;
+    Case curCase;
+    Robot* curRobot;
+    std::string strTarget = "";
 
+    for (uint8_t i = 0; i < SIZE_BOARD; i++)
+    {
+        for (uint8_t j = 0; j < SIZE_BOARD; j++) 
+        {
+            // Get current case
+            curCase = this->board[i][j];
+
+            // Get dispBoard Coord
+            y = i*2 + 1;
+            x = j*2 + 1;
+
+            curRobot = curCase.getRobot();
+
+            if (curRobot == nullptr)
+            {
+                continue;
+            }
+            
+            Color clr = curRobot->getColor();
+            Shape shp = curRobot->getShape();
+
+            strTarget = "";
+            strTarget.append(COLOR_MAP[clr]);
+            strTarget.append(SHAPE_MAP[RobotSign]);
+            strTarget.append(COLOR_MAP[Default]);
+
+            this->dispBoard[x][y].erase(DISP_ROBOT_PLACE, 2); // Remove Space, robot take 2 spaces
+            this->dispBoard[x][y].insert(DISP_ROBOT_PLACE, strTarget);
+
+        }
+    }
 }
 
 /**
@@ -606,15 +634,14 @@ void Display::put_targets(void) {
             strTarget.append(SHAPE_MAP[shp]);
             strTarget.append(COLOR_MAP[Default]);
 
-            this->dispBoard[x][y].erase(DISP_TARGET_PLACE); // Remove Space
+            this->dispBoard[x][y].erase(DISP_TARGET_PLACE, 1); // Remove Space
             this->dispBoard[x][y].insert(DISP_TARGET_PLACE, strTarget);
-
         }
     }
 }
 
 /**
- * @brief 
+ * @brief Put center in Display Board
  * 
  */
 void Display::put_center(void) {
@@ -636,10 +663,16 @@ void Display::put_center(void) {
     }   // Fin i
 
     // Put target in middle
-
+    // TODO : add center target
 
 }
 
+/**
+ * @brief Get the wall with ANSI ESCAPE CODE for colors
+ * 
+ * @param wall_chr Wall character to put
+ * @return std::string 
+ */
 std::string Display::getWallStr(std::string wall_chr) {
     return std::string(ANSI_CODE_WALL_COLOR) + wall_chr + std::string(ANSI_CODE_BACKGROUND_APP);
 }
