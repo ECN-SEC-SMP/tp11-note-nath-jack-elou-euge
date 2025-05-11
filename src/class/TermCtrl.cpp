@@ -278,6 +278,10 @@ void TermCtrl::runEvents(void) {
     
 }
 
+uint8_t eventPending(TermEvents evt) {
+    return EventPendingTable[evt].size();
+}
+
 // ================================================================================
 // Test Fonctions definitions
 // ================================================================================
