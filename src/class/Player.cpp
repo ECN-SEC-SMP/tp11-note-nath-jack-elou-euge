@@ -1,75 +1,29 @@
+/**
+ * @file main.cpp
+ * @brief PLayer object are used to save players names and identify them
+ * @version 0.1
+ * @date 2025-04-28
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #include "Player.hpp"
-#include <iostream>
 
-#include <unistd.h>
-#include <termios.h>
-#include <vector>
-
-// Constructeur
+/**
+ * @brief Construct a new Player:: Player object
+ * 
+ * @param pseudo Name of the player
+ */
 Player::Player(std::string pseudo)
 {
     this->pseudo = pseudo;
 }
 
+/**
+ * @brief Destroy the Player:: Player object
+ * 
+ */
 Player::~Player(void) {}
-
-char getCharWithoutEnter()
-{
-    struct termios oldt, newt;
-    char ch;
-    tcgetattr(STDIN_FILENO, &oldt); // Sauvegarde de l'ancien mode
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);        // Mode sans buffer ni echo
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt); // Activation du mode
-
-    ch = getchar();
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt); // Restauration
-    return ch;
-}
-
-void Player::readInput()
-{
-    char ch = getCharWithoutEnter();
-
-    std::cout << "> " << ch << std::endl;
-    
-    if (ch == 27)
-    { // Séquence d'échappement ANSI : ESC [ A
-        char next1 = getCharWithoutEnter();
-        if (next1 == '[')
-        {
-            char direction = getCharWithoutEnter();
-            switch (direction)
-            {
-            case 'A':
-                inputs.push_back(KEY_UP);
-                std::cout << "↑ (UP)\n";
-                break;
-            case 'B':
-                inputs.push_back(KEY_DOWN);
-                std::cout << "↓ (DOWN)\n";
-                break;
-            case 'C':
-                inputs.push_back(KEY_RIGHT);
-                std::cout << "→ (RIGHT)\n";
-                break;
-            case 'D':
-                inputs.push_back(KEY_LEFT);
-                std::cout << "← (LEFT)\n";
-                break;
-            default:
-                std::cout << "Autre touche\n";
-                break;
-            }
-        }
-    }
-
-    for (uint8_t i = 0; i < inputs.size(); i++)
-    {
-        std::cout << (uint16_t)inputs.at(i) << std::endl;
-    }
-}
 
 /**
  * @brief Set the pseudo of the player
@@ -89,14 +43,4 @@ void Player::setPseudo(std::string pseudo)
 std::string Player::getPseudo() const
 {
     return this->pseudo;
-}
-
-/**
- * @brief Get the input
- *
- * @return std::vector<uint8_t>
- */
-std::vector<uint8_t> Player::getInput() const
-{
-    return this->inputs;
 }

@@ -1,20 +1,26 @@
+/**
+ * @file main.cpp
+ * @brief PLayer object are used to save players names and identify them
+ * @version 0.1
+ * @date 2025-04-28
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef _PLAYER_HPP_
 #define _PLAYER_HPP_
 
-#include <vector>
 #include <string>
-#include <cstdint>
 
-#define KEY_UP 72
-#define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
-
+/**
+ * @brief Player class. Save the pseudo
+ * 
+ */
 class Player
 {
 
 private:
-    std::vector<uint8_t> inputs; // Stockage des touches
+    /// @brief Pseudo of the player
     std::string pseudo;
 
 public:
@@ -25,7 +31,6 @@ public:
      */
     Player(std::string pseudo); // Constructeur
     ~Player();                  // Destructeur
-    void readInput();
 
     /**
      * @brief Set the pseudo of the player
@@ -33,8 +38,6 @@ public:
      * @param pseudo type std::string
      */
     void setPseudo(std::string pseudo);
-
-    std::vector<uint8_t> getInput() const;
 
     /**
      * @brief Get the pseudo of the player
