@@ -129,3 +129,25 @@ void Robot::setReachTarget(bool b)
 {
     this->reachTarget = b;
 }
+
+std::string Robot::getColorString()
+{
+    std::string color = "";
+    if (this->getColor() == Red)
+    {
+        color = "Rouge";
+    }
+    else if (this->getColor() == Blue)
+    {
+        color = "Bleu";
+    }
+    else if (this->getColor() == Green)
+    {
+        color = "Vert";
+    }
+    else if (this->getColor() == Yellow)
+    {
+        color = "Jaune";
+    }
+    return color;
+}

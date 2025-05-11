@@ -36,16 +36,6 @@
 // Macros
 // ================================================================================
 
-#define KEY_ENTER       '\n'
-#define KEY_SPACE       std::string(" ")
-#define KEY_BACKSPACE   std::string("\x7f")
-
-#define KEY_START_ARROW "\33["
-#define KEY_UP      std::string("\33[A")
-#define KEY_DOWN    std::string("\33[B")
-#define KEY_RIGHT   std::string("\33[C")
-#define KEY_LEFT    std::string("\33[D")
-
 // ================================================================================
 // Types
 // ================================================================================
@@ -250,6 +240,8 @@ void TermCtrl::attach(TermEvents evt_type, TermCtrlEvent_Callback func) {
     // Add callback to the Event to Callback table
     EventCallbackTable[evt_type] = func;
 }
+
+
 
 void TermCtrl::runEvents(void) {
     std::map<TermEvents, TermCtrlEvent_Callback>::iterator it;

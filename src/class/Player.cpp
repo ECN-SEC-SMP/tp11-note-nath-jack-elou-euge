@@ -11,7 +11,9 @@
 // Include
 // ================================================================================
 #include "Player.hpp"
-
+#include "TermCtrl.hpp"
+#include "Robot.hpp"
+#include "Utils.hpp"
 // ================================================================================
 // Public Fonctions definitions
 // ================================================================================
@@ -63,4 +65,18 @@ void Player::setNbCoups(int nCoups)
     {
         this->nbCoups = nCoups;
     }
+}
+
+bool Player::hasValidScore() const
+{
+    return nbCoups != -1;
+}
+
+
+void Player::chooseRobot(std::string evt)
+{
+}
+
+void Player::moveRobot(std::string evt)
+{
 }

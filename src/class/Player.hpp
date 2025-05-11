@@ -13,7 +13,11 @@
 // Include
 // ================================================================================
 #include <string>
-
+#include <iostream>
+#include "Timer.hpp"
+#include "Robot.hpp"
+#include "TermCtrl.hpp"
+#include <vector>
 // ================================================================================
 // Class declaration
 // ================================================================================
@@ -56,6 +60,14 @@ public:
     void setNbCoups(int nCoups);
 
     int getNbCoups() const;
+
+    bool hasValidScore() const;
+
+    void play(std::vector<Robot *> *robots);
+
+    void chooseRobot(std::string evt);
+
+    void moveRobot(std::string evt);
 };
 
 #endif

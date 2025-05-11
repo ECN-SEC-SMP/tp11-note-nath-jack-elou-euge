@@ -12,17 +12,19 @@
 #include "../utils/Utils.hpp"
 #include "../utils/Timer.hpp"
 #include "Display.hpp"
-
+#include <functional>
+#include <binders.h>
 class Game
 {
 
 private:
     std::vector<Player *> players;
     std::vector<Robot *> robots;
+    
+    Robot* robotHold;
     Board *board;
     Display *display;
-    Player *startingPlayer;
-    Player *currentPlayer;
+
 
     bool initPlayers();
     int findIndex(std::vector<Player *> players, Player *toFind);
@@ -32,6 +34,14 @@ private:
     bool playersThink();
     int whoFinds();
     void remainingPlayer();
+
+    void chooseInput();
+
+    void orderPlayers();
+
+    void digitHandler(std::string evt);
+    void enterHandler(std::string evt);
+    void arrowHandler(std::string evt);
 
 public:
     Game();
@@ -45,13 +55,9 @@ public:
     bool play();
     bool keepPlaying();
 
-    Player *getCurrentPlayer() const;
-    Player *getStartingPlayer() const;
-
-    void setCurrentPlayer(Player *currentP);
-    void setStartingPlayer(Player *startP);
-
     void resetGame();
+
+    void test();
 };
 
 #endif
