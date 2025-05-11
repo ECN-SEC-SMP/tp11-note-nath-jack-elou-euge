@@ -127,6 +127,19 @@ public:
      * @return uint8_t Number of events pendings
      */
     uint8_t eventPending(TermEvents evt);
+
+    /**
+     * @brief Clear pending events
+     * 
+     * @param evt The event type to clear
+     */
+    void eventClear(TermEvents evt);
+
+    /**
+     * @brief Clear all pending events
+     * 
+     */
+    void eventClearAll(void);
 };
 
 #endif  // _TERM_CTRL_HPP_

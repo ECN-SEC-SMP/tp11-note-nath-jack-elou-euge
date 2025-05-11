@@ -278,8 +278,21 @@ void TermCtrl::runEvents(void) {
     
 }
 
-uint8_t eventPending(TermEvents evt) {
+uint8_t TermCtrl::eventPending(TermEvents evt) {
     return EventPendingTable[evt].size();
+}
+
+void TermCtrl::eventClear(TermEvents evt) {
+    while (EventPendingTable[evt].size())
+    {
+        EventPendingTable[evt].pop();
+    }
+}
+
+void TermCtrl::eventClearAll(void) {
+    this->eventClear(TermEvents::DIRECTIONAL_ARROW);
+    this->eventClear(TermEvents::DIGIT_INPUT);
+    this->eventClear(TermEvents::ENTER_INPUT);
 }
 
 // ================================================================================
