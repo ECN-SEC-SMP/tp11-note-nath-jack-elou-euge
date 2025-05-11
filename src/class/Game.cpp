@@ -171,7 +171,7 @@ bool Game::playersThink()
     }
 
     term->end();
-    
+    timer.stop();
     return true;
 }
 
@@ -278,18 +278,15 @@ void Game::remainingPlayer()
     timer.start(timeToThinkMilisec, []() {});
 
     int remainingMilisec = timer.getRemainingTimeMs();
-    std::cout << "ALED" << std::endl;
 
     term->begin();
-    std::cout << "ALED" << std::endl;
 
     while (remainingMilisec > 0 || nbPlayer > 0)
     {
-        std::cout << "ALED" << std::endl;
 
         if (term->eventPending(TermEvents::ENTER_INPUT) == 1)
         {
-            std::cout << "ALED" << std::endl;
+            std::cout << "ABCRG" << std::endl;
             timer.stop();
             int index = this->whoFinds();
             std::cout << this->players.at(index)->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
