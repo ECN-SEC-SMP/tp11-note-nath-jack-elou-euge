@@ -540,12 +540,7 @@ void Display::put_walls(void) {
                         to_put = this->getWallStr(CORNER_TOPLEFT_WALL_FULL);
                     }
                 }
-                
-
-
             }
-            
-            
             
             // ===== Put string
             if (to_put != "") {
@@ -588,9 +583,10 @@ void Display::put_robots(void) {
 
             strTarget = "";
             strTarget.append(COLOR_MAP[clr]);
-            strTarget.append(SHAPE_MAP[RobotSign]);
+            strTarget.append(SHAPE_MAP[shp]);
             strTarget.append(COLOR_MAP[Default]);
 
+            // From SHAPE_MAP we can see that a robot take 2 space
             this->dispBoard[x][y].erase(DISP_ROBOT_PLACE, 2); // Remove Space, robot take 2 spaces
             this->dispBoard[x][y].insert(DISP_ROBOT_PLACE, strTarget);
 
