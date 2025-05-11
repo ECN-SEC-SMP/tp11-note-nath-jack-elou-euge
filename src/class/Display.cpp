@@ -643,3 +643,59 @@ void Display::put_center(void) {
 std::string Display::getWallStr(std::string wall_chr) {
     return std::string(ANSI_CODE_WALL_COLOR) + wall_chr + std::string(ANSI_CODE_BACKGROUND_APP);
 }
+
+// ================================================================================
+// Test Fonctions definitions
+// ================================================================================
+
+
+bool running = true;
+void stop(void) {
+    running = false;
+}
+
+void Display_Test(void) {
+
+    Board board = Board();
+    Display disp = Display();
+    Case plateau[16][16];
+
+    Timer& time = Timer::getInstance();
+    time.start(100000, stop);
+
+    Target* listTarg[] = {
+        new Target(Blue, Target1),
+        new Target(Red, Target2),
+        new Target(Green, Target3),
+        new Target(Yellow, Target4)
+    };
+    
+    board.getBoard(plateau);
+
+    plateau[0][0].setTarget(listTarg[0]);
+    plateau[15][0].setTarget(listTarg[1]);
+    plateau[4][6].setTarget(listTarg[2]);
+    plateau[13][10].setTarget(listTarg[3]);
+
+    disp.update(plateau);
+
+    // while (running)
+    // {
+        // if (!time.isRunning()) {
+        //     break;
+        // }
+        disp.print();
+
+
+        // if ((time.getElapsedTimeMs() % 1000) == 0) {
+        //     disp.print();
+        // }
+    // }
+
+    std::string tp;
+    std::cin >> tp;
+    std::cout << "EXIT MAIN" << std::endl;
+
+    time.stop();
+
+}
