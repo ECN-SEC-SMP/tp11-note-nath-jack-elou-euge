@@ -21,7 +21,6 @@ private:
     std::vector<Robot *> robots;
     Board *board;
     Display *display;
-    bool findSoluce;
     Player *startingPlayer;
     Player *currentPlayer;
 
@@ -30,8 +29,9 @@ private:
     bool playerExists(Player *p);
     void displayPlayers();
     bool initRobots();
-    bool playerThink();
-    int whoStart();
+    bool playersThink();
+    int whoFinds();
+    void remainingPlayer();
 
 public:
     Game();

@@ -54,8 +54,7 @@
  */
 // int main(int argc, char const *argv[])
 // {
-//     // TermCtrl_Test();
-//     Display_Test();
+//     TermCtrl_Test();
 
 //     return 0;
 // }
@@ -66,13 +65,13 @@ int main(int argc, char const *argv[])
     char input = NULL;
 
     Game game = Game();
-
     while (keepPlaying)
     {
         if (game.play())
         {
             keepPlaying = game.keepPlaying();
-            if (keepPlaying == true) {
+            if (keepPlaying == true)
+            {
                 game.resetGame();
             }
         }
@@ -82,5 +81,20 @@ int main(int argc, char const *argv[])
         }
     }
 
+    std::cout << "Fin du jeu" << std::endl;
+
     return 0;
 }
+
+// int main(int argc, char const *argv[])
+// {
+//     Board board = Board();
+//     Display disp = Display();
+//     Case plateau[16][16];
+
+//     board.getBoard(plateau);
+//     disp.update(plateau);
+//     disp.print();
+
+//     return 0;
+// }
