@@ -16,6 +16,7 @@
 #include <cstdint>
 
 #include "class/Game.hpp"
+#include "class/TermCtrl.hpp"
 #include "class/Display.hpp"
 #include "class/Board.hpp"
 #include "utils/Timer.hpp"
@@ -51,6 +52,12 @@
  * @param argv
  * @return int
  */
+int main(int argc, char const *argv[])
+{
+    TermCtrl_Test();
+
+    return 0;
+}
 
 // int main(int argc, char const *argv[])
 // {
@@ -80,15 +87,15 @@
 //     return 0;
 // }
 
-int main(int argc, char const *argv[])
-{
-    Board board = Board();
-    Display disp = Display();
-    Case plateau[16][16];
+// int main(int argc, char const *argv[])
+// {
+//     Board board = Board();
+//     Display disp = Display();
+//     Case plateau[16][16];
 
-    board.getBoard(plateau);
-    disp.update(plateau);
-    disp.print();
+//     board.getBoard(plateau);
+//     disp.update(plateau);
+//     disp.print();
 
-    return 0;
-}
+//     return 0;
+// }
