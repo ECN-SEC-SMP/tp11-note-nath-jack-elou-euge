@@ -20,6 +20,7 @@ include_directories(${PROJECT_NAME} ${UTILS_DIR})
 # Add your source files
 set(SOURCES
     ${SRC_DIR}/main.cpp
+    ${CLASS_DIR}/TermCtrl.cpp
     ${CLASS_DIR}/Board.cpp
     ${CLASS_DIR}/Case.cpp
     ${CLASS_DIR}/Display.cpp
