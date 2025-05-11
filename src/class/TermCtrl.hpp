@@ -119,6 +119,14 @@ public:
      * 
      */
     void runEvents(void);
+
+    /**
+     * @brief Return the number of pending event
+     * 
+     * @param evt The type of event to check
+     * @return uint8_t Number of events pendings
+     */
+    uint8_t eventPending(TermEvents evt);
 };
 
 #endif  // _TERM_CTRL_HPP_
