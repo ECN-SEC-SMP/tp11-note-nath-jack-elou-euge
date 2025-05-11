@@ -102,14 +102,7 @@ void TermThreadRunner(void) {
     fflush(stdin);
     while (_TermCtrlStarted)
     {
-        raw = std::cin.get();
-        std::cout << raw << std::endl;
-        if (raw == EOF) {
-            continue;
-        }
-        c = (char)raw;
-        std::cout << c;
-
+        c = getchar();
         word.push_back(c);
 
         /**
