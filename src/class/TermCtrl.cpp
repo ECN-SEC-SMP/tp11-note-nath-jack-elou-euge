@@ -37,7 +37,7 @@
 // ================================================================================
 
 #define KEY_ENTER       '\n'
-#define KEY_SPACE       std::string(" ")
+#define KEY_SPACE       ' '
 #define KEY_BACKSPACE   std::string("\x7f")
 
 #define KEY_START_ARROW "\33["
@@ -72,7 +72,7 @@ TermCtrl* _TermInstance = nullptr;
 std::map<TermEvents, TermCtrlEvent_Callback> EventCallbackTable = {
     {TermEvents::DIRECTIONAL_ARROW, nullptr},
     {TermEvents::DIGIT_INPUT, nullptr},
-    {TermEvents::ENTER_INPUT, nullptr}
+    {TermEvents::SPACE_INPUT, nullptr}
 };
 
 /**
@@ -82,7 +82,7 @@ std::map<TermEvents, TermCtrlEvent_Callback> EventCallbackTable = {
 std::map<TermEvents, std::queue<std::string>> EventPendingTable = {
     {TermEvents::DIRECTIONAL_ARROW, {}},
     {TermEvents::DIGIT_INPUT, {}},
-    {TermEvents::ENTER_INPUT, {}}
+    {TermEvents::SPACE_INPUT, {}}
 };
 
 // ================================================================================
@@ -95,13 +95,21 @@ void TermThreadRunner(void);
 // Thread Fonctions definitions
 // ================================================================================
 void TermThreadRunner(void) {
+    int raw;
     char c;
     std::string word = "";
 
+    fflush(stdin);
     while (_TermCtrlStarted)
     {
+        raw = std::cin.get();
+        std::cout << raw << std::endl;
+        if (raw == EOF) {
+            continue;
+        }
+        c = (char)raw;
+        std::cout << c;
 
-        c = getchar();
         word.push_back(c);
 
         /**
@@ -114,9 +122,7 @@ void TermThreadRunner(void) {
 
         // Look for digits
         if ((word[0] >= '0' && word[0] <= '9') && word.size() == 1) {
-            word = "";
-            word.push_back(c);
-
+            
             EventPendingTable[TermEvents::DIGIT_INPUT].push(word);
 
             word = "";
@@ -124,11 +130,9 @@ void TermThreadRunner(void) {
         }
 
         // Look for Enter key
-        else if (word[0] == KEY_ENTER && word.size() == 1) {
-            word = "";
-            word.push_back(c);
+        else if ((word[0] == KEY_SPACE) && word.size() == 1) {
 
-            EventPendingTable[TermEvents::ENTER_INPUT].push(word);
+            EventPendingTable[TermEvents::SPACE_INPUT].push(word);
 
             word = "";
             continue;
@@ -220,6 +224,9 @@ TermCtrl* TermCtrl::getInstance(void) {
 void TermCtrl::begin(void) {
     termios newt;
 
+    // Clear all pending events
+    this->eventClearAll();
+
     tcgetattr(STDIN_FILENO, &oldTerminal); // Sauvegarde de l'ancien mode
     newt = oldTerminal;
     newt.c_lflag &= ~(ICANON | ECHO);        // Mode sans buffer ni echo
@@ -292,7 +299,7 @@ void TermCtrl::eventClear(TermEvents evt) {
 void TermCtrl::eventClearAll(void) {
     this->eventClear(TermEvents::DIRECTIONAL_ARROW);
     this->eventClear(TermEvents::DIGIT_INPUT);
-    this->eventClear(TermEvents::ENTER_INPUT);
+    this->eventClear(TermEvents::SPACE_INPUT);
 }
 
 // ================================================================================
@@ -320,9 +327,9 @@ void TermCtrl_Test_ArrowCallback(std::string evt) {
 void TermCtrl_Test_DigitCallback(std::string evt) {
     std::cout << "[DIGIT KEY] " << evt << std::endl;
 }
-void TermCtrl_Test_EnterCallback(std::string evt) {
-    if (evt == std::string("\n")) {
-        std::cout << "[ENTER KEY] ENTER" << std::endl;
+void TermCtrl_Test_SpaceCallback(std::string evt) {
+    if (evt == std::string(" ")) {
+        std::cout << "[SPACE KEY] SPACE" << std::endl;
     }
 }
 
@@ -332,12 +339,12 @@ void TermCtrl_Test(void) {
     std::cout << "Begin TermCtrl Test" << std::endl;
     std::cout << "Push keys en check if it's printed in cli :" << std::endl;
     std::cout << "\t- Arrows : LEFT, RIGHT, UP, DOWN" << std::endl;
-    std::cout << "\t- ENTER" << std::endl;
+    std::cout << "\t- SPACE" << std::endl;
     std::cout << "\t- Digits from 0 to 9" << std::endl;
 
     term->attach(TermEvents::DIRECTIONAL_ARROW, TermCtrl_Test_ArrowCallback);
     term->attach(TermEvents::DIGIT_INPUT, TermCtrl_Test_DigitCallback);
-    term->attach(TermEvents::ENTER_INPUT, TermCtrl_Test_EnterCallback);
+    term->attach(TermEvents::SPACE_INPUT, TermCtrl_Test_SpaceCallback);
 
     term->begin();
 

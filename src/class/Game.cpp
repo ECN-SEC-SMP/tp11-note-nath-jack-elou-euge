@@ -93,7 +93,6 @@ bool Game::playerExists(Player *p)
 
 bool Game::initPlayers()
 {
-
     std::cout << "Choisissez un nombre de joueurs inférieur ou égale à 16." << std::endl;
     int nbPlayer = inputNumber(0, 16);
 
@@ -101,7 +100,7 @@ bool Game::initPlayers()
     {
         std::cout << "Joueur #" << i + 1 << " choisissez votre pseudonyme" << std::endl;
         std::string pseudo;
-
+        
         std::cin >> pseudo;
         Player *player = new Player(pseudo);
 
@@ -126,7 +125,7 @@ bool Game::play()
 
     this->initRobots();
     this->initPlayers();
-
+    
     this->display->print();
 
     if (!this->playersThink())
@@ -155,21 +154,21 @@ bool Game::playersThink()
 
     Timer &timer = Timer::getInstance();
     TermCtrl *term = TermCtrl::getInstance();
-
+   
     std::cout << "Appuyer sur ENTRE quand l'un de vous à trouver la solution." << std::endl;
-
+    
     timer.start(timeToThinkMilisec, []() {});
-
+    
     int remainingMilisec = timer.getRemainingTimeMs();
-
+    
     term->begin();
 
-    while (remainingMilisec > 0 && !term->eventPending(TermEvents::ENTER_INPUT) == 1)
+    while ((remainingMilisec > 0) && !(term->eventPending(TermEvents::SPACE_INPUT) == 1))
     {
         remainingMilisec = timer.getRemainingTimeMs();
         this->display->printTime();
     }
-
+    term->eventClearAll();
     term->end();
     timer.stop();
     return true;
@@ -284,7 +283,7 @@ void Game::remainingPlayer()
     while (remainingMilisec > 0 || nbPlayer > 0)
     {
 
-        if (term->eventPending(TermEvents::ENTER_INPUT) == 1)
+        if (term->eventPending(TermEvents::SPACE_INPUT) == 1)
         {
             std::cout << "ABCRG" << std::endl;
             timer.stop();

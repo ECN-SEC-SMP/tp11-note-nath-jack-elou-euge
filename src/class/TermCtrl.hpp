@@ -41,7 +41,7 @@ enum class TermEvents
 {
     DIRECTIONAL_ARROW,
     DIGIT_INPUT,
-    ENTER_INPUT
+    SPACE_INPUT
 };
 
 /**
