@@ -507,13 +507,27 @@ void Board::MoveRobot(Robot *robot, char direction)
     }
 }
 
+/**
+ * @brief Check if a robot and a target on a same case have the same color
+ * 
+ * @param robot robot pointer of the current case
+ * @param target target pointer of the current case
+ * @return true There is a robot and a target and have a matching.
+ * @return false when there is no matching conditions
+ */
 bool Board::targetReached(Robot *robot, Target *target)
 {
-    bool reach = 0;
-    if (robot->getX() == target->getX() && robot->getY() == target->getY())
-    {
-        robot->setReachTarget(true);
-        reach = 1;
+    bool reach = false;
+
+    if (robot == nullptr && target == nullptr) {
+        return reach;
+    }
+
+    if (robot->getColor() == target->GetColor()) {
+        reach = true;
+    }
+    else if (target->GetColor() == Rainbow) {
+        reach = true;
     }
 
     return reach;
