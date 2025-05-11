@@ -52,40 +52,39 @@
  * @param argv
  * @return int
  */
-int main(int argc, char const *argv[])
-{
-    TermCtrl_Test();
-
-    return 0;
-}
-
 // int main(int argc, char const *argv[])
 // {
-//     bool keepPlaying = true;
-//     char input = NULL;
-
-//     Game game = Game();
-//     std::cout << "test" << std::endl;
-//     while (keepPlaying)
-//     {
-//         if (game.play())
-//         {
-//             keepPlaying = game.keepPlaying();
-//             if (keepPlaying == true)
-//             {
-//                 game.resetGame();
-//             }
-//         }
-//         else
-//         {
-//             std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-//         }
-//     }
-
-//     std::cout << "Fin du jeu" << std::endl;
+//     TermCtrl_Test();
 
 //     return 0;
 // }
+
+int main(int argc, char const *argv[])
+{
+    bool keepPlaying = true;
+    char input = NULL;
+
+    Game game = Game();
+    while (keepPlaying)
+    {
+        if (game.play())
+        {
+            keepPlaying = game.keepPlaying();
+            if (keepPlaying == true)
+            {
+                game.resetGame();
+            }
+        }
+        else
+        {
+            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
+        }
+    }
+
+    std::cout << "Fin du jeu" << std::endl;
+
+    return 0;
+}
 
 // int main(int argc, char const *argv[])
 // {

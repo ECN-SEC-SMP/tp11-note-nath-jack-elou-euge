@@ -278,7 +278,7 @@ void TermCtrl::runEvents(void) {
     
 }
 
-uint8_t eventPending(TermEvents evt) {
+uint8_t TermCtrl::eventPending(TermEvents evt) {
     return EventPendingTable[evt].size();
 }
 

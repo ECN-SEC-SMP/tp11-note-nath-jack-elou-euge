@@ -3,9 +3,9 @@
  * @brief PLayer object are used to save players names and identify them
  * @version 0.1
  * @date 2025-04-28
- * 
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 #ifndef _PLAYER_HPP_
 #define _PLAYER_HPP_
@@ -14,7 +14,7 @@
 
 /**
  * @brief Player class. Save the pseudo
- * 
+ *
  */
 class Player
 {
@@ -22,6 +22,8 @@ class Player
 private:
     /// @brief Pseudo of the player
     std::string pseudo;
+
+    int nbCoups;
 
 public:
     /**
@@ -45,6 +47,10 @@ public:
      * @return std::string
      */
     std::string getPseudo() const;
+
+    void setNbCoups(int nCoups);
+
+    int getNbCoups() const;
 };
 
 #endif

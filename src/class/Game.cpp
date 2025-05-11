@@ -1,23 +1,7 @@
 #include "Game.hpp"
+#include "TermCtrl.hpp"
+#include "Display.hpp"
 
-std::atomic<bool> findSoluce{false}; // Shared safely between threads
-std::atomic<bool> stopInput{false};
-
-void inputThreadFunction()
-{
-    std::string userInput;
-    while (!findSoluce.load() && !stopInput.load())
-    {
-        std::cout << "Enter something: ";
-        if (!std::getline(std::cin, userInput))
-            break; // EOF or error => bail out
-        if (!userInput.empty())
-        {
-            Timer::getInstance().stop();
-            findSoluce = true;
-        }
-    }
-}
 void Game::resetGame()
 {
 
@@ -25,7 +9,6 @@ void Game::resetGame()
     this->board = new Board();
     this->players = {};
     this->robots = {};
-    this->findSoluce = false;
     this->currentPlayer = nullptr;
     this->startingPlayer = nullptr;
 }
@@ -136,75 +119,82 @@ bool Game::initPlayers()
 
 bool Game::play()
 {
-    this->initRobots();
-
     this->display = new Display();
     Case plateau[16][16];
-
     this->board->getBoard(plateau);
     this->display->update(plateau);
-    this->display->print();
 
+    this->initRobots();
     this->initPlayers();
 
-    if (this->playerThink())
-    {
-        int index = this->whoStart();
-        this->setStartingPlayer(this->players.at(index));
-        std::cout << this->getStartingPlayer()->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
-        int nbCoups = inputNumber(0, 10000);
-    }
-    else
+    this->display->print();
+
+    if (!this->playersThink())
     {
         std::cout << "Aucun joueur n'a trouvé de solution" << std::endl;
+        return true;
     }
 
+    int index = this->whoFinds();
+    std::cout << this->players.at(index)->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
+    this->players.at(index)->setNbCoups(inputNumber(0, 10000));
+
+    // this->display->print();
+    std::cout << "Les autres joueurs, il vous reste 1 minute pour annoncer votre solution" << std::endl;
+    this->remainingPlayer();
+
+    // Faire bouger les robots.
     return true;
 }
 
-bool Game::playerThink()
+bool Game::playersThink()
 {
-    findSoluce = false;
-    stopInput = false;
     const int timeToThinkSec = 60 * 60;
     const int milisec = 1000;
     const int timeToThinkMilisec = timeToThinkSec * milisec;
-    Timer &timer = Timer::getInstance();
 
-    timer.start(timeToThinkMilisec, []()
-                { std::cout << "Fin timer" << std::endl; });
+    Timer &timer = Timer::getInstance();
+    TermCtrl *term = TermCtrl::getInstance();
+
+    std::cout << "Appuyer sur ENTRE quand l'un de vous à trouver la solution." << std::endl;
+
+    timer.start(timeToThinkMilisec, []() {});
 
     int remainingMilisec = timer.getRemainingTimeMs();
-    int prevRemaining = 0;
-    std::thread inputThread(inputThreadFunction); // Start input in parallel
 
-    while (remainingMilisec > 0 && !findSoluce)
+    term->begin();
+
+    while (remainingMilisec > 0 && !term->eventPending(TermEvents::ENTER_INPUT) == 1)
     {
-        if (!findSoluce)
-        {
-            remainingMilisec = timer.getRemainingTimeMs();
-
-            std::cout << "Temps restant: " << Timer::formatTime(remainingMilisec / 1000) << " minutes" << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(milisec));
-        }
+        remainingMilisec = timer.getRemainingTimeMs();
+        this->display->printTime();
     }
-    if (inputThread.joinable())
-        inputThread.join();
+
+    term->end();
+    
     return true;
 }
 
 void Game::displayPlayers()
 {
     size_t i = 0;
+    int displayed = 0;
     for (i; i < this->players.size(); i++)
     {
+        // Si != -1 le joueur a déjà choisis son nb de coups
+        if (this->players.at(i)->getNbCoups() != -1)
+        {
+            continue;
+        }
         std::cout << "Joueur: " << this->players.at(i)->getPseudo() << "\t";
-        if ((i + 1) % 4 == 0)
+        if ((displayed + 1) % 4 == 0)
         {
             std::cout << std::endl;
         }
+        displayed++;
     }
-    if ((i + 1) % 4 != 0)
+
+    if ((displayed + 1) % 4 != 0)
     {
         std::cout << std::endl;
     }
@@ -229,7 +219,7 @@ int Game::findIndex(std::vector<Player *> vPlayers, Player *toFind)
 
     return find ? idJoueur : -1;
 }
-int Game::whoStart()
+int Game::whoFinds()
 {
 
     std::cout << "Qui à trouvé ?\n";
@@ -238,9 +228,9 @@ int Game::whoStart()
     std::cin >> pseudo;
     Player player = Player(pseudo);
 
-    while (!this->playerExists(&player))
+    while (!this->playerExists(&player) || player.getNbCoups() != -1)
     {
-        std::cout << "Ce joueur n'existe pas, saisissez un nom de joueur valide" << std::endl;
+        std::cout << "Ce joueur n'existe pas ou à déjà choisis son nombre de coups, saisissez un nom de joueur valide" << std::endl;
         this->displayPlayers();
         std::cin >> pseudo;
         player = Player(pseudo);
@@ -270,4 +260,49 @@ bool Game::keepPlaying()
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // vide la mauvaise entrée
         }
     }
+}
+
+void Game::remainingPlayer()
+{
+
+    int nbPlayer = this->players.size() - 1;
+    const int timeToThinkSec = 60;
+    const int milisec = 1000;
+    const int timeToThinkMilisec = timeToThinkSec * milisec;
+
+    Timer &timer = Timer::getInstance();
+    TermCtrl *term = TermCtrl::getInstance();
+
+    std::cout << "Appuyer sur ENTRE quand l'un de vous à trouver la solution." << std::endl;
+
+    timer.start(timeToThinkMilisec, []() {});
+
+    int remainingMilisec = timer.getRemainingTimeMs();
+    std::cout << "ALED" << std::endl;
+
+    term->begin();
+    std::cout << "ALED" << std::endl;
+
+    while (remainingMilisec > 0 || nbPlayer > 0)
+    {
+        std::cout << "ALED" << std::endl;
+
+        if (term->eventPending(TermEvents::ENTER_INPUT) == 1)
+        {
+            std::cout << "ALED" << std::endl;
+            timer.stop();
+            int index = this->whoFinds();
+            std::cout << this->players.at(index)->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
+            this->players.at(index)->setNbCoups(inputNumber(0, 10000));
+            timer.start(remainingMilisec, []() {});
+        }
+        else
+        {
+            remainingMilisec = timer.getRemainingTimeMs();
+            this->display->printTime();
+        }
+    }
+
+    term->end();
+    timer.stop();
 }
