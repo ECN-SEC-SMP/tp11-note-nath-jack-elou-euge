@@ -30,6 +30,8 @@ class Board
 private:
     Case board[16][16];
 
+    Case InitialBoard[16][16];
+
     /**
      * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
      *
@@ -115,6 +117,20 @@ public:
      * @return false 
      */
     bool targetReached(Robot *robot, Target *target);
+
+    /**
+     * @brief Save la grille de jeu
+     *
+     * @return Case
+     */
+    void SaveBoard(void);
+
+    /**
+     * @brief Reinitialise la grille de jeu
+     * 
+     * @return void 
+     */
+    void ReinitBoard(std::vector<Robot *> *myRobot);
 };
 
 #endif

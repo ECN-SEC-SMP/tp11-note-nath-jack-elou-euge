@@ -54,6 +54,7 @@ bool Game::initRobots()
     this->robots.push_back(robot_4);
 
     this->board->PlaceRobots(&this->robots);
+
     return true;
 }
 
@@ -102,6 +103,9 @@ bool Game::play()
     this->display->update(plateau);
 
     this->initRobots();
+
+    this->board->SaveBoard();
+
     this->initPlayers();
     
     this->display->print();

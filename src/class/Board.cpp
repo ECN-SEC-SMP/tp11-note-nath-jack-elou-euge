@@ -318,9 +318,11 @@ void Board::PlaceRobots(std::vector<Robot *> *myRobot)
             continue;
 
         robots->at(RobotsCountPlaced)->setX(x);
+        robots->at(RobotsCountPlaced)->setInitialX(x);
         robots->at(RobotsCountPlaced)->setY(y);
+        robots->at(RobotsCountPlaced)->setInitialY(y);
         robots->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
-        
+
         this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
 
         RobotsCountPlaced++;
@@ -538,4 +540,43 @@ bool Board::targetReached(Robot *robot, Target *target)
     }
 
     return reach;
+}
+
+/**
+ * @brief Save la grille de jeu
+ *
+ * @return Case
+ */
+void Board::SaveBoard()
+{
+    std::memcpy(this->InitialBoard, this->board, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
+}
+
+/**
+ * @brief Reinitialise la grille de jeu
+ *
+ * @return void
+ */
+void Board::ReinitBoard(std::vector<Robot *> *myRobot)
+{
+    std::memcpy(this->board, this->InitialBoard, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
+    
+    // Update the implementation to handle Robot* instead of Robot
+    std::vector<Robot *> *robots = myRobot;
+
+    int RobotsCountToPlace = robots->size();
+    int RobotsCountPlaced = 0;
+
+    while (RobotsCountPlaced != RobotsCountToPlace)
+    {
+        this->board[robots->at(RobotsCountPlaced)->getX()][robots->at(RobotsCountPlaced)->getY()].setRobot(nullptr);
+
+        robots->at(RobotsCountPlaced)->setX(robots->at(RobotsCountPlaced)->getInitialX());
+        robots->at(RobotsCountPlaced)->setY(robots->at(RobotsCountPlaced)->getInitialY());
+        robots->at(RobotsCountPlaced)->setReachTarget(false);
+
+        this->board[robots->at(RobotsCountPlaced)->getInitialX()][robots->at(RobotsCountPlaced)->getInitialY()].setRobot(robots->at(RobotsCountPlaced));
+
+        RobotsCountPlaced++;
+    }
 }
