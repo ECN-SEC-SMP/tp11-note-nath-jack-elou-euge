@@ -320,7 +320,7 @@ void Board::PlaceRobots(std::vector<Robot *> *myRobot)
         robots->at(RobotsCountPlaced)->setX(x);
         robots->at(RobotsCountPlaced)->setY(y);
         robots->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
-
+        
         this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
 
         RobotsCountPlaced++;
@@ -432,7 +432,7 @@ Board::~Board()
  *        Si il y a un robot, le robot avance jusqu'au robot
  *
  * @param robot Robot à déplacer
- * @param direction Direction du déplacement (N, S, E, O)
+ * @param direction Direction du déplacement (N, S, E, W)
  *
  */
 void Board::MoveRobot(Robot *robot, char direction)
@@ -442,14 +442,15 @@ void Board::MoveRobot(Robot *robot, char direction)
 
     int end_x = start_x;
     int end_y = start_y;
-
     switch (direction)
     {
     // Move UP
     case 'N':
-        if (this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
+        std::cout << direction << std::endl;
+
+        if (this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0 && this->board[end_x][end_y - 1].getRobot() == nullptr)
         {
-            while (end_y > 0 && this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0)
+            while (end_y > 0 && this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0 && this->board[end_x][end_y - 1].getRobot() == nullptr)
             {
                 end_y--;
             }
@@ -462,9 +463,10 @@ void Board::MoveRobot(Robot *robot, char direction)
 
     // Move DOWN
     case 'S':
-        if (this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
+        std::cout << direction << std::endl;
+        if (this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0 && this->board[end_x][end_y + 1].getRobot() == nullptr)
         {
-            while (end_y < SIZE_BOARD - 1 && this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0)
+            while (end_y < SIZE_BOARD - 1 && this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0 && this->board[end_x][end_y + 1].getRobot() == nullptr)
             {
                 end_y++;
             }
@@ -476,9 +478,10 @@ void Board::MoveRobot(Robot *robot, char direction)
         break;
     // Move RIGHT
     case 'E':
-        if (this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
+        std::cout << direction << std::endl;
+        if (this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0 && this->board[end_x + 1][end_y].getRobot() == nullptr)
         {
-            while (end_x < SIZE_BOARD - 1 && this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0)
+            while (end_x < SIZE_BOARD - 1 && this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0 && this->board[end_x + 1][end_y].getRobot() == nullptr)
             {
                 end_x++;
             }
@@ -490,9 +493,10 @@ void Board::MoveRobot(Robot *robot, char direction)
         break;
     // Move LEFT
     case 'W':
-        if (this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
+        std::cout << direction << std::endl;
+        if (this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0 && this->board[end_x - 1][end_y].getRobot() == nullptr)
         {
-            while (end_x > 0 && this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0)
+            while (end_x > 0 && this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0 && this->board[end_x - 1][end_y].getRobot() == nullptr)
             {
                 end_x--;
             }
@@ -509,7 +513,7 @@ void Board::MoveRobot(Robot *robot, char direction)
 
 /**
  * @brief Check if a robot and a target on a same case have the same color
- * 
+ *
  * @param robot robot pointer of the current case
  * @param target target pointer of the current case
  * @return true There is a robot and a target and have a matching.
@@ -519,14 +523,17 @@ bool Board::targetReached(Robot *robot, Target *target)
 {
     bool reach = false;
 
-    if (robot == nullptr && target == nullptr) {
+    if (robot == nullptr && target == nullptr)
+    {
         return reach;
     }
 
-    if (robot->getColor() == target->GetColor()) {
+    if (robot->getColor() == target->GetColor())
+    {
         reach = true;
     }
-    else if (target->GetColor() == Rainbow) {
+    else if (target->GetColor() == Rainbow)
+    {
         reach = true;
     }
 

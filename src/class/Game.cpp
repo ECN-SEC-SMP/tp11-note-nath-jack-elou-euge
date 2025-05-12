@@ -341,11 +341,11 @@ void Game::test()
 
     this->display = new Display();
     Case plateau[16][16];
-    this->board->getBoard(plateau);
-    this->display->update(plateau);
 
     this->initRobots();
-    
+
+    this->board->getBoard(plateau);
+    this->display->update(plateau);
     this->display->print();
 
     Player *p = new Player("Jacko");
@@ -367,7 +367,7 @@ void Game::test()
         // std::cout << str << std::endl;
 
         // std::cout << "Press ENTER whenever you are ready" << std::endl;
-        // this->robotHold = robots.at(0);
+        this->robotHold = robots.at(0);
 
         TermCtrl *term = TermCtrl::getInstance();
         term->eventClearAll();
@@ -396,15 +396,21 @@ void Game::test()
 
         term->begin();
 
-        // bool playing = true;
-        // while (playing)
-        // {
-        //     // Compter nb robot "en vie" si 0 fin du game.
-        // }
+        int prevDigit = term->eventPending(TermEvents::DIGIT_INPUT);
+        int prevArrow = term->eventPending(TermEvents::DIRECTIONAL_ARROW);
         while (true)
         {
-            sleep(1);
-            term->runEvents();
+            if ((prevDigit != term->eventPending(TermEvents::DIGIT_INPUT)) ||
+                prevArrow != term->eventPending(TermEvents::DIRECTIONAL_ARROW))
+            {
+                term->runEvents();
+
+                prevDigit = term->eventPending(TermEvents::DIGIT_INPUT);
+                prevArrow = term->eventPending(TermEvents::DIRECTIONAL_ARROW);
+                this->board->getBoard(plateau);
+                this->display->update(plateau);
+                this->display->print();
+            }
         }
 
         term->end();
@@ -413,11 +419,32 @@ void Game::test()
 
 void Game::digitHandler(std::string evt)
 {
-
+    int index = std::stoi(evt);
+    if (index >= 1 && index <= 4)
+    {
+        this->robotHold = this->robots.at(index - 1);
+        std::cout << "Vous utilisez maintenant le robot " << this->robotHold->getColorString() << std::endl;
+    }
 }
 
 void Game::arrowHandler(std::string evt)
 {
-
-    std::cout << "b" << evt << std::endl;
+    char direction = NULL;
+    if (evt == KEY_UP)
+    {
+        direction = 'N';
+    }
+    else if (evt == KEY_RIGHT)
+    {
+        direction = 'E';
+    }
+    else if (evt == KEY_DOWN)
+    {
+        direction = 'S';
+    }
+    else if (evt == KEY_LEFT)
+    {
+        direction = 'W';
+    }
+    this->board->MoveRobot(this->robotHold, direction);
 }

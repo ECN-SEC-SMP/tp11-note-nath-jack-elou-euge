@@ -12,8 +12,7 @@
 #include "../utils/Utils.hpp"
 #include "../utils/Timer.hpp"
 #include "Display.hpp"
-#include <functional>
-#include <binders.h>
+
 class Game
 {
 
