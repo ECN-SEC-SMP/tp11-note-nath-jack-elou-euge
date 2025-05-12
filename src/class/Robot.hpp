@@ -2,6 +2,7 @@
 #define _ROBOT_HPP_
 
 #include "Color_Shape.hpp"
+#include <string>
 
 class Robot
 {
@@ -128,6 +129,15 @@ public:
      * @param b new b
      */
     void setReachTarget(bool b);
+
+    /**
+     * @brief Get the Color String object
+     * 
+     * @return std::string 
+     */
+    std::string getColorString();
+
+
 };
 
 #endif

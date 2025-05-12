@@ -9,8 +9,6 @@ void Game::resetGame()
     this->board = new Board();
     this->players = {};
     this->robots = {};
-    this->currentPlayer = nullptr;
-    this->startingPlayer = nullptr;
 }
 
 Game::Game() : players{}, robots{}, board(new Board())
@@ -41,26 +39,6 @@ std::vector<Player *> Game::getPlayers() const
 std::vector<Robot *> Game::getRobots() const
 {
     return this->robots;
-}
-
-Player *Game::getCurrentPlayer() const
-{
-    return this->currentPlayer;
-}
-
-Player *Game::getStartingPlayer() const
-{
-    return this->startingPlayer;
-}
-
-void Game::setCurrentPlayer(Player *currentP)
-{
-    this->currentPlayer = currentP;
-}
-
-void Game::setStartingPlayer(Player *startP)
-{
-    this->startingPlayer = startP;
 }
 
 bool Game::initRobots()
@@ -142,7 +120,16 @@ bool Game::play()
     std::cout << "Les autres joueurs, il vous reste 1 minute pour annoncer votre solution" << std::endl;
     this->remainingPlayer();
 
-    // Faire bouger les robots.
+    this->orderPlayers();
+
+    for (Player *player : this->players)
+    {
+        if (player->hasValidScore())
+        {
+            // player->play();
+        }
+    }
+
     return true;
 }
 
@@ -163,7 +150,9 @@ bool Game::playersThink()
     
     term->begin();
 
-    while ((remainingMilisec > 0) && !(term->eventPending(TermEvents::SPACE_INPUT) == 1))
+    int abc = (int)term->eventPending(TermEvents::SPACE_INPUT);
+    std::cout << "ABC" << abc << std::endl;
+    while (remainingMilisec > 0 && !(int)term->eventPending(TermEvents::SPACE_INPUT) == 1)
     {
         remainingMilisec = timer.getRemainingTimeMs();
         this->display->printTime();
@@ -279,6 +268,7 @@ void Game::remainingPlayer()
     int remainingMilisec = timer.getRemainingTimeMs();
 
     term->begin();
+    // std::cout << "AAAH " << term->eventPending(TermEvents::ENTER_INPUT) << std::endl;
 
     while (remainingMilisec > 0 || nbPlayer > 0)
     {
@@ -286,19 +276,175 @@ void Game::remainingPlayer()
         if (term->eventPending(TermEvents::SPACE_INPUT) == 1)
         {
             std::cout << "ABCRG" << std::endl;
+            term->end();
             timer.stop();
-            int index = this->whoFinds();
-            std::cout << this->players.at(index)->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
-            this->players.at(index)->setNbCoups(inputNumber(0, 10000));
+            this->chooseInput();
+
             timer.start(remainingMilisec, []() {});
+            term->begin();
         }
-        else
-        {
-            remainingMilisec = timer.getRemainingTimeMs();
-            this->display->printTime();
-        }
+        remainingMilisec = timer.getRemainingTimeMs();
+
+        this->display->printTime();
     }
 
     term->end();
     timer.stop();
+}
+
+void Game::chooseInput()
+{
+    int index = this->whoFinds();
+    std::cout << this->players.at(index)->getPseudo() << ", en combien de coups avez vous trouver une solution ?" << std::endl;
+    this->players.at(index)->setNbCoups(inputNumber(0, 10000));
+}
+
+void Game::orderPlayers()
+{
+    size_t n = players.size();
+    for (size_t i = 0; i < n - 1; i++)
+    {
+        for (size_t j = 0; j < n - i - 1; j++)
+        {
+            const Player *a = this->players.at(j);
+            const Player *b = this->players.at(i + 1);
+
+            bool shouldSwap;
+            if (!a->hasValidScore() && !b->hasValidScore())
+            {
+                shouldSwap = false;
+            }
+            else if (!a->hasValidScore())
+            {
+                shouldSwap = true;
+            }
+            else if (!b->hasValidScore())
+            {
+                shouldSwap = false;
+            }
+            else
+            {
+                shouldSwap = a->getNbCoups() > b->getNbCoups();
+            }
+
+            if (shouldSwap)
+            {
+                std::swap(players[j], players[j + 1]);
+            }
+        }
+    }
+}
+#include <unistd.h>
+
+void Game::test()
+{
+
+    this->display = new Display();
+    Case plateau[16][16];
+
+    this->initRobots();
+
+    this->board->getBoard(plateau);
+    this->display->update(plateau);
+    this->display->print();
+
+    Player *p = new Player("Jacko");
+    p->setNbCoups(10);
+
+    this->players.push_back(p);
+
+    // Tour des joueurs
+    for (Player *pl : this->players)
+    {
+        // std::cout << "Pour choisir un robot:" << std::endl;
+        // std::string str = "";
+        // int i = 1;
+        // for (Robot *r : this->robots)
+        // {
+        //     str += std::to_string(i) + ": " + r->getColorString() + " ";
+        //     i++;
+        // }
+        // std::cout << str << std::endl;
+
+        // std::cout << "Press ENTER whenever you are ready" << std::endl;
+        this->robotHold = robots.at(0);
+
+        TermCtrl *term = TermCtrl::getInstance();
+        term->eventClearAll();
+
+        // while ((int)term->eventPending(TermEvents::ENTER_INPUT) == (int)0)
+        // {
+        // }
+
+        // this->display->print();
+        // std::cout << "Pour choisir un robot:" << std::endl;
+        // str = "";
+        // i = 1;
+        // for (Robot *r : this->robots)
+        // {
+        //     if (!r->getReachTarget())
+        //     {
+        //         str += std::to_string(i) + ": " + r->getColorString() + " ";
+        //         i++;
+        //     }
+        // }
+
+        term->attach(TermEvents::DIGIT_INPUT, [this](std::string evt)
+                     { this->digitHandler(evt); });
+        term->attach(TermEvents::DIRECTIONAL_ARROW, [this](std::string evt)
+                     { this->arrowHandler(evt); });
+
+        term->begin();
+
+        int prevDigit = term->eventPending(TermEvents::DIGIT_INPUT);
+        int prevArrow = term->eventPending(TermEvents::DIRECTIONAL_ARROW);
+        while (true)
+        {
+            if ((prevDigit != term->eventPending(TermEvents::DIGIT_INPUT)) ||
+                prevArrow != term->eventPending(TermEvents::DIRECTIONAL_ARROW))
+            {
+                term->runEvents();
+
+                prevDigit = term->eventPending(TermEvents::DIGIT_INPUT);
+                prevArrow = term->eventPending(TermEvents::DIRECTIONAL_ARROW);
+                this->board->getBoard(plateau);
+                this->display->update(plateau);
+                this->display->print();
+            }
+        }
+
+        term->end();
+    }
+}
+
+void Game::digitHandler(std::string evt)
+{
+    int index = std::stoi(evt);
+    if (index >= 1 && index <= 4)
+    {
+        this->robotHold = this->robots.at(index - 1);
+        std::cout << "Vous utilisez maintenant le robot " << this->robotHold->getColorString() << std::endl;
+    }
+}
+
+void Game::arrowHandler(std::string evt)
+{
+    char direction = NULL;
+    if (evt == KEY_UP)
+    {
+        direction = 'N';
+    }
+    else if (evt == KEY_RIGHT)
+    {
+        direction = 'E';
+    }
+    else if (evt == KEY_DOWN)
+    {
+        direction = 'S';
+    }
+    else if (evt == KEY_LEFT)
+    {
+        direction = 'W';
+    }
+    this->board->MoveRobot(this->robotHold, direction);
 }
