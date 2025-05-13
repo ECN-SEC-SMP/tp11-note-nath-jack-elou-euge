@@ -649,11 +649,11 @@ void Display::put_center(void) {
         {
             // Wall
             if (!(j%2)) {
-                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_CENTER) + " " + std::string(ANSI_CODE_BACKGROUND_APP);
+                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_APP) + " " + std::string(ANSI_CODE_BACKGROUND_APP);
             } 
             // Case
             else {
-                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_CENTER) + std::string(SPACE) + std::string(ANSI_CODE_BACKGROUND_APP);
+                this->dispBoard[i][j] = std::string(ANSI_CODE_BACKGROUND_APP) + std::string(SPACE) + std::string(ANSI_CODE_BACKGROUND_APP);
             }
         }   // Fin j
     }   // Fin i
