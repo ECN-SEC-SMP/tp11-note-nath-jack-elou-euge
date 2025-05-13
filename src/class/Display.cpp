@@ -135,7 +135,6 @@
  * 
  */
 std::map<Color, std::string> COLOR_MAP = {
-    {Default,   std::string(ANSI_CODE_FOREGROUND_APP)},
     {Red,       std::string(ANSI_CODE_FOREGROUND_RED)},
     {Blue,      std::string(ANSI_CODE_FOREGROUND_BLUE)},
     {Green,     std::string(ANSI_CODE_FOREGROUND_GREEN)},
@@ -651,7 +650,7 @@ void Display::put_robots(void) {
             strTarget = "";
             strTarget.append(COLOR_MAP[clr]);
             strTarget.append(SHAPE_MAP[shp]);
-            strTarget.append(COLOR_MAP[Default]);
+            strTarget.append(std::string(ANSI_CODE_FOREGROUND_APP));
 
             // From SHAPE_MAP we can see that a robot take 2 space
             this->dispBoard[x][y].erase(DISP_ROBOT_PLACE, 2); // Remove Space, robot take 2 spaces
@@ -760,7 +759,7 @@ std::string Display::getTargetStr(Target* targ) {
 
     retStr.append(COLOR_MAP[clr]);
     retStr.append(SHAPE_MAP[shp]);
-    retStr.append(COLOR_MAP[Default]);
+    retStr.append(std::string(ANSI_CODE_FOREGROUND_APP));
 
     return retStr;
 }
