@@ -35,6 +35,12 @@ private:
     Case initialBoard[16][16];
 
     /**
+     * @brief Tableau permettant de stocker pour chaque indice une combinaison de coordonnées x et y
+     *
+     */
+    std::vector<std::pair<int, int>> anglesCoordinates;
+
+    /**
      * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
      *
      */
@@ -115,7 +121,8 @@ public:
      * @param robot Robot à déplacer
      * @param direction Direction du déplacement (N, S, E, W)
      * 
-     * @return true si le robot à bougé, false sinon
+     * @return true si il y a eu un deplacement
+     * @return false si le robot n'a pas pu se déplacer
      */
     bool moveRobot(Robot *robot, char direction);
 
