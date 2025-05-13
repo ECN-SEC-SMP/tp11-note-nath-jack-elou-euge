@@ -47,8 +47,8 @@ Tests must be done inside class file.
 
  Dans notre classe Board on a 4 attributs :
 
-- MoveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
-- GenerateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
+- moveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
+- generateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
 - CheckWall(x,y) qui prend en argument les coordonnées de la case et qui vérifie si notre pion robot est face à un mur
 - CheckTarget(x,y) qui prend en argument les coordonnées de la case et qui vérifie si la case x,y à un pion robot ou non
 
@@ -76,14 +76,14 @@ La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un
    - `board[16][16]` : Tableau 2D de cases représentant la grille de jeu. Chaque case peut contenir des murs, un robot, ou une cible.
 
 2. **Méthodes privées :**
-   - `GenerateBoardStep1` : Ajoute les murs extérieurs de la grille et les murs formant un carré central.
-   - `GenerateBoardStep2` : Ajoute deux murs extérieurs aléatoires (un vertical et un horizontal) dans chaque quart de la grille.
-   - `GenerateBoardStep3` : Ajoute 4 "angles" (deux murs formant un coin) dans chaque quart de la grille, en s'assurant qu'ils ne touchent pas d'autres murs ou angles.
-   - `GenerateBoardStep4` : Ajoute un angle supplémentaire dans un quart choisi aléatoirement, en respectant les mêmes contraintes.
+   - `generateBoardStep1` : Ajoute les murs extérieurs de la grille et les murs formant un carré central.
+   - `generateBoardStep2` : Ajoute deux murs extérieurs aléatoires (un vertical et un horizontal) dans chaque quart de la grille.
+   - `generateBoardStep3` : Ajoute 4 "angles" (deux murs formant un coin) dans chaque quart de la grille, en s'assurant qu'ils ne touchent pas d'autres murs ou angles.
+   - `generateBoardStep4` : Ajoute un angle supplémentaire dans un quart choisi aléatoirement, en respectant les mêmes contraintes.
 
 3. **Méthodes publiques :**
-   - `GenerateBoard` : Génère la grille complète en appelant les étapes 1 à 4.
-   - `PlaceRobots` : Place aléatoirement 4 robots sur la grille, ainsi qu'une cible dans un angle de deux murs.
+   - `generateBoard` : Génère la grille complète en appelant les étapes 1 à 4.
+   - `placeRobots` : Place aléatoirement 4 robots sur la grille, ainsi qu'une cible dans un angle de deux murs.
    - `getBoard` : Retourne la grille de jeu.
    - Constructeur et destructeur : Initialisent et nettoient la grille.
 
@@ -107,17 +107,17 @@ fin type
 ```
 
 ```algo
-fonction ø <- GenerateBoard(B)
+fonction ø <- generateBoard(B)
 algorithme
-    appeler GenerateBoardStep1(B)
-    appeler GenerateBoardStep2(B)
-    appeler GenerateBoardStep3(B)
-    appeler GenerateBoardStep4(B)
+    appeler generateBoardStep1(B)
+    appeler generateBoardStep2(B)
+    appeler generateBoardStep3(B)
+    appeler generateBoardStep4(B)
 fin fonction
 ```
 
 ```algo
-fonction ø <- GenerateBoardStep1(B)
+fonction ø <- generateBoardStep1(B)
     paramètre lien Board B
     résultat ø
 algorithme
@@ -143,7 +143,7 @@ fin fonction
 ```
 
 ```algo
-fonction ø <- GenerateBoardStep2(B)
+fonction ø <- generateBoardStep2(B)
     paramètre lien Board B
     résultat ø
 algorithme
@@ -171,7 +171,7 @@ fin fonction
 ```
 
 ```algo
-fonction ø <- GenerateBoardStep3(B)
+fonction ø <- generateBoardStep3(B)
     paramètre lien Board B
     résultat ø
 algorithme
@@ -192,7 +192,7 @@ fin fonction
 ```
 
 ```algo
-fonction ø <- GenerateBoardStep4(B)
+fonction ø <- generateBoardStep4(B)
     paramètre lien Board B
     résultat ø
 algorithme
@@ -210,7 +210,7 @@ fin fonction
 ```
 
 ```algo
-fonction ø <- PlaceRobots(B, robots)
+fonction ø <- placeRobots(B, robots)
     paramètre lien Board B
     paramètre tableau[4] de Robot robots
     résultat ø

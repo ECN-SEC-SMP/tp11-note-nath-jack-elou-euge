@@ -19,6 +19,7 @@ class Game
 private:
     std::vector<Player *> players;
     std::vector<Robot *> robots;
+    std::vector<Target *> targets;
     
     Robot* robotHold;
     Board *board;

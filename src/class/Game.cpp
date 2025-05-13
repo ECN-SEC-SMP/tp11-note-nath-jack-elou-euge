@@ -53,7 +53,7 @@ bool Game::initRobots()
     this->robots.push_back(robot_3);
     this->robots.push_back(robot_4);
 
-    this->board->PlaceRobots(&this->robots);
+    this->board->placeRobots(&this->robots);
 
     return true;
 }
@@ -100,9 +100,13 @@ bool Game::play()
     this->display = new Display();
     Case plateau[16][16];
 
+    this->board->placeTargets(&this->targets);
+
+    board->setTargetObjectif(this->targets.at(rand() % this->targets.size()));
+
     this->initRobots();
 
-    this->board->SaveBoard();
+    this->board->saveBoard();
 
     this->initPlayers();
 
@@ -409,5 +413,5 @@ void Game::arrowHandler(std::string evt)
     {
         direction = 'W';
     }
-    this->board->MoveRobot(this->robotHold, direction);
+    this->board->moveRobot(this->robotHold, direction);
 }

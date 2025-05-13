@@ -17,7 +17,7 @@
  * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
  *
  */
-void Board::GenerateBoardStep1(void)
+void Board::generateBoardStep1(void)
 {
     int x = 0;
     int y = 0;
@@ -61,7 +61,7 @@ void Board::GenerateBoardStep1(void)
  * @brief Sur chaque quart, création aléatoire deux murs extérieurs, un côté vertical et un côté horizontal.
  *
  */
-void Board::GenerateBoardStep2(void)
+void Board::generateBoardStep2(void)
 {
     int x = 0;
     int y = 0;
@@ -111,7 +111,7 @@ void Board::GenerateBoardStep2(void)
  *           ne peut ni en toucher un autre, ni toucher un mur extérieur.
  *
  */
-void Board::GenerateBoardStep3(void)
+void Board::generateBoardStep3(void)
 {
     int x = 0;
     int y = 0;
@@ -229,7 +229,7 @@ void Board::GenerateBoardStep3(void)
  *           du jeu original.
  *        Il ne faut pas que cet angle touche un autre angle ou un mur extérieur.
  */
-void Board::GenerateBoardStep4(void)
+void Board::generateBoardStep4(void)
 {
     int x = 0;
     int y = 0;
@@ -299,11 +299,19 @@ void Board::GenerateBoardStep4(void)
  *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
  *        chaque couleur et 1 multicolore)
  *
+ * @param
+ *
  */
-void Board::PlaceTargets(void)
+void Board::placeTargets(std::vector<Target *> *myTargets)
 {
     int NBtargetIsPlaced = 0;
     int NBtargetToPlace = (rand() % 13) + 4; // 4 to 17
+
+    // Fill the vector with empty targets
+    for (int i = 0; i < NBtargetToPlace; i++)
+    {
+        myTargets->push_back(new Target());
+    }
 
     // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
     while (NBtargetIsPlaced != NBtargetToPlace)
@@ -330,25 +338,30 @@ void Board::PlaceTargets(void)
         {
             if (NBtargetIsPlaced == 0)
             {
-                this->board[x][y].setTarget(new Target(Red, (Shape)(rand() % 4)));
+                myTargets->at(NBtargetIsPlaced)->setColor(Red);
             }
             else if (NBtargetIsPlaced == 1)
             {
-                this->board[x][y].setTarget(new Target(Blue, (Shape)(rand() % 4)));
+                myTargets->at(NBtargetIsPlaced)->setColor(Blue);
             }
             else if (NBtargetIsPlaced == 2)
             {
-                this->board[x][y].setTarget(new Target(Green, (Shape)(rand() % 4)));
+                myTargets->at(NBtargetIsPlaced)->setColor(Green);
             }
             else if (NBtargetIsPlaced == 3)
             {
-                this->board[x][y].setTarget(new Target(Yellow, (Shape)(rand() % 4)));
+                myTargets->at(NBtargetIsPlaced)->setColor(Yellow);
             }
             else
             {
                 // Place random color target on the board
-                this->board[x][y].setTarget(new Target((Color)((rand() % 5) + 1), (Shape)(rand() % 4)));
+                myTargets->at(NBtargetIsPlaced)->setColor((Color)((rand() % 5) + 1));
             }
+
+            myTargets->at(NBtargetIsPlaced)->setShape((Shape)(rand() % 4));
+
+            this->board[x][y].setTarget(myTargets->at(NBtargetIsPlaced));
+
             NBtargetIsPlaced++;
         }
     }
@@ -357,8 +370,10 @@ void Board::PlaceTargets(void)
 /**
  * @brief Placez les 4 robots de manière aléatoire.
  *
+ * @param
+ *
  */
-void Board::PlaceRobots(std::vector<Robot *> *myRobot)
+void Board::placeRobots(std::vector<Robot *> *myRobot)
 {
     // Update the implementation to handle Robot* instead of Robot
     std::vector<Robot *> *robots = myRobot;
@@ -391,14 +406,13 @@ void Board::PlaceRobots(std::vector<Robot *> *myRobot)
  * @brief Génération de la grille de jeu. La grille est générée en 4 étapes
  *
  */
-void Board::GenerateBoard(void)
+void Board::generateBoard(void)
 {
 
-    this->GenerateBoardStep1();
-    this->GenerateBoardStep2();
-    this->GenerateBoardStep3();
-    this->GenerateBoardStep4();
-    this->PlaceTargets();
+    this->generateBoardStep1();
+    this->generateBoardStep2();
+    this->generateBoardStep3();
+    this->generateBoardStep4();
 }
 
 /**
@@ -432,10 +446,11 @@ Board::Board()
     }
     // Initialisation du générateur de nombres aléatoires
     std::random_device rd;
-    std::srand(rd());
+    std::mt19937 gen(rd()); // Use Mersenne Twister for better randomness
+    std::srand(gen());
 
     // Génération de la grille de jeu
-    this->GenerateBoard();
+    this->generateBoard();
 }
 
 /**
@@ -464,7 +479,7 @@ Board::~Board()
  * @param direction Direction du déplacement (N, S, E, W)
  *
  */
-void Board::MoveRobot(Robot *robot, char direction)
+void Board::moveRobot(Robot *robot, char direction)
 {
     int start_x = robot->getX();
     int start_y = robot->getY();
@@ -557,11 +572,11 @@ bool Board::targetReached(Robot *robot, Target *target)
         return reach;
     }
 
-    if (robot->getColor() == target->GetColor())
+    if (robot->getColor() == target->getColor())
     {
         reach = true;
     }
-    else if (target->GetColor() == Rainbow)
+    else if (target->getColor() == Rainbow)
     {
         reach = true;
     }
@@ -574,9 +589,9 @@ bool Board::targetReached(Robot *robot, Target *target)
  *
  * @return Case
  */
-void Board::SaveBoard()
+void Board::saveBoard()
 {
-    std::memcpy(this->InitialBoard, this->board, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
+    std::memcpy(this->initialBoard, this->board, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
 }
 
 /**
@@ -584,9 +599,9 @@ void Board::SaveBoard()
  *
  * @return void
  */
-void Board::ReinitBoard(std::vector<Robot *> *myRobot)
+void Board::reinitBoard(std::vector<Robot *> *myRobot)
 {
-    std::memcpy(this->board, this->InitialBoard, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
+    std::memcpy(this->board, this->initialBoard, sizeof(Case) * SIZE_BOARD * SIZE_BOARD);
 
     // Update the implementation to handle Robot* instead of Robot
     std::vector<Robot *> *robots = myRobot;
@@ -606,4 +621,24 @@ void Board::ReinitBoard(std::vector<Robot *> *myRobot)
 
         RobotsCountPlaced++;
     }
+}
+
+/**
+ * @brief Set the Target Objectif object
+ *
+ * @param targetObjectif
+ */
+void Board::setTargetObjectif(Target *targetObjectif)
+{
+    this->board[TARGET_OBJECTIF_X][TARGET_OBJECTIF_Y].setTarget(targetObjectif);
+}
+
+/**
+ * @brief Get the Target Objectif object
+ *
+ * @return Target
+ */
+Target *Board::getTargetObjectif()
+{
+    return this->board[TARGET_OBJECTIF_X][TARGET_OBJECTIF_Y].getTarget();
 }

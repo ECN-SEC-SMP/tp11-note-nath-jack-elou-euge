@@ -24,25 +24,27 @@
 #include <random>
 
 #define SIZE_BOARD int(16)
+#define TARGET_OBJECTIF_X (int)8
+#define TARGET_OBJECTIF_Y (int)8
 
 class Board
 {
 private:
     Case board[16][16];
 
-    Case InitialBoard[16][16];
+    Case initialBoard[16][16];
 
     /**
      * @brief Création des murs autour de la grille, ainsi que des murs qui forment le carré du milieu.
      *
      */
-    void GenerateBoardStep1(void);
+    void generateBoardStep1(void);
 
     /**
      * @brief Sur chaque quart, création aléatoire deux murs extérieurs, un côté vertical et un côté horizontal.
      *
      */
-    void GenerateBoardStep2(void);
+    void generateBoardStep2(void);
 
     /**
      * @brief Ajout des murs intérieurs. Sur chaque quart, création de 4 "angles" constitués de
@@ -50,7 +52,7 @@ private:
      *           ne peut ni en toucher un autre, ni toucher un mur extérieur.
      *
      */
-    void GenerateBoardStep3(void);
+    void generateBoardStep3(void);
 
     /**
      * @brief Une fois avoir avons placé 2 murs extérieurs et 4 "angles" par quart, on ajoute un nouvel
@@ -59,22 +61,13 @@ private:
      *           du jeu original.
      *        Il ne faut pas que cet angle touche un autre angle ou un mur extérieur.
      */
-    void GenerateBoardStep4(void);
-
-        /**
-     * @brief Le choix de la cible (rouge, vert, bleu, jaune ou
-     *        multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
-     *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
-     *        chaque couleur et 1 multicolore)
-     *
-     */
-    void PlaceTargets(void);
+    void generateBoardStep4(void);
 
     /**
      * @brief Génération de la grille de jeu. La grille est générée en 4 étapes
      *
      */
-    void GenerateBoard(void);
+    void generateBoard(void);
 
 public:
     /**
@@ -97,10 +90,19 @@ public:
     void getBoard(Case board[SIZE_BOARD][SIZE_BOARD]) const;
 
     /**
+     * @brief Le choix de la cible (rouge, vert, bleu, jaune ou
+     *        multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
+     *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
+     *        chaque couleur et 1 multicolore)
+     *
+     */
+    void placeTargets(std::vector<Target *> *myTargets);
+
+    /**
      * @brief Placez les 4 robots de manière aléatoire.
      *
      */
-    void PlaceRobots(std::vector<Robot *> *myRobot);
+    void placeRobots(std::vector<Robot *> *myRobot);
 
     /**
      * @brief Fonction permettant de déplacer les robots sur le plateau de jeu
@@ -112,15 +114,15 @@ public:
      * @param direction Direction du déplacement (N, S, E, O)
      *
      */
-    void MoveRobot(Robot *, char);
-    
+    void moveRobot(Robot *, char);
+
     /**
      * @brief Vérifie si un robot à atteint la cible
-     * 
+     *
      * @param robot Pointeur vers le robot
      * @param target Pointeur vers la cible
-     * @return true 
-     * @return false 
+     * @return true
+     * @return false
      */
     bool targetReached(Robot *robot, Target *target);
 
@@ -129,14 +131,28 @@ public:
      *
      * @return Case
      */
-    void SaveBoard(void);
+    void saveBoard(void);
 
     /**
      * @brief Reinitialise la grille de jeu
-     * 
-     * @return void 
+     *
+     * @return void
      */
-    void ReinitBoard(std::vector<Robot *> *myRobot);
+    void reinitBoard(std::vector<Robot *> *myRobot);
+
+    /**
+     * @brief Set the Target Objectif object
+     *
+     * @param targetObjectif
+     */
+    void setTargetObjectif(Target *targetObjectif);
+
+    /**
+     * @brief Get the Target Objectif object
+     *
+     * @return Target
+     */
+    Target *getTargetObjectif();
 };
 
 #endif // _BOARD_HPP_
