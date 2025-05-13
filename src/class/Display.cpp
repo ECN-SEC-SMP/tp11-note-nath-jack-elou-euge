@@ -217,20 +217,20 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
             
             // // Crossing
             else if (i == 0 && !(j % 2)) {
-                to_put = this->getWallStr(CROSSING_HORIZ_TO_BOT_WALL_HORIZ);
-                // to_put = this->put_line(CROSSING_HORIZ_TO_BOT, x, y, DISP_CASE_NONE);
+                // to_put = this->getWallStr(CROSSING_HORIZ_TO_BOT_WALL_HORIZ);
+                to_put = this->getWallStr(CROSSING_LINE_HORIZ_WALL);
             }
             else if (i == (SIZE_BOARD * 2) && !(j % 2)) {
-                to_put = this->getWallStr(CROSSING_HORIZ_TO_TOP_WALL_HORIZ);
-                // to_put = this->put_line(CROSSING_HORIZ_TO_TOP, x, y, DISP_CASE_NONE);
+                // to_put = this->getWallStr(CROSSING_HORIZ_TO_TOP_WALL_HORIZ);
+                to_put = this->getWallStr(CROSSING_LINE_HORIZ_WALL);
             }
             else if (!(i % 2) && j == 0) {
-                to_put = this->getWallStr(CROSSING_VERTI_TO_RIGHT_WALL_VERTI);
-                // to_put = this->put_line(CROSSING_VERTI_TO_RIGHT, x, y, DISP_CASE_NONE);
+                // to_put = this->getWallStr(CROSSING_VERTI_TO_RIGHT_WALL_VERTI);
+                to_put = this->getWallStr(CROSSING_LINE_VERTI_WALL);
             }
             else if (!(i % 2) && j == (SIZE_BOARD * 2)) {
-                to_put = this->getWallStr(CROSSING_VERTI_TO_LEFT_WALL_VERTI);
-                // to_put = this->put_line(CROSSING_VERTI_TO_LEFT, x, y, DISP_CASE_NONE);
+                // to_put = this->getWallStr(CROSSING_VERTI_TO_LEFT_WALL_VERTI);
+                to_put = this->getWallStr(CROSSING_LINE_VERTI_WALL);
             }
             else if (!(i % 2) && !(j % 2)) {
                 to_put = CROSSING_CROSS;
@@ -630,8 +630,8 @@ void Display::put_targets(void) {
             strTarget.append(SHAPE_MAP[shp]);
             strTarget.append(COLOR_MAP[Default]);
 
-            this->dispBoard[x][y].erase(DISP_TARGET_PLACE, 1); // Remove Space
-            this->dispBoard[x][y].insert(DISP_TARGET_PLACE, strTarget);
+            this->dispBoard[x][y].erase(this->dispBoard[x][y].size() - 1, 1); // Remove Space
+            this->dispBoard[x][y].append(strTarget);
         }
     }
 }
