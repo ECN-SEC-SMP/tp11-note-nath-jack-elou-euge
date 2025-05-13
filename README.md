@@ -7,15 +7,85 @@
 - [Eugénie ROQUAIN](https://github.com/euge13301)
 - [Eloi TOURANGIN](https://github.com/ioleto)
 
+## Professeur
+
+- Myriam Servieres
+
 ## Table des matières
 
-1. [Build & Compilation](#build--compilation)
-2. [Tests](#tests)
-3. [Explications et algorithmes](#explications-et-algorithmes)
-    - [Classe Game](#classe-game)
+1. [Explication des règles](#explication-des-règles)
+    - [Objectif du jeu](#objectif-du-jeu)
+    - [Éléments du jeu](#éléments-du-jeu)
+    - [Déroulement d’un tour](#déroulement-dun-tour)
+    - [Règles de déplacement](#règles-de-déplacement)
+    - [Remarque](#remarque)
+2. [Build & Compilation](#build--compilation)
+    - [Build](#build)
+3. [Tests](#tests)
+4. [Explications et algorithmes](#explications-et-algorithmes)
     - [Classe Board](#classe-board)
-        - [Algorithmes de génération](#algorithmes-de-génération)
-4. [Exemples d'utilisation](#exemples-dutilisation)
+        - [Fonctionnement classe Board](#fonctionnement-classe-board)
+        - [Algorithmes de génération classe Board](#algorithmes-de-génération-classe-board)
+    - [Classe Case](#classe-case)
+        - [Fonctionnement classe Case](#fonctionnement-classe-case)
+        - [Algorithmes de génération classe Case](#algorithmes-de-génération-classe-case)
+    - [Classe Display](#classe-display)
+        - [Fonctionnement classe Display](#fonctionnement-classe-display)
+        - [Algorithmes de génération classe Display](#algorithmes-de-génération-classe-display)
+    - [Classe Game](#classe-game)
+        - [Fonctionnement classe Game](#fonctionnement-classe-game)
+        - [Algorithmes de génération classe Game](#algorithmes-de-génération-classe-game)
+    - [Classe Player](#classe-player)
+        - [Fonctionnement classe Player](#fonctionnement-classe-player)
+        - [Algorithmes de génération classe Player](#algorithmes-de-génération-classe-player)
+    - [Classe Robot](#classe-robot)
+        - [Fonctionnement classe Robot](#fonctionnement-classe-robot)
+        - [Algorithmes de génération classe Robot](#algorithmes-de-génération-classe-robot)
+    - [Classe Target](#classe-target)
+        - [Fonctionnement classe Target](#fonctionnement-classe-target)
+        - [Algorithmes de génération classe Target](#algorithmes-de-génération-classe-target)
+5. [Exemples d'utilisation](#exemples-dutilisation)
+
+## Explication des règles
+
+### Objectif du jeu
+
+Ricochet Robots est un jeu de plateau où 4 robots de couleurs différentes (rouge, jaune, bleu, vert) se déplacent sur une grille de 16x16 cases. Le but est de déplacer les robots pour amener l’un d’eux sur une case cible spécifique en respectant les règles de déplacement. Le joueur qui trouve la solution en utilisant le moins de mouvements remporte la manche.
+
+### Éléments du jeu
+
+- **Robots** : 4 robots de couleurs différentes.
+- **Objectifs** : 17 tuiles cibles réparties en 4 groupes de 4 tuiles de couleur identique à celle des robots, et une tuile multicolore.
+- **Plateau** : Une grille de 16x16 cases avec des murs et obstacles.
+- **Sablier** : Un sablier d’une heure pour limiter le temps de réflexion.
+
+### Déroulement d’un tour
+
+1. **Tirage de la tuile objectif** :  
+    Le plateau ainsi que la tuile objectif sont affiché. Si c’est une tuile de couleur, le but est d’amener le robot de cette couleur sur la case cible correspondante. Si c’est la tuile multicolore, n’importe quel robot peut atteindre la case multicolore.
+
+2. **Réflexion simultanée** :  
+    Tous les joueurs réfléchissent en même temps pour trouver une solution en utilisant le moins de mouvements possible.
+
+3. **Annonce des solutions** :  
+    Lorsqu’un joueur trouve une solution, il appui sur espace et rentre le nombre de mouvements nécessaires. Les autres joueurs ont une minute pour proposer de meilleures solutions.
+
+4. **Validation par déplacement** :  
+    Le joueur ayant proposé la solution avec le moins de mouvements montre sa solution. Si elle est correcte, il remporte la partie. Sinon, le joueur suivant (ayant proposé le nombre de mouvements immédiatement supérieur) montre sa solution, et ainsi de suite.
+
+### Règles de déplacement
+
+- Les robots se déplacent en ligne droite et avancent jusqu’à rencontrer un obstacle.
+- Les obstacles peuvent être :
+  - Les bords du plateau.
+  - Les murs présents sur le plateau.
+  - Un autre robot.
+- Une fois en mouvement, un robot ne peut s’arrêter ou changer de direction avant de rencontrer un obstacle.
+- Chaque déplacement compte pour un mouvement, quel que soit le nombre de cases parcourues.
+
+### Remarque
+
+Si une solution est atteignable en un seul mouvement après le tirage d’une tuile objectif, les joueurs doivent ignorer cette solution et chercher une alternative.
 
 ## Build & Compilation
 
@@ -27,9 +97,10 @@ Pour construire le projet, exécutez les commandes suivantes dans un terminal :
 mkdir build
 cd build
 cmake ..
+cd ..
 ```
 
-Compiler
+Compiler et lancer le jeu
 
 ```bash
 make
@@ -41,36 +112,11 @@ Tests must be done inside class file.
 
 ## Explications et algorithmes
 
-## Classe Game
-
- Notre classe Game comprend deux classes : Board et Display. Elle permet d'initialiser le jeu et ainsi démarrer une partie.
-
- Dans notre classe Board on a 4 attributs :
-
-- moveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
-- generateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
-- CheckWall(x,y) qui prend en argument les coordonnées de la case et qui vérifie si notre pion robot est face à un mur
-- CheckTarget(x,y) qui prend en argument les coordonnées de la case et qui vérifie si la case x,y à un pion robot ou non
-
- La classe Board utilise les enum Colors et Shapes qui ont respectivement chacune des couleurs des cibles et robots ainsi que les formes deux cibles
-
- Dans notre classe Display on a 2 arguments :
-
-- Updates()
-- Print()
-
- Notre classe Robot possède deux arguments :
-
-- getShape()
-- getColor()
-- Robot(Enum Colors) qui lui attribut une couleur
-- Robot(Color c, Shape s)
-
 ### Classe Board
 
 La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un jeu de type puzzle. Elle contient des méthodes pour générer la grille, placer des murs, des angles, des robots, et des cibles.
 
-#### Fonctionnement
+#### Fonctionnement classe Board
 
 1. **Attributs principaux :**
    - `board[16][16]` : Tableau 2D de cases représentant la grille de jeu. Chaque case peut contenir des murs, un robot, ou une cible.
@@ -87,7 +133,7 @@ La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un
    - `getBoard` : Retourne la grille de jeu.
    - Constructeur et destructeur : Initialisent et nettoient la grille.
 
-### Algorithmes de génération
+#### Algorithmes de génération classe Board
 
 Voici l'algorithme en langage naturel pour générer une grille complète :
 
@@ -233,3 +279,62 @@ algorithme
     jusqu'à ce qu'une cible soit placée
 fin fonction
 ```
+### Classe Case
+
+#### Fonctionnement classe Case
+
+#### Algorithmes de génération classe Case
+
+### Classe Display
+
+#### Fonctionnement classe Display
+
+#### Algorithmes de génération classe Display
+
+
+## Classe Game
+
+#### Fonctionnement classe Game
+
+ Notre classe Game comprend deux classes : Board et Display. Elle permet d'initialiser le jeu et ainsi démarrer une partie.
+
+ Dans notre classe Board on a 4 attributs :
+
+- moveRobot() qui permet d'avancer les pions Robot en ligne jusqu'à un obstacle
+- generateBoard() qui permet de générer de facon aléatoire notre plateau de jeu avec des obstacles, les cibles et les pions Robots
+- CheckWall(x,y) qui prend en argument les coordonnées de la case et qui vérifie si notre pion robot est face à un mur
+- CheckTarget(x,y) qui prend en argument les coordonnées de la case et qui vérifie si la case x,y à un pion robot ou non
+
+ La classe Board utilise les enum Colors et Shapes qui ont respectivement chacune des couleurs des cibles et robots ainsi que les formes deux cibles
+
+ Dans notre classe Display on a 2 arguments :
+
+- Updates()
+- Print()
+
+ Notre classe Robot possède deux arguments :
+
+- getShape()
+- getColor()
+- Robot(Enum Colors) qui lui attribut une couleur
+- Robot(Color c, Shape s)
+
+#### Algorithmes de génération classe Game
+
+### Classe Player
+
+#### Fonctionnement classe Player
+
+#### Algorithmes de génération classe Player
+
+### Classe Robot
+
+#### Fonctionnement classe Robot
+
+#### Algorithmes de génération classe Robot
+
+### Classe Target
+
+#### Fonctionnement classe Target
+
+#### Algorithmes de génération classe Target
