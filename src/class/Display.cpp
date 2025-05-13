@@ -727,11 +727,16 @@ void Display::put_center(void) {
             }
         }   // Fin j
     }   // Fin i
-
+    
     // Put target in middle
     Target* targ = this->board[TARGET_OBJECTIF_X][TARGET_OBJECTIF_Y].getTarget();
-    this->dispBoard[DISP_TARGET_OBJECTIF_X][DISP_TARGET_OBJECTIF_Y] = getTargetStr(targ);
 
+    if (targ == nullptr) {
+        return;
+    }
+
+    this->dispBoard[DISP_TARGET_OBJECTIF_X][DISP_TARGET_OBJECTIF_Y] = getTargetStr(targ);
+    
     if (targ->getShape() == TargetRainbow) {
         this->dispBoard[DISP_TARGET_OBJECTIF_X][DISP_TARGET_OBJECTIF_Y + 1] = "  ";
     }

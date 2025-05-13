@@ -356,75 +356,46 @@ void Board::generateBoardStep4(void)
  */
 void Board::placeTargets(std::vector<Target *> *myTargets)
 {
-    int nBtargetIsPlaced = 0;
-    int nBtargetToPlace = (rand() % 13) + 4; // 4 to 17
+    // nb Rand [1, 4] n premier rouge placé
+    // nb Rand [1, 4] + 4 n premier bleu placé
+    // nb Rand [1, 4] + 8 n premier bleu placé
+    // nb Rand [1, 4] + 12 n premier bleu placé
+    // nb Rand [1, 2] 1 chance sur 2 d'avoir l'arc en ciel
 
-    bool raibowIsPlaced = false;
+    uint8_t x, y, randomAngle;
 
-    // Fill the vector with empty targets
-    for (int i = 0; i < nBtargetToPlace; i++)
+    for (uint8_t i = 0; i < 4; i++)
     {
-        myTargets->push_back(new Target());
+        uint8_t nbTargOfColor = (rand() % 3) + 1;
+
+        for (uint8_t j = 0; j < nbTargOfColor; j++)
+        {
+            
+            // Choix d'un angle aléatoire pour y placer la target
+            do
+            {
+                randomAngle = rand() % 17;
+                x = anglesCoordinates.at(randomAngle).first;
+                y = anglesCoordinates.at(randomAngle).second;
+
+            } while ((this->board[x][y].getRobot() != nullptr) || (this->board[x][y].getTarget() != nullptr));
+            
+            this->board[x][y].setTarget(myTargets->at(j + (4 * i)));
+        }   
     }
 
-    // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
-    while (nBtargetIsPlaced != nBtargetToPlace)
-    {
-        // Choix d'un angle aléatoire pour y placer la target
-        int randomAngle = rand() % 17;
-        int x = anglesCoordinates.at(randomAngle).first;
-        int y = anglesCoordinates.at(randomAngle).second;
 
-        // Check if the case is already occupied by a robot
-        if (this->board[x][y].getRobot() != nullptr)
-            continue;
+    uint8_t shouldPlaceTarget = !(rand() % 4);
+    std::cout << "Place rainbow : " << (shouldPlaceTarget ? "oui" : "non") << std::endl;
+    if (shouldPlaceTarget) {
+        do {
+            randomAngle = rand() % 17;
+            x = anglesCoordinates.at(randomAngle).first;
+            y = anglesCoordinates.at(randomAngle).second;
 
-        // Check if the case is already occupied by a target
-        if (this->board[x][y].getTarget() != nullptr)
-            continue;
-
-        if (nBtargetIsPlaced == 0)
-        {
-            myTargets->at(nBtargetIsPlaced)->setColor(Red);
-        }
-        else if (nBtargetIsPlaced == 1)
-        {
-            myTargets->at(nBtargetIsPlaced)->setColor(Blue);
-        }
-        else if (nBtargetIsPlaced == 2)
-        {
-            myTargets->at(nBtargetIsPlaced)->setColor(Green);
-        }
-        else if (nBtargetIsPlaced == 3)
-        {
-            myTargets->at(nBtargetIsPlaced)->setColor(Yellow);
-        }
-        else
-        {
-            if (raibowIsPlaced)
-            {
-                // Place random color target on the board
-                myTargets->at(nBtargetIsPlaced)->setColor((Color)((rand() % 4) + 1));
-            }
-            else
-            {
-                myTargets->at(nBtargetIsPlaced)->setColor((Color)((rand() % 5) + 1));
-            }
-        }
-
-        if (myTargets->at(nBtargetIsPlaced)->getColor() == Rainbow)
-        {
-            myTargets->at(nBtargetIsPlaced)->setShape(TargetRainbow);
-            raibowIsPlaced = 1;
-        }
-        else
-        {
-            myTargets->at(nBtargetIsPlaced)->setShape((Shape)(rand() % 4));
-        }
-
-        this->board[x][y].setTarget(myTargets->at(nBtargetIsPlaced));
-
-        nBtargetIsPlaced++;
+        } while ((this->board[x][y].getRobot() != nullptr) || (this->board[x][y].getTarget() != nullptr));
+        
+        this->board[x][y].setTarget(myTargets->back());
     }
 }
 
