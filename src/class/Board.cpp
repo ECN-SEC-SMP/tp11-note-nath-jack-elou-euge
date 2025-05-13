@@ -570,12 +570,7 @@ bool Board::moveRobot(Robot *robot, char direction)
         break;
     }
 
-    if(start_x != end_x || start_y != end_y)
-    {
-        return 1;
-    }
-
-    return 0;
+    return ((start_x != end_x) || (start_y != end_y));
 }
 
 /**
