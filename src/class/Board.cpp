@@ -304,17 +304,19 @@ void Board::generateBoardStep4(void)
  */
 void Board::placeTargets(std::vector<Target *> *myTargets)
 {
-    int NBtargetIsPlaced = 0;
-    int NBtargetToPlace = (rand() % 13) + 4; // 4 to 17
+    int nBtargetIsPlaced = 0;
+    int nBtargetToPlace = (rand() % 13) + 4; // 4 to 17
+
+    bool raibowIsPlaced = false;
 
     // Fill the vector with empty targets
-    for (int i = 0; i < NBtargetToPlace; i++)
+    for (int i = 0; i < nBtargetToPlace; i++)
     {
         myTargets->push_back(new Target());
     }
 
     // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
-    while (NBtargetIsPlaced != NBtargetToPlace)
+    while (nBtargetIsPlaced != nBtargetToPlace)
     {
         // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
         // [0,0] to [15,15] without [7,7] to [8,8]
@@ -336,33 +338,47 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
             (this->board[x][y].getSouth() == 1 && this->board[x][y].getEast() == 1) ||
             (this->board[x][y].getSouth() == 1 && this->board[x][y].getWest() == 1))
         {
-            if (NBtargetIsPlaced == 0)
+            if (nBtargetIsPlaced == 0)
             {
-                myTargets->at(NBtargetIsPlaced)->setColor(Red);
+                myTargets->at(nBtargetIsPlaced)->setColor(Red);
             }
-            else if (NBtargetIsPlaced == 1)
+            else if (nBtargetIsPlaced == 1)
             {
-                myTargets->at(NBtargetIsPlaced)->setColor(Blue);
+                myTargets->at(nBtargetIsPlaced)->setColor(Blue);
             }
-            else if (NBtargetIsPlaced == 2)
+            else if (nBtargetIsPlaced == 2)
             {
-                myTargets->at(NBtargetIsPlaced)->setColor(Green);
+                myTargets->at(nBtargetIsPlaced)->setColor(Green);
             }
-            else if (NBtargetIsPlaced == 3)
+            else if (nBtargetIsPlaced == 3)
             {
-                myTargets->at(NBtargetIsPlaced)->setColor(Yellow);
+                myTargets->at(nBtargetIsPlaced)->setColor(Yellow);
             }
             else
             {
-                // Place random color target on the board
-                myTargets->at(NBtargetIsPlaced)->setColor((Color)((rand() % 5) + 1));
+                if (raibowIsPlaced)
+                {
+                    // Place random color target on the board
+                    myTargets->at(nBtargetIsPlaced)->setColor((Color)((rand() % 4) + 1));
+                }
+                else
+                {
+                    myTargets->at(nBtargetIsPlaced)->setColor((Color)((rand() % 5) + 1));
+                }
             }
 
-            myTargets->at(NBtargetIsPlaced)->setShape((Shape)(rand() % 4));
+            if (myTargets->at(nBtargetIsPlaced)->getColor() == Rainbow)
+            {
+                myTargets->at(nBtargetIsPlaced)->setShape(TargetRainbow);
+            }
+            else
+            {
+                myTargets->at(nBtargetIsPlaced)->setShape((Shape)(rand() % 4));
+            }
 
-            this->board[x][y].setTarget(myTargets->at(NBtargetIsPlaced));
+            this->board[x][y].setTarget(myTargets->at(nBtargetIsPlaced));
 
-            NBtargetIsPlaced++;
+            nBtargetIsPlaced++;
         }
     }
 }
