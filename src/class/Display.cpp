@@ -342,7 +342,7 @@ int8_t Display::addLine(std::string line) {
     }
 
     this->permaLines[i] = line;
-    
+    return i;
 }
 
 /**
