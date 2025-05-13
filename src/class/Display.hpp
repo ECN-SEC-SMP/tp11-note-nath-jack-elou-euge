@@ -49,6 +49,7 @@ private:
     void put_time(void);
 
     std::string getWallStr(std::string wall_chr);
+    std::string getTargetStr(Target* targ);
 
     void cursorSetPos(uint8_t h, uint8_t w);
 
