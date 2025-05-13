@@ -306,9 +306,9 @@ int Game::whoFinds()
 
 bool Game::keepPlaying()
 {
-    char input = NULL;
+    char input = '\0';
     std::cout << "Souhaitez vous rejouer ? (y/n)" << std::endl;
-    while (input == NULL)
+    while (input == '\0')
     {
         std::cin >> input;
         input = std::tolower(input); // Make it case-insensitive
@@ -320,12 +320,14 @@ bool Game::keepPlaying()
         else
         {
             std::cout << "Veuillez saisir uniquement 'y' ou 'n'" << std::endl;
-            input = NULL;
+            input = '\0';
             std::cin.clear();                                                   // Réinitialise les flags d'erreur
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // vide la mauvaise entrée
         }
     }
-}
+
+    return false;
+}       
 
 void Game::remainingPlayer()
 {
@@ -438,7 +440,7 @@ void Game::digitHandler(std::string evt)
 
 void Game::arrowHandler(std::string evt)
 {
-    char direction = NULL;
+    char direction = '\0';
     if (evt == KEY_UP)
     {
         direction = 'N';

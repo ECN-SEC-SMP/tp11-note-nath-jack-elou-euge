@@ -70,7 +70,7 @@
 int main(int argc, char const *argv[])
 {
     bool keepPlaying = true;
-    char input = NULL;
+    char input = '\0';
 
     Game game = Game();
     while (keepPlaying)
