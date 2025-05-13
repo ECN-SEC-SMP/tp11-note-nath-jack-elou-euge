@@ -556,15 +556,16 @@ void Board::moveRobot(Robot *robot, char direction)
  * @brief Check if a robot and a target on a same case have the same color
  *
  * @param robot robot pointer of the current case
- * @param target target pointer of the current case
  * @return true There is a robot and a target and have a matching.
  * @return false when there is no matching conditions
  */
-bool Board::targetReached(Robot *robot, Target *target)
+bool Board::targetReached(Robot *robot)
 {
     bool reach = false;
 
-    if (this->board[robot->getX()][robot->getY()].getTarget() != nullptr)
+    Target *target = this->board[robot->getX()][robot->getY()].getTarget();
+
+    if (target != nullptr)
     {
         Target *objectif = this->getTargetObjectif();
 

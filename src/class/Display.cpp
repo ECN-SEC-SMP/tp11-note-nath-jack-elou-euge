@@ -108,6 +108,11 @@
 #define ANSI_CODE_FOREGROUND_APP "\33[38;5;0m"          // ANSI ESCAPE CODE TO set the app foreground black
 #define ANSI_CODE_FOREGROUND_CENTER "\33[38;5;15m"      // ANSI ESCAPE CODE TO set the app foreground white
 
+#define ANSI_CODE_FOREGROUND_RED "\33[38;5;1m"
+#define ANSI_CODE_FOREGROUND_BLUE "\33[38;5;4m"
+#define ANSI_CODE_FOREGROUND_GREEN "\33[38;5;2m"
+#define ANSI_CODE_FOREGROUND_YELLOW "\33[38;5;220m"
+
 #define ANSI_CODE_LINE_COLOR "\33[38;5;253m"            // ANSI ESCAPE CODE TO set color for grid lines in grey
 #define ANSI_CODE_WALL_COLOR "\33[38;5;0m"              // ANSI ESCAPE CODE TO set color for wall in black
 
@@ -128,12 +133,12 @@
  * 
  */
 std::map<Color, std::string> COLOR_MAP = {
-    {Default, "\33[38;5;0m"},
-    {Red, "\33[38;5;1m"},
-    {Blue, "\33[38;5;4m"},
-    {Green, "\33[38;5;2m"},
-    {Yellow, "\33[38;5;220m"},
-    {Rainbow, "\33[38;5;0m"},
+    {Default,   std::string(ANSI_CODE_FOREGROUND_APP)},
+    {Red,       std::string(ANSI_CODE_FOREGROUND_RED)},
+    {Blue,      std::string(ANSI_CODE_FOREGROUND_BLUE)},
+    {Green,     std::string(ANSI_CODE_FOREGROUND_GREEN)},
+    {Yellow,    std::string(ANSI_CODE_FOREGROUND_YELLOW)},
+    {Rainbow,   std::string(ANSI_CODE_FOREGROUND_APP)},
 };
 
 /**
@@ -145,6 +150,7 @@ std::map<Shape, std::string> SHAPE_MAP = {
     {Target2,    "♥"},
     {Target3,    "♦"},
     {Target4,    "♠"},
+    {TargetRainbow, "🌈"},
     {RobotSign,  "██"},
 };
 
@@ -685,16 +691,20 @@ void Display::put_targets(void) {
             Shape shp = curTarget->getShape();
 
             strTarget = "";
-            if (clr == Color::Rainbow) {
-                strTarget = "🌈";
-            }
-            else {
-                strTarget.append(COLOR_MAP[clr]);
-                strTarget.append(SHAPE_MAP[shp]);
-                strTarget.append(COLOR_MAP[Default]);
+            strTarget.append(COLOR_MAP[clr]);
+            strTarget.append(SHAPE_MAP[shp]);
+            strTarget.append(COLOR_MAP[Default]);
+
+            if ((shp == TargetRainbow)) {
+                if ((curCase.getRobot() != nullptr))
+                {
+                    continue;
+                }
+                
+                this->dispBoard[x][y].pop_back();
             }
 
-            this->dispBoard[x][y].erase(this->dispBoard[x][y].size() - 1, 1); // Remove Space
+            this->dispBoard[x][y].pop_back();
             this->dispBoard[x][y].append(strTarget);
         }
     }
@@ -760,7 +770,8 @@ void Display_Test(void) {
         new Target(Blue, Target1),
         new Target(Red, Target2),
         new Target(Green, Target3),
-        new Target(Yellow, Target4)
+        new Target(Yellow, Target4),
+        new Target(Rainbow, TargetRainbow)
     };
     
     board.getBoard(plateau);
@@ -769,6 +780,7 @@ void Display_Test(void) {
     plateau[15][0].setTarget(listTarg[1]);
     plateau[4][6].setTarget(listTarg[2]);
     plateau[13][10].setTarget(listTarg[3]);
+    plateau[7][3].setTarget(listTarg[4]);
 
     disp.update(plateau);
 

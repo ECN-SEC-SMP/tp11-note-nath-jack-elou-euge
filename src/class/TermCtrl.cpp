@@ -108,7 +108,6 @@ void TermThreadRunner(void) {
         if (c == EOF) {
             continue;
         }
-        std::cout << (uint16_t)c << std::endl;
         word.push_back(c);
 
         /**
