@@ -110,6 +110,46 @@ void Robot::setY(int y)
 }
 
 /**
+ * @brief Get initial the X object
+ *
+ * @return int
+ */
+int Robot::getInitialX() const
+{
+    return this->initial_x;
+}
+
+/**
+ * @brief Get initial the Y object
+ *
+ * @return int
+ */
+int Robot::getInitialY() const
+{
+    return this->initial_y;
+}
+
+/**
+ * @brief Set the initial X object
+ *
+ * @param x initial coordonate x of robot
+ */
+void Robot::setInitialX(int x)
+{
+    this->initial_x = x;
+}
+
+/**
+ * @brief Set the initial Y object
+ *
+ * @param y initial coordonate y of robot
+ */
+void Robot::setInitialY(int y)
+{
+    this->initial_y = y;
+}
+
+/**
  * @brief
  *
  * @return true
