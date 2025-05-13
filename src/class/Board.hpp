@@ -61,6 +61,15 @@ private:
      */
     void GenerateBoardStep4(void);
 
+        /**
+     * @brief Le choix de la cible (rouge, vert, bleu, jaune ou
+     *        multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
+     *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
+     *        chaque couleur et 1 multicolore)
+     *
+     */
+    void PlaceTargets(void);
+
     /**
      * @brief Génération de la grille de jeu. La grille est générée en 4 étapes
      *
@@ -88,10 +97,7 @@ public:
     void getBoard(Case board[SIZE_BOARD][SIZE_BOARD]) const;
 
     /**
-     * @brief Placez les 4 robots de manière aléatoire. Le choix de la cible (rouge, vert, bleu, jaune ou
-     *        multicolore) est fait aléatoirement, son placement est également aléatoire mais forcément
-     *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
-     *        chaque couleur et 1 multicolore)
+     * @brief Placez les 4 robots de manière aléatoire.
      *
      */
     void PlaceRobots(std::vector<Robot *> *myRobot);
@@ -133,4 +139,4 @@ public:
     void ReinitBoard(std::vector<Robot *> *myRobot);
 };
 
-#endif
+#endif // _BOARD_HPP_
