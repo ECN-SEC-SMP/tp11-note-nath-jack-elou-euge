@@ -21,9 +21,12 @@ private:
     std::vector<Robot *> robots;
     std::vector<Target *> targets;
     
+    Player* currentPlayer;
     Robot* robotHold;
     Board *board;
     Display *display;
+
+    bool refreshBoard;
 
 
     bool initPlayers();
@@ -40,8 +43,8 @@ private:
     void orderPlayers();
 
     void digitHandler(std::string evt);
-    void enterHandler(std::string evt);
     void arrowHandler(std::string evt);
+    void displayScore();
 
 public:
     Game();
@@ -57,7 +60,6 @@ public:
 
     void resetGame();
 
-    void test();
 };
 
 #endif
