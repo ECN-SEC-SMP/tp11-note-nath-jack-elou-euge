@@ -69,40 +69,12 @@
 // }
 int main(int argc, char const *argv[])
 {
-    bool keepPlaying = true;
-    char input = '\0';
 
     Game game = Game();
-    while (keepPlaying)
+    if (game.play())
     {
-        if (game.play())
-        {
-            keepPlaying = game.keepPlaying();
-            if (keepPlaying == true)
-            {
-                game.resetGame();
-            }
-        }
-        else
-        {
-            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-        }
+        std::cout << "Merci d'avoir jouer ;)" << std::endl;
     }
-
-    std::cout << "Fin du jeu" << std::endl;
 
     return 0;
 }
-
-// int main(int argc, char const *argv[])
-// {
-//     Board board = Board();
-//     Display disp = Display();
-//     Case plateau[16][16];
-
-//     board.getBoard(plateau);
-//     disp.update(plateau);
-//     disp.print();
-
-//     return 0;
-// }

@@ -119,10 +119,10 @@ public:
      *        Si il y a un robot, le robot avance jusqu'au robot
      *
      * @param robot Robot à déplacer
-     * @param direction Direction du déplacement (N, S, E, O)
+     * @param direction Direction du déplacement (N, S, E, W)
      * 
-     * @return true si il y eu un deplacement
-     * @return false si le robot n'as pa pu se déplacer
+     * @return true si il y a eu un deplacement
+     * @return false si le robot n'a pas pu se déplacer
      */
     bool moveRobot(Robot *robot, char direction);
 

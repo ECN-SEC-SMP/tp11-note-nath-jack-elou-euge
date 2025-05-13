@@ -81,7 +81,7 @@ void Player::setNbCoupsAnnonce(int nCoups)
     }
 }
 
-bool Player::hasValidScore() const
+bool Player::hasValidCoupsAnnonce() const
 {
     return this->nbCoupsAnnonce != -1;
 }
