@@ -169,6 +169,7 @@ void TermThreadRunner(void) {
             }
         }
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
 
@@ -223,6 +224,8 @@ void TermCtrl::begin(void) {
     tcgetattr(STDIN_FILENO, &oldTerminal); // Sauvegarde de l'ancien mode
     newt = oldTerminal;
     newt.c_lflag &= ~(ICANON | ECHO);        // Mode sans buffer ni echo
+    newt.c_cc[VMIN] = 0;
+    newt.c_cc[VTIME] = 0;
     tcsetattr(STDIN_FILENO, TCSANOW, &newt); // Activation du mode
     _TermCtrlStarted = true;
 
