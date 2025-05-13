@@ -285,6 +285,17 @@ void Display::print(void) {
         }   // Fin j
         std::cout << std::endl;
     }   // Fin i
+
+    // Print perma lines
+    for (uint8_t i = 0; i < PERMA_LINES_MAX_NB; i++)
+    {
+        if (this->permaLines[i].empty()) {
+            continue;
+        }
+
+        std::cout << this->permaLines[i] << "\n";
+    }
+    
 }
 
 /**
@@ -305,6 +316,54 @@ void Display::printTime(void) {
     // Return to cursor pos
     std::cout << ANSI_CODE_CURSOR_POS_LOAD;
 }
+
+/**
+ * @brief Add line to print after the board
+ * 
+ * @param line Line to prin
+ * @return int8_t Index of the line, needed to update or clear line, -1 if error
+ */
+int8_t Display::addLine(std::string line) {
+    int8_t i = 0;
+
+    while (!(this->permaLines[i].empty())) {
+        i++;
+
+        if (i >= PERMA_LINES_MAX_NB) {
+            i = -1;
+            return i;
+        }
+    }
+
+    this->permaLines[i] = line;
+    
+}
+
+/**
+ * @brief Update existing line bt it's index
+ * 
+ * @param lineIndex Index of the line to update
+ * @param line New line
+ */
+void Display::updateLine(uint8_t lineIndex, std::string line) {
+    if (lineIndex >= PERMA_LINES_MAX_NB) {
+        return;
+    }
+    this->permaLines[lineIndex] = line;
+}
+
+/**
+ * @brief Remove existing line by it's index
+ * 
+ * @param lineIndex 
+ */
+void Display::clearLine(uint8_t lineIndex) {
+    if (lineIndex >= PERMA_LINES_MAX_NB) {
+        return;
+    }
+    this->permaLines[lineIndex] = "";
+}
+
 
 // ================================================================================
 // Private Fonctions definitions
@@ -630,9 +689,9 @@ void Display::put_targets(void) {
                 strTarget = "🌈";
             }
             else {
-            strTarget.append(COLOR_MAP[clr]);
-            strTarget.append(SHAPE_MAP[shp]);
-            strTarget.append(COLOR_MAP[Default]);
+                strTarget.append(COLOR_MAP[clr]);
+                strTarget.append(SHAPE_MAP[shp]);
+                strTarget.append(COLOR_MAP[Default]);
             }
 
             this->dispBoard[x][y].erase(this->dispBoard[x][y].size() - 1, 1); // Remove Space

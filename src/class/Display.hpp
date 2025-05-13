@@ -24,6 +24,7 @@
 // Code page 437
 #define CODE_PAGE_437_CHAR_WIDTH    4
 #define BOARD_DISP_SIZE  (SIZE_BOARD * 2) + 1
+#define PERMA_LINES_MAX_NB  5
 
 // ================================================================================
 // Tests declaration
@@ -39,6 +40,7 @@ class Display {
 private:
     Case board[SIZE_BOARD][SIZE_BOARD];
     std::string dispBoard[BOARD_DISP_SIZE][BOARD_DISP_SIZE];
+    std::string permaLines[PERMA_LINES_MAX_NB];
 
     void put_walls(void);
     void put_robots(void);
@@ -57,6 +59,10 @@ public:
     void update(Case board[SIZE_BOARD][SIZE_BOARD]);
     void print(void);
     void printTime(void);
+
+    int8_t addLine(std::string line);
+    void updateLine(uint8_t lineIndex, std::string line);
+    void clearLine(uint8_t lineIndex);
 };
 
 #endif  // _DISPLAY_HPP_
