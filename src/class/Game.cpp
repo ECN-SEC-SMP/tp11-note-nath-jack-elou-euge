@@ -131,6 +131,7 @@ bool Game::play()
         if (player->hasValidScore())
         {
             // player->play();
+            this->board->ReinitBoard(&this->robots);
         }
     }
 
