@@ -626,9 +626,14 @@ void Display::put_targets(void) {
             Shape shp = curTarget->GetShape();
 
             strTarget = "";
+            if (clr == Color::Rainbow) {
+                strTarget = "🌈";
+            }
+            else {
             strTarget.append(COLOR_MAP[clr]);
             strTarget.append(SHAPE_MAP[shp]);
             strTarget.append(COLOR_MAP[Default]);
+            }
 
             this->dispBoard[x][y].erase(this->dispBoard[x][y].size() - 1, 1); // Remove Space
             this->dispBoard[x][y].append(strTarget);
