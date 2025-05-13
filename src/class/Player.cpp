@@ -18,8 +18,8 @@
 // Public Fonctions definitions
 // ================================================================================
 
-
-Player::Player() {
+Player::Player()
+{
     this->pseudo = "";
     this->nbCoupsAnnonce = -1;
     this->nbCoupsReal = 0;
@@ -69,7 +69,7 @@ int Player::getNbCoupsAnnonce() const
 
 void Player::setNbCoupsReal(int nCoups)
 {
-    if (nCoups > 0)
+    if (nCoups >= 0)
     {
         this->nbCoupsReal = nCoups;
     }
@@ -82,10 +82,7 @@ int Player::getNbCoupsReal() const
 
 void Player::setNbCoupsAnnonce(int nCoups)
 {
-    if (nCoups > 0)
-    {
-        this->nbCoupsAnnonce = nCoups;
-    }
+    this->nbCoupsAnnonce = nCoups;
 }
 
 bool Player::hasValidCoupsAnnonce() const

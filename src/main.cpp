@@ -54,49 +54,12 @@
  */
 int main(int argc, char const *argv[])
 {
-    std::vector<Target*> targets = {
-        new Target(Red, Target1),
-        new Target(Red, Target2),
-        new Target(Red, Target3),
-        new Target(Red, Target4),
-        new Target(Blue, Target1),
-        new Target(Blue, Target2),
-        new Target(Blue, Target3),
-        new Target(Blue, Target4),
-        new Target(Green, Target1),
-        new Target(Green, Target2),
-        new Target(Green, Target3),
-        new Target(Green, Target4),
-        new Target(Yellow, Target1),
-        new Target(Yellow, Target2),
-        new Target(Yellow, Target3),
-        new Target(Yellow, Target4),
-        new Target(Rainbow, TargetRainbow)
-    };
 
-    Board* board = new Board();
-    board->placeTargets(&targets);
-
-    Display disp = Display();
-    Case dispBoard[SIZE_BOARD][SIZE_BOARD];
-    board->getBoard(dispBoard);
-    disp.update(dispBoard);
-    disp.print();
-
-    std::string tfdha;
-    std::cin >> tfdha;
+    Game game = Game();
+    if (game.play())
+    {
+        std::cout << "Merci d'avoir jouer ;)" << std::endl;
+    }
 
     return 0;
 }
-
-// int main(int argc, char const *argv[])
-// {
-
-//     Game game = Game();
-//     if (game.play())
-//     {
-//         std::cout << "Merci d'avoir jouer ;)" << std::endl;
-//     }
-
-//     return 0;
-// }

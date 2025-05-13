@@ -361,7 +361,7 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
     // nb Rand [1, 4] + 8 n premier bleu placé
     // nb Rand [1, 4] + 12 n premier bleu placé
     // nb Rand [1, 2] 1 chance sur 2 d'avoir l'arc en ciel
-
+    std::vector<Target *> nTargets = {};
     uint8_t x, y, randomAngle;
 
     for (uint8_t i = 0; i < 4; i++)
@@ -370,7 +370,7 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
 
         for (uint8_t j = 0; j < nbTargOfColor; j++)
         {
-            
+
             // Choix d'un angle aléatoire pour y placer la target
             do
             {
@@ -379,24 +379,28 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
                 y = anglesCoordinates.at(randomAngle).second;
 
             } while ((this->board[x][y].getRobot() != nullptr) || (this->board[x][y].getTarget() != nullptr));
-            
-            this->board[x][y].setTarget(myTargets->at(j + (4 * i)));
-        }   
-    }
 
+            this->board[x][y].setTarget(myTargets->at(j + (4 * i)));
+            nTargets.push_back(myTargets->at(j + (4 * i)));
+        }
+    }
 
     uint8_t shouldPlaceTarget = !(rand() % 4);
     std::cout << "Place rainbow : " << (shouldPlaceTarget ? "oui" : "non") << std::endl;
-    if (shouldPlaceTarget) {
-        do {
+    if (shouldPlaceTarget)
+    {
+        do
+        {
             randomAngle = rand() % 17;
             x = anglesCoordinates.at(randomAngle).first;
             y = anglesCoordinates.at(randomAngle).second;
 
         } while ((this->board[x][y].getRobot() != nullptr) || (this->board[x][y].getTarget() != nullptr));
-        
+
         this->board[x][y].setTarget(myTargets->back());
+        nTargets.push_back(myTargets->back());
     }
+    *myTargets = nTargets;
 }
 
 /**
@@ -522,8 +526,6 @@ bool Board::moveRobot(Robot *robot, char direction)
     {
     // Move UP
     case 'N':
-        std::cout << direction << std::endl;
-
         if (this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0 && this->board[end_x][end_y - 1].getRobot() == nullptr)
         {
             while (end_y > 0 && this->board[end_x][end_y].getNorth() == 0 && this->board[end_x][end_y - 1].getSouth() == 0 && this->board[end_x][end_y - 1].getRobot() == nullptr)
@@ -539,7 +541,6 @@ bool Board::moveRobot(Robot *robot, char direction)
 
     // Move DOWN
     case 'S':
-        std::cout << direction << std::endl;
         if (this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0 && this->board[end_x][end_y + 1].getRobot() == nullptr)
         {
             while (end_y < SIZE_BOARD - 1 && this->board[end_x][end_y].getSouth() == 0 && this->board[end_x][end_y + 1].getNorth() == 0 && this->board[end_x][end_y + 1].getRobot() == nullptr)
@@ -554,7 +555,6 @@ bool Board::moveRobot(Robot *robot, char direction)
         break;
     // Move RIGHT
     case 'E':
-        std::cout << direction << std::endl;
         if (this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0 && this->board[end_x + 1][end_y].getRobot() == nullptr)
         {
             while (end_x < SIZE_BOARD - 1 && this->board[end_x][end_y].getEast() == 0 && this->board[end_x + 1][end_y].getWest() == 0 && this->board[end_x + 1][end_y].getRobot() == nullptr)
@@ -569,7 +569,6 @@ bool Board::moveRobot(Robot *robot, char direction)
         break;
     // Move LEFT
     case 'W':
-        std::cout << direction << std::endl;
         if (this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0 && this->board[end_x - 1][end_y].getRobot() == nullptr)
         {
             while (end_x > 0 && this->board[end_x][end_y].getWest() == 0 && this->board[end_x - 1][end_y].getEast() == 0 && this->board[end_x - 1][end_y].getRobot() == nullptr)

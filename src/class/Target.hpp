@@ -33,30 +33,10 @@ public:
     Target(Color color, Shape shape);
 
     /**
-     * @brief Initialisation de Target : Construit une nouvelle Target
-     *
-     */
-    Target();
-
-    /**
      * @brief Destroy the Target:: Target object
      *
      */
     ~Target();
-
-    /**
-     * @brief Fonction qui set la forme de la target
-     * 
-     * @param Shape
-     */
-     void setShape(Shape s);
-
-     /**
-      * @brief Fonction qui set la couleur de la target
-      * 
-      * @param Couleur
-      */
-      void setColor(Color c);
 
     /**
      * @brief Fonction qui attribue une forme au pointeur de notre objet

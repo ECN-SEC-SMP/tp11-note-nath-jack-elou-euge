@@ -74,8 +74,6 @@ public:
 
     bool hasValidCoupsAnnonce() const;
 
-    void play(std::vector<Robot *> *robots);
-
     void chooseRobot(std::string evt);
 
     void moveRobot(std::string evt);

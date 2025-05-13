@@ -102,7 +102,7 @@ void TermThreadRunner(void)
     fflush(stdin);
     while (_TermCtrlStarted)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(15)); // To prevent looping to fast
+        std::this_thread::sleep_for(std::chrono::milliseconds(30)); // To prevent looping to fast
         c = getcharAlt();
         if (c == EOF)
         {
