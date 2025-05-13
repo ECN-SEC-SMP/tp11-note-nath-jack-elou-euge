@@ -681,8 +681,8 @@ void Display::put_targets(void) {
                 continue;
             }
             
-            Color clr = curTarget->GetColor();
-            Shape shp = curTarget->GetShape();
+            Color clr = curTarget->getColor();
+            Shape shp = curTarget->getShape();
 
             strTarget = "";
             if (clr == Color::Rainbow) {

@@ -33,6 +33,18 @@ private:
     int y;
 
     /**
+     * @brief initial coordonate x of robot
+     *
+     */
+    int initial_x;
+
+    /**
+     * @brief initial coordonate y of robot
+     *
+     */
+    int initial_y;
+
+    /**
      * @brief 1 if reached the target, else 0
      *
      */
@@ -116,28 +128,54 @@ public:
     void setY(int y);
 
     /**
+     * @brief Get initial the X object
+     *
+     * @return int
+     */
+    int getInitialX() const;
+
+    /**
+     * @brief Get initial the Y object
+     *
+     * @return int
+     */
+    int getInitialY() const;
+
+    /**
+     * @brief Set the initial X object
+     *
+     * @param x initial coordonate x of robot
+     */
+    void setInitialX(int x);
+
+    /**
+     * @brief Set the initial Y object
+     *
+     * @param y initial coordonate y of robot
+     */
+    void setInitialY(int y);
+
+    /**
      * @brief Get the Reach Target object
-     * 
-     * @return true 
-     * @return false 
+     *
+     * @return true
+     * @return false
      */
     bool getReachTarget() const;
 
     /**
      * @brief Set the Reach Target object
-     * 
+     *
      * @param b new b
      */
     void setReachTarget(bool b);
 
     /**
      * @brief Get the Color String object
-     * 
-     * @return std::string 
+     *
+     * @return std::string
      */
     std::string getColorString();
-
-
 };
 
 #endif

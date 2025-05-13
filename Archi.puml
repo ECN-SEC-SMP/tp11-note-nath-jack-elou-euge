@@ -7,8 +7,8 @@ class Game {
 }
 
 class Board {
-    + MoveRobot()
-    + GenerateBoard()
+    + moveRobot()
+    + generateBoard()
     + CheckWall(x, y)
     + CheckTarget(x, y)
 }
