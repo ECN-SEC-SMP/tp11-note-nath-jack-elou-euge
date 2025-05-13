@@ -16,7 +16,6 @@
  */
 typedef enum
 {
-    Default,
     Red,
     Blue,
     Green,
