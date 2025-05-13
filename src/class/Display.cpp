@@ -263,6 +263,7 @@ void Display::update(Case board[SIZE_BOARD][SIZE_BOARD]) {
                 to_put.append(ANSI_CODE_FOREGROUND_APP);
             }
             this->dispBoard[i][j] = to_put;
+
         }
     }
 
