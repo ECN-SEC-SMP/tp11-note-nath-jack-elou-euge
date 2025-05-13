@@ -59,50 +59,98 @@ void Board::generateBoardStep1(void)
 
 /**
  * @brief Sur chaque quart, création aléatoire deux murs extérieurs, un côté vertical et un côté horizontal.
- *
+ *        Vérifie que les murs générés ne se touchent pas.
  */
 void Board::generateBoardStep2(void)
 {
     int x = 0;
     int y = 0;
 
+    // Vecteurs pour sauvegarder les positions des murs placés
+    std::vector<std::pair<int, int>> placedWalls;
+
+    auto isTouching = [&](int x, int y) -> bool {
+        for (const auto &wall : placedWalls)
+        {
+            if (std::abs(wall.first - x) <= 1 && std::abs(wall.second - y) <= 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    };
+
     /* First quadrant (0,0) to (7,7) */
-    x = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        x = rand() % (SIZE_BOARD / 2); // 0 to 7
+        y = 0;
+    } while (isTouching(x, y));
     this->board[x][y].setEast(1);
+    placedWalls.emplace_back(x, y);
 
     /* Second quadrant (8,0) to (15,7) */
-    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+        y = 0;
+    } while (isTouching(x, y));
     this->board[x][y].setWest(1);
+    placedWalls.emplace_back(x, y);
 
     y = 15;
 
     /* Third quadrant (0,8) to (7,15) */
-    x = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        x = rand() % (SIZE_BOARD / 2); // 0 to 7
+    } while (isTouching(x, y));
     this->board[x][y].setEast(1);
+    placedWalls.emplace_back(x, y);
 
     /* Fourth quadrant (8,8) to (15,15) */
-    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    } while (isTouching(x, y));
     this->board[x][y].setWest(1);
+    placedWalls.emplace_back(x, y);
 
     x = 0;
 
     /* First quadrant (0,0) to (7,7) */
-    y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    } while (isTouching(x, y));
     this->board[x][y].setSouth(1);
+    placedWalls.emplace_back(x, y);
 
     /* Third quadrant (0,8) to (7,15) */
-    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    } while (isTouching(x, y));
     this->board[x][y].setNorth(1);
+    placedWalls.emplace_back(x, y);
 
     x = 15;
 
     /* Second quadrant (8,0) to (15,7) */
-    y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    } while (isTouching(x, y));
     this->board[x][y].setSouth(1);
+    placedWalls.emplace_back(x, y);
 
     /* Fourth quadrant (8,8) to (15,15) */
-    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    } while (isTouching(x, y));
     this->board[x][y].setNorth(1);
+    placedWalls.emplace_back(x, y);
 }
 
 /**
@@ -370,6 +418,7 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
             if (myTargets->at(nBtargetIsPlaced)->getColor() == Rainbow)
             {
                 myTargets->at(nBtargetIsPlaced)->setShape(TargetRainbow);
+                raibowIsPlaced = 1;
             }
             else
             {
