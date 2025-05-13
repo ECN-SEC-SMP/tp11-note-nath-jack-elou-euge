@@ -17,6 +17,13 @@
 // ================================================================================
 // Public Fonctions definitions
 // ================================================================================
+
+
+Player::Player() {
+    this->pseudo = "";
+    this->nbCoupsAnnonce = -1;
+    this->nbCoupsReal = 0;
+}
 /**
  * @brief Construct a new Player:: Player object
  *

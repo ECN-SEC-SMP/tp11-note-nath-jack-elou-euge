@@ -37,6 +37,8 @@ private:
     int score;
 
 public:
+
+    Player();
     /**
      * @brief Construct a new Player:: Player object
      *

@@ -20,50 +20,48 @@ private:
     std::vector<Player *> players;
     std::vector<Robot *> robots;
     std::vector<Target *> targets;
-    
-    Player* currentPlayer;
-    Robot* robotHold;
+
+    Player *currentPlayer;
+    Robot *robotHold;
     Board *board;
     Display *display;
 
     bool refreshBoard;
 
-
-    bool initPlayers();
-    int findIndex(std::vector<Player *> players, Player *toFind);
-    bool playerExists(Player *p);
-    void displayPlayers();
-    bool initRobots();
-    bool playersThink();
-    int whoFinds();
-
     void orderPlayersByScore();
-
-    std::string displayRobotInputs();
     void remainingPlayer();
-
     void chooseInput();
-
     void orderPlayersByNbCoupsAnnonce();
-
     void digitHandler(std::string evt);
     void arrowHandler(std::string evt);
     void displayScore();
+    void displayPlayers();
 
+    bool initPlayers();
+    bool playerExists(Player *p);
+    bool initRobots();
+    bool playersThink();
+
+    int findIndex(std::vector<Player *> players, Player *toFind);
+    int whoFinds();
+    int nbUnannounced();
+
+    std::string displayRobotInputs();
+
+    Player* findUnannounced();
 public:
     Game();
     Game(std::vector<Player *> players, std::vector<Robot *> robots);
     ~Game();
 
-    void setPlayers(std::vector<Player *> players);
     std::vector<Player *> getPlayers() const;
     std::vector<Robot *> getRobots() const;
 
-    bool play();
-    bool keepPlaying();
-
+    void setPlayers(std::vector<Player *> players);
     void resetGame();
 
+    bool play();
+    bool keepPlaying();
 };
 
 #endif
