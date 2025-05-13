@@ -59,40 +59,40 @@
 //     return 0;
 // }
 
-int main()
-{
-
-    Game game = Game();
-    game.test();
-
-    return 0;
-}
-// int main(int argc, char const *argv[])
+// int main()
 // {
-//     bool keepPlaying = true;
-//     char input = NULL;
 
 //     Game game = Game();
-//     while (keepPlaying)
-//     {
-//         if (game.play())
-//         {
-//             keepPlaying = game.keepPlaying();
-//             if (keepPlaying == true)
-//             {
-//                 game.resetGame();
-//             }
-//         }
-//         else
-//         {
-//             std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
-//         }
-//     }
-
-//     std::cout << "Fin du jeu" << std::endl;
+//     game.test();
 
 //     return 0;
 // }
+int main(int argc, char const *argv[])
+{
+    bool keepPlaying = true;
+    char input = NULL;
+
+    Game game = Game();
+    while (keepPlaying)
+    {
+        if (game.play())
+        {
+            keepPlaying = game.keepPlaying();
+            if (keepPlaying == true)
+            {
+                game.resetGame();
+            }
+        }
+        else
+        {
+            std::cerr << "Une erreur est survenue dans le jeu" << std::endl;
+        }
+    }
+
+    std::cout << "Fin du jeu" << std::endl;
+
+    return 0;
+}
 
 // int main(int argc, char const *argv[])
 // {
