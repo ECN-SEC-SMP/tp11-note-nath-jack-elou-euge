@@ -1,6 +1,5 @@
 #include "Game.hpp"
 
-
 void Game::resetGame()
 {
     this->board = new Board();
@@ -193,9 +192,10 @@ bool Game::play()
             // term->begin();
 
             this->currentPlayer = player;
-            this->display->updateLine(dPseudoIndex, "C'est le tour de: " + this->currentPlayer->getPseudo() + "\n");
             if (player->hasValidCoupsAnnonce()) // Si coupAnnonce != -1 (s'il a saisit un nb de coup)
             {
+                this->display->updateLine(dPseudoIndex, "C'est le tour de: " + this->currentPlayer->getPseudo() + "\n");
+                this->display->print();
                 while (isPlaying) // While someone is playing
                 {
                     std::this_thread::sleep_for(std::chrono::milliseconds(30));   // To prevent looping to fast
@@ -224,8 +224,8 @@ bool Game::play()
                     }
 
                     this->currentPlayer->setNbCoupsReal(this->currentPlayer->getNbCoupsReal() + 1);
-                    this->display->updateLine(dMoveRIndex, "Nombre de coups: " + std::to_string(this->currentPlayer->getNbCoupsReal()) +
-                                                               "/" + std::to_string(this->currentPlayer->getNbCoupsAnnonce()));
+                    this->display->updateLine(dMoveRIndex, this->currentPlayer->getPseudo() + ", tu es à: " + std::to_string(this->currentPlayer->getNbCoupsReal()) +
+                                                               "/" + std::to_string(this->currentPlayer->getNbCoupsAnnonce()) + " coups");
                     this->board->getBoard(plateau);
                     this->display->update(plateau);
                     this->display->print();                          // Affiche la nouvelle position du robot
@@ -529,16 +529,16 @@ void Game::orderPlayersByScore()
         for (size_t j = 0; j < n - i - 1; j++)
         {
             const Player *a = this->players.at(j);
-            const Player *b = this->players.at(j + 1u);
+            const Player *b = this->players.at(j + 1);
 
-            if (a->getScore() > b->getScore())
+            // si score de a > score de b, ou scores égaux et pseudo de a > pseudo de b
+            if (a->getScore() > b->getScore() || (a->getScore() == b->getScore() && a->getPseudo() > b->getPseudo()))
             {
                 std::swap(this->players[j], this->players[j + 1]);
             }
         }
     }
 }
-
 void Game::digitHandler(std::string evt)
 {
     static int dChoiceRIndex = -1;
@@ -591,11 +591,10 @@ void Game::displayScore()
     std::cout << "\t*** Fin de la partie ***" << std::endl;
     std::cout << "\tRécapitulatif des scores" << std::endl;
     std::string resultat = "";
-
     this->orderPlayersByScore();
     for (int i = 0; i < this->players.size(); i++)
     {
-        resultat += "\t\t\t" + std::to_string(i + 1) + ": " + this->players.at(i)->getPseudo() + "\t score: " + std::to_string(this->players.at(i)->getScore()) + "\n";
+        resultat += "\t" + std::to_string(i + 1) + ": " + this->players.at(i)->getPseudo() + "\t\t score: " + std::to_string(this->players.at(i)->getScore()) + "\n";
     }
     std::cout << resultat << std::endl;
 }

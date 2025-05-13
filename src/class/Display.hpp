@@ -24,7 +24,7 @@
 // Code page 437
 #define CODE_PAGE_437_CHAR_WIDTH    4
 #define BOARD_DISP_SIZE  (SIZE_BOARD * 2) + 1
-#define PERMA_LINES_MAX_NB  5
+#define PERMA_LINES_MAX_NB  10
 
 // ================================================================================
 // Tests declaration
