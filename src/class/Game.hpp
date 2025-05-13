@@ -36,11 +36,15 @@ private:
     bool initRobots();
     bool playersThink();
     int whoFinds();
+
+    void orderPlayersByScore();
+
+    std::string displayRobotInputs();
     void remainingPlayer();
 
     void chooseInput();
 
-    void orderPlayers();
+    void orderPlayersByNbCoupsAnnonce();
 
     void digitHandler(std::string evt);
     void arrowHandler(std::string evt);

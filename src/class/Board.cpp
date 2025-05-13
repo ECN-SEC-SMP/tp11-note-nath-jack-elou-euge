@@ -59,50 +59,99 @@ void Board::generateBoardStep1(void)
 
 /**
  * @brief Sur chaque quart, création aléatoire deux murs extérieurs, un côté vertical et un côté horizontal.
- *
+ *        Vérifie que les murs générés ne se touchent pas.
  */
 void Board::generateBoardStep2(void)
 {
     int x = 0;
     int y = 0;
 
+    // Vecteurs pour sauvegarder les positions des murs placés
+    std::vector<std::pair<int, int>> placedWalls;
+
+    auto isTouching = [&](int x, int y) -> bool
+    {
+        for (const auto &wall : placedWalls)
+        {
+            if (std::abs(wall.first - x) <= 1 && std::abs(wall.second - y) <= 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    };
+
     /* First quadrant (0,0) to (7,7) */
-    x = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        x = rand() % (SIZE_BOARD / 2); // 0 to 7
+        y = 0;
+    } while (isTouching(x, y));
     this->board[x][y].setEast(1);
+    placedWalls.emplace_back(x, y);
 
     /* Second quadrant (8,0) to (15,7) */
-    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+        y = 0;
+    } while (isTouching(x, y));
     this->board[x][y].setWest(1);
+    placedWalls.emplace_back(x, y);
 
     y = 15;
 
     /* Third quadrant (0,8) to (7,15) */
-    x = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        x = rand() % (SIZE_BOARD / 2); // 0 to 7
+    } while (isTouching(x, y));
     this->board[x][y].setEast(1);
+    placedWalls.emplace_back(x, y);
 
     /* Fourth quadrant (8,8) to (15,15) */
-    x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        x = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    } while (isTouching(x, y));
     this->board[x][y].setWest(1);
+    placedWalls.emplace_back(x, y);
 
     x = 0;
 
     /* First quadrant (0,0) to (7,7) */
-    y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    } while (isTouching(x, y));
     this->board[x][y].setSouth(1);
+    placedWalls.emplace_back(x, y);
 
     /* Third quadrant (0,8) to (7,15) */
-    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    } while (isTouching(x, y));
     this->board[x][y].setNorth(1);
+    placedWalls.emplace_back(x, y);
 
     x = 15;
 
     /* Second quadrant (8,0) to (15,7) */
-    y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    do
+    {
+        y = rand() % (SIZE_BOARD / 2); // 0 to 7
+    } while (isTouching(x, y));
     this->board[x][y].setSouth(1);
+    placedWalls.emplace_back(x, y);
 
     /* Fourth quadrant (8,8) to (15,15) */
-    y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    do
+    {
+        y = (rand() % (SIZE_BOARD / 2)) + (SIZE_BOARD / 2); // 8 to 15
+    } while (isTouching(x, y));
     this->board[x][y].setNorth(1);
+    placedWalls.emplace_back(x, y);
 }
 
 /**
@@ -118,6 +167,7 @@ void Board::generateBoardStep3(void)
 
     int angle_count = 0;
 
+    anglesCoordinates.clear(); // Clear any previous data
     for (int quadrant = 0; quadrant < 4; quadrant++)
     {
         angle_count = 0;
@@ -217,6 +267,7 @@ void Board::generateBoardStep3(void)
                 this->board[x][y].setEast(1);
                 break;
             }
+            anglesCoordinates.push_back(std::make_pair(x, y)); // Dynamically add the angle
             angle_count++;
         }
     }
@@ -289,6 +340,7 @@ void Board::generateBoardStep4(void)
             this->board[x][y].setEast(1);
             break;
         }
+        anglesCoordinates.push_back(std::make_pair(x, y)); // Dynamically add the angle
         angle_count++;
     }
 }
@@ -304,23 +356,24 @@ void Board::generateBoardStep4(void)
  */
 void Board::placeTargets(std::vector<Target *> *myTargets)
 {
-    int NBtargetIsPlaced = 0;
-    int NBtargetToPlace = (rand() % 13) + 4; // 4 to 17
+    int nBtargetIsPlaced = 0;
+    int nBtargetToPlace = (rand() % 13) + 4; // 4 to 17
+
+    bool raibowIsPlaced = false;
 
     // Fill the vector with empty targets
-    for (int i = 0; i < NBtargetToPlace; i++)
+    for (int i = 0; i < nBtargetToPlace; i++)
     {
         myTargets->push_back(new Target());
     }
 
     // Récupérer les coordonnées d'une case aléatoire dans le tableau contenant un angle
-    while (NBtargetIsPlaced != NBtargetToPlace)
+    while (nBtargetIsPlaced != nBtargetToPlace)
     {
-        // Génération des coordoonées aléatoire sur tout le plateau sauf les 4 cases du centre
-        // [0,0] to [15,15] without [7,7] to [8,8]
-        int board_case_for_target[] = {0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15};
-        int x = board_case_for_target[rand() % 14];
-        int y = board_case_for_target[rand() % 14];
+        // Choix d'un angle aléatoire pour y placer la target
+        int randomAngle = rand() % 17;
+        int x = anglesCoordinates.at(randomAngle).first;
+        int y = anglesCoordinates.at(randomAngle).second;
 
         // Check if the case is already occupied by a robot
         if (this->board[x][y].getRobot() != nullptr)
@@ -330,40 +383,48 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
         if (this->board[x][y].getTarget() != nullptr)
             continue;
 
-        // Check if the case is occupied by an angle
-        if ((this->board[x][y].getNorth() == 1 && this->board[x][y].getEast() == 1) ||
-            (this->board[x][y].getNorth() == 1 && this->board[x][y].getWest() == 1) ||
-            (this->board[x][y].getSouth() == 1 && this->board[x][y].getEast() == 1) ||
-            (this->board[x][y].getSouth() == 1 && this->board[x][y].getWest() == 1))
+        if (nBtargetIsPlaced == 0)
         {
-            if (NBtargetIsPlaced == 0)
+            myTargets->at(nBtargetIsPlaced)->setColor(Red);
+        }
+        else if (nBtargetIsPlaced == 1)
+        {
+            myTargets->at(nBtargetIsPlaced)->setColor(Blue);
+        }
+        else if (nBtargetIsPlaced == 2)
+        {
+            myTargets->at(nBtargetIsPlaced)->setColor(Green);
+        }
+        else if (nBtargetIsPlaced == 3)
+        {
+            myTargets->at(nBtargetIsPlaced)->setColor(Yellow);
+        }
+        else
+        {
+            if (raibowIsPlaced)
             {
-                myTargets->at(NBtargetIsPlaced)->setColor(Red);
-            }
-            else if (NBtargetIsPlaced == 1)
-            {
-                myTargets->at(NBtargetIsPlaced)->setColor(Blue);
-            }
-            else if (NBtargetIsPlaced == 2)
-            {
-                myTargets->at(NBtargetIsPlaced)->setColor(Green);
-            }
-            else if (NBtargetIsPlaced == 3)
-            {
-                myTargets->at(NBtargetIsPlaced)->setColor(Yellow);
+                // Place random color target on the board
+                myTargets->at(nBtargetIsPlaced)->setColor((Color)((rand() % 4) + 1));
             }
             else
             {
-                // Place random color target on the board
-                myTargets->at(NBtargetIsPlaced)->setColor((Color)((rand() % 5) + 1));
+                myTargets->at(nBtargetIsPlaced)->setColor((Color)((rand() % 5) + 1));
             }
-
-            myTargets->at(NBtargetIsPlaced)->setShape((Shape)(rand() % 4));
-
-            this->board[x][y].setTarget(myTargets->at(NBtargetIsPlaced));
-
-            NBtargetIsPlaced++;
         }
+
+        if (myTargets->at(nBtargetIsPlaced)->getColor() == Rainbow)
+        {
+            myTargets->at(nBtargetIsPlaced)->setShape(TargetRainbow);
+            raibowIsPlaced = 1;
+        }
+        else
+        {
+            myTargets->at(nBtargetIsPlaced)->setShape((Shape)(rand() % 4));
+        }
+
+        this->board[x][y].setTarget(myTargets->at(nBtargetIsPlaced));
+
+        nBtargetIsPlaced++;
     }
 }
 
@@ -475,6 +536,9 @@ Board::~Board()
  *
  * @param robot Robot à déplacer
  * @param direction Direction du déplacement (N, S, E, W)
+ *
+ * @return true si il y eu un deplacement
+ * @return false si le robot n'as pa pu se déplacer
  */
 bool Board::moveRobot(Robot *robot, char direction)
 {

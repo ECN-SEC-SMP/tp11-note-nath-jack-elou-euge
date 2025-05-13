@@ -70,7 +70,7 @@ public:
 
     int getNbCoupsReal() const;
 
-    bool hasValidScore() const;
+    bool hasValidCoupsAnnonce() const;
 
     void play(std::vector<Robot *> *robots);
 
