@@ -114,8 +114,11 @@ public:
      *
      * @param robot Robot à déplacer
      * @param direction Direction du déplacement (N, S, E, O)
+     * 
+     * @return true si il y eu un deplacement
+     * @return false si le robot n'as pa pu se déplacer
      */
-    void moveRobot(Robot *robot, char direction);
+    bool moveRobot(Robot *robot, char direction);
 
     /**
      * @brief Save la grille de jeu
