@@ -149,11 +149,10 @@ public:
      * @brief Vérifie si un robot à atteint la cible
      *
      * @param robot Pointeur vers le robot
-     * @param target Pointeur vers la cible
      * @return true
      * @return false
      */
-    bool targetReached(Robot *robot, Target *target);
+    bool targetReached(Robot *robot);
 };
 
 #endif // _BOARD_HPP_
