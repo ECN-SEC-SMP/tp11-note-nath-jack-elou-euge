@@ -1,0 +1,71 @@
+@startuml TP11
+
+class main
+
+class Game {
+    + RunGame()
+}
+
+class Board {
+    + moveRobot()
+    + generateBoard()
+    + CheckWall(x, y)
+    + CheckTarget(x, y)
+}
+
+class Target {
+    + Type
+    + Shape
+
+    + Target(Enum Colors)
+}
+
+Enum Colors {
+    RED
+    BLUE
+    YELLOW
+    GREEN
+    RAINBOW
+}
+
+class Player {
+    + Name
+}
+
+class Robot {
+    + Colors color
+
+    + Robot(Enum Colors)
+}
+
+class Display {
+    + Update()
+    + Print()
+}
+
+class Case {
+    Robot* robot
+    Target* target
+    bool North
+    bool South
+    bool East
+    bool West
+}
+
+Struct BoardGame {
+    + Case[][] array
+}
+
+main -- Game
+
+Game "1" *-- "1" Board
+Game *-- Display
+
+Robot "1" *-- "1" Player
+
+Board "1..4" *-- "1" Robot
+Board "1..17" o-- "1" Target
+Board -left- Colors
+
+
+@enduml
