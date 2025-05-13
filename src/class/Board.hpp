@@ -113,9 +113,11 @@ public:
      *        Si il y a un robot, le robot avance jusqu'au robot
      *
      * @param robot Robot à déplacer
-     * @param direction Direction du déplacement (N, S, E, O)
+     * @param direction Direction du déplacement (N, S, E, W)
+     * 
+     * @return true si le robot à bougé, false sinon
      */
-    void moveRobot(Robot *robot, char direction);
+    bool moveRobot(Robot *robot, char direction);
 
     /**
      * @brief Save la grille de jeu

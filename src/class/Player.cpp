@@ -25,7 +25,8 @@
 Player::Player(std::string pseudo)
 {
     this->pseudo = pseudo;
-    this->nbCoups = -1;
+    this->nbCoupsAnnonce = -1;
+    this->nbCoupsReal = 0;
 }
 
 /**
@@ -54,24 +55,36 @@ std::string Player::getPseudo() const
     return this->pseudo;
 }
 
-int Player::getNbCoups() const
+int Player::getNbCoupsAnnonce() const
 {
-    return this->nbCoups;
+    return this->nbCoupsAnnonce;
 }
 
-void Player::setNbCoups(int nCoups)
+void Player::setNbCoupsReal(int nCoups)
 {
     if (nCoups > 0)
     {
-        this->nbCoups = nCoups;
+        this->nbCoupsReal = nCoups;
+    }
+}
+
+int Player::getNbCoupsReal() const
+{
+    return this->nbCoupsReal;
+}
+
+void Player::setNbCoupsAnnonce(int nCoups)
+{
+    if (nCoups > 0)
+    {
+        this->nbCoupsAnnonce = nCoups;
     }
 }
 
 bool Player::hasValidScore() const
 {
-    return nbCoups != -1;
+    return this->nbCoupsAnnonce != -1;
 }
-
 
 void Player::chooseRobot(std::string evt)
 {
@@ -79,4 +92,17 @@ void Player::chooseRobot(std::string evt)
 
 void Player::moveRobot(std::string evt)
 {
+}
+
+void Player::setScore(int newScore)
+{
+    if (newScore < 0)
+    {
+        this->score = newScore;
+    }
+}
+
+int Player::getScore() const
+{
+    return this->score;
 }

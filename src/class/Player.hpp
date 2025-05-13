@@ -32,7 +32,9 @@ private:
     /// @brief Pseudo of the player
     std::string pseudo;
 
-    int nbCoups;
+    int nbCoupsAnnonce;
+    int nbCoupsReal;
+    int score;
 
 public:
     /**
@@ -57,9 +59,16 @@ public:
      */
     std::string getPseudo() const;
 
-    void setNbCoups(int nCoups);
+    int getScore() const;
+    void setScore(int newS);
 
-    int getNbCoups() const;
+    void setNbCoupsAnnonce(int nCoups);
+
+    int getNbCoupsAnnonce() const;
+
+    void setNbCoupsReal(int nCoups);
+
+    int getNbCoupsReal() const;
 
     bool hasValidScore() const;
 

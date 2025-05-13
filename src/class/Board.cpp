@@ -476,7 +476,7 @@ Board::~Board()
  * @param robot Robot à déplacer
  * @param direction Direction du déplacement (N, S, E, W)
  */
-void Board::moveRobot(Robot *robot, char direction)
+bool Board::moveRobot(Robot *robot, char direction)
 {
     int start_x = robot->getX();
     int start_y = robot->getY();
@@ -550,6 +550,8 @@ void Board::moveRobot(Robot *robot, char direction)
     default:
         break;
     }
+
+    return ((start_x != end_x) || (start_y != end_y));
 }
 
 /**
