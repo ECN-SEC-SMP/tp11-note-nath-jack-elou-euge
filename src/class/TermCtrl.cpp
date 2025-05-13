@@ -89,6 +89,7 @@ std::map<TermEvents, std::queue<std::string>> EventPendingTable = {
 // Fonction declaration
 // ================================================================================
 
+char getcharAlt(void);
 void TermThreadRunner(void);
 
 // ================================================================================
@@ -102,7 +103,12 @@ void TermThreadRunner(void) {
     fflush(stdin);
     while (_TermCtrlStarted)
     {
-        c = getchar();
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // To prevent looping to fast
+        c = getcharAlt();
+        if (c == EOF) {
+            continue;
+        }
+        std::cout << (uint16_t)c << std::endl;
         word.push_back(c);
 
         /**
@@ -168,8 +174,6 @@ void TermThreadRunner(void) {
                 word = "";
             }
         }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 }
 
@@ -187,6 +191,13 @@ void TermCtrl::sendEvents(TermEvents key, TermCtrlEvent_Callback func, std::queu
 
         func(token);
     }
+}
+
+char getcharAlt(void) {
+    char buff[2];
+    int l = read(STDIN_FILENO,buff,1);
+    if (l>0) return buff[0];
+    return ( EOF);
 }
 
 // ================================================================================
