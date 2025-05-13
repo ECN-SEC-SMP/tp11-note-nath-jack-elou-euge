@@ -21,8 +21,9 @@
     - [Remarque](#remarque)
 2. [Build & Compilation](#build--compilation)
     - [Build](#build)
+    - [Compilation](#compilation)
 3. [Tests](#tests)
-4. [Explications et algorithmes](#explications-et-algorithmes)
+4. Les Classes
     - [Classe Board](#classe-board)
         - [Fonctionnement classe Board](#fonctionnement-classe-board)
         - [Algorithmes de génération classe Board](#algorithmes-de-génération-classe-board)
@@ -100,6 +101,8 @@ cmake ..
 cd ..
 ```
 
+### Compilation
+
 Compiler et lancer le jeu
 
 ```bash
@@ -110,13 +113,11 @@ make
 
 Tests must be done inside class file.
 
-## Explications et algorithmes
-
-### Classe Board
+## Classe Board
 
 La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un jeu de type puzzle. Elle contient des méthodes pour générer la grille, placer des murs, des angles, des robots, et des cibles.
 
-#### Fonctionnement classe Board
+### Fonctionnement classe Board
 
 1. **Attributs principaux :**
    - `board[16][16]` : Tableau 2D de cases représentant la grille de jeu. Chaque case peut contenir des murs, un robot, ou une cible.
@@ -133,7 +134,7 @@ La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un
    - `getBoard` : Retourne la grille de jeu.
    - Constructeur et destructeur : Initialisent et nettoient la grille.
 
-#### Algorithmes de génération classe Board
+### Algorithmes de génération classe Board
 
 Voici l'algorithme en langage naturel pour générer une grille complète :
 
@@ -279,22 +280,23 @@ algorithme
     jusqu'à ce qu'une cible soit placée
 fin fonction
 ```
-### Classe Case
 
-#### Fonctionnement classe Case
+## Classe Case
 
-#### Algorithmes de génération classe Case
+### Fonctionnement classe Case
 
-### Classe Display
+### Algorithmes de génération classe Case
 
-#### Fonctionnement classe Display
+## Classe Display
 
-#### Algorithmes de génération classe Display
+### Fonctionnement classe Display
+
+### Algorithmes de génération classe Display
 
 
 ## Classe Game
 
-#### Fonctionnement classe Game
+### Fonctionnement classe Game
 
  Notre classe Game comprend deux classes : Board et Display. Elle permet d'initialiser le jeu et ainsi démarrer une partie.
 
@@ -319,22 +321,22 @@ fin fonction
 - Robot(Enum Colors) qui lui attribut une couleur
 - Robot(Color c, Shape s)
 
-#### Algorithmes de génération classe Game
+### Algorithmes de génération classe Game
 
-### Classe Player
+## Classe Player
 
-#### Fonctionnement classe Player
+### Fonctionnement classe Player
 
-#### Algorithmes de génération classe Player
+### Algorithmes de génération classe Player
 
-### Classe Robot
+## Classe Robot
 
-#### Fonctionnement classe Robot
+### Fonctionnement classe Robot
 
-#### Algorithmes de génération classe Robot
+### Algorithmes de génération classe Robot
 
-### Classe Target
+## Classe Target
 
-#### Fonctionnement classe Target
+### Fonctionnement classe Target
 
-#### Algorithmes de génération classe Target
+### Algorithmes de génération classe Target
