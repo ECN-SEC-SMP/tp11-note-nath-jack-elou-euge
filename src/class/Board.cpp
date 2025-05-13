@@ -475,10 +475,8 @@ Board::~Board()
  *
  * @param robot Robot à déplacer
  * @param direction Direction du déplacement (N, S, E, W)
- *
- * @param return true si le robot à atteint l'objectif, sinon faux
  */
-bool Board::moveRobot(Robot *robot, char direction)
+void Board::moveRobot(Robot *robot, char direction)
 {
     int start_x = robot->getX();
     int start_y = robot->getY();
@@ -552,15 +550,6 @@ bool Board::moveRobot(Robot *robot, char direction)
     default:
         break;
     }
-    if (this->board[end_x][end_y].getTarget() != nullptr)
-    {
-        if (this->targetReached(robot, this->board[end_x][end_y].getTarget()))
-        {
-            return true;
-        }
-    }
-    
-    return false;
 }
 
 /**
@@ -575,20 +564,23 @@ bool Board::targetReached(Robot *robot, Target *target)
 {
     bool reach = false;
 
-    Target *objectif = this->getTargetObjectif();
+    if (this->board[robot->getX()][robot->getY()].getTarget() != nullptr)
+    {
+        Target *objectif = this->getTargetObjectif();
 
-    if (robot == nullptr && target == nullptr)
-    {
-        return reach;
-    }
+        if (robot == nullptr || target == nullptr)
+        {
+            return reach;
+        }
 
-    if (robot->getColor() == target->getColor() || target->getColor() == objectif->getColor() || target->getShape() == objectif->getShape())
-    {
-        reach = true;
-    }
-    else if (target->getColor() == Rainbow || target->getColor() == objectif->getColor() || target->getShape() == objectif->getShape())
-    {
-        reach = true;
+        if (robot->getColor() == target->getColor() && target->getColor() == objectif->getColor() && target->getShape() == objectif->getShape())
+        {
+            reach = true;
+        }
+        else if (target->getColor() == Rainbow && target->getColor() == objectif->getColor() && target->getShape() == objectif->getShape())
+        {
+            reach = true;
+        }
     }
 
     return reach;

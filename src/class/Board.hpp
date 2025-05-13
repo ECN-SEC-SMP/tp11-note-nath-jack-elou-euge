@@ -69,16 +69,6 @@ private:
      */
     void generateBoard(void);
 
-    /**
-     * @brief Vérifie si un robot à atteint la cible
-     *
-     * @param robot Pointeur vers le robot
-     * @param target Pointeur vers la cible
-     * @return true
-     * @return false
-     */
-    bool targetReached(Robot *robot, Target *target);
-
 public:
     /**
      * @brief Construct a new Board object and initialize the board with walls and angles
@@ -124,10 +114,8 @@ public:
      *
      * @param robot Robot à déplacer
      * @param direction Direction du déplacement (N, S, E, O)
-     *
-     * @param return true si le robot à atteint l'objectif, sinon faux
      */
-    bool moveRobot(Robot *robot, char direction);
+    void moveRobot(Robot *robot, char direction);
 
     /**
      * @brief Save la grille de jeu
@@ -156,6 +144,16 @@ public:
      * @return Target
      */
     Target *getTargetObjectif();
+
+    /**
+     * @brief Vérifie si un robot à atteint la cible
+     *
+     * @param robot Pointeur vers le robot
+     * @param target Pointeur vers la cible
+     * @return true
+     * @return false
+     */
+    bool targetReached(Robot *robot, Target *target);
 };
 
 #endif // _BOARD_HPP_
