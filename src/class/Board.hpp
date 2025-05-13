@@ -69,6 +69,16 @@ private:
      */
     void generateBoard(void);
 
+    /**
+     * @brief Vérifie si un robot à atteint la cible
+     *
+     * @param robot Pointeur vers le robot
+     * @param target Pointeur vers la cible
+     * @return true
+     * @return false
+     */
+    bool targetReached(Robot *robot, Target *target);
+
 public:
     /**
      * @brief Construct a new Board object and initialize the board with walls and angles
@@ -95,12 +105,14 @@ public:
      *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
      *        chaque couleur et 1 multicolore)
      *
+     * @param myTargets Pointeur vers le vecteur contenant les cibles à placer
      */
     void placeTargets(std::vector<Target *> *myTargets);
 
     /**
      * @brief Placez les 4 robots de manière aléatoire.
      *
+     * @param myRobot Pointeur vers le vecteur contenant les robots à placer
      */
     void placeRobots(std::vector<Robot *> *myRobot);
 
@@ -113,18 +125,9 @@ public:
      * @param robot Robot à déplacer
      * @param direction Direction du déplacement (N, S, E, O)
      *
+     * @param return true si le robot à atteint l'objectif, sinon faux
      */
-    void moveRobot(Robot *, char);
-
-    /**
-     * @brief Vérifie si un robot à atteint la cible
-     *
-     * @param robot Pointeur vers le robot
-     * @param target Pointeur vers la cible
-     * @return true
-     * @return false
-     */
-    bool targetReached(Robot *robot, Target *target);
+    bool moveRobot(Robot *robot, char direction);
 
     /**
      * @brief Save la grille de jeu

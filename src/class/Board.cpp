@@ -299,7 +299,7 @@ void Board::generateBoardStep4(void)
  *        dans un angle de deux murs. Il y a au maximum dans une partie 17 cibles (4 de
  *        chaque couleur et 1 multicolore)
  *
- * @param
+ * @param myTargets Pointeur vers le vecteur contenant les cibles à placer
  *
  */
 void Board::placeTargets(std::vector<Target *> *myTargets)
@@ -370,15 +370,13 @@ void Board::placeTargets(std::vector<Target *> *myTargets)
 /**
  * @brief Placez les 4 robots de manière aléatoire.
  *
- * @param
+ * @param myRobot Pointeur vers le vecteur contenant les robots à placer
  *
  */
 void Board::placeRobots(std::vector<Robot *> *myRobot)
 {
     // Update the implementation to handle Robot* instead of Robot
-    std::vector<Robot *> *robots = myRobot;
-
-    int RobotsCountToPlace = robots->size();
+    int RobotsCountToPlace = myRobot->size();
     int RobotsCountPlaced = 0;
 
     while (RobotsCountPlaced != RobotsCountToPlace)
@@ -390,13 +388,13 @@ void Board::placeRobots(std::vector<Robot *> *myRobot)
         if (this->board[x][y].getRobot() != nullptr || this->board[x][y].getTarget() != nullptr)
             continue;
 
-        robots->at(RobotsCountPlaced)->setX(x);
-        robots->at(RobotsCountPlaced)->setInitialX(x);
-        robots->at(RobotsCountPlaced)->setY(y);
-        robots->at(RobotsCountPlaced)->setInitialY(y);
-        robots->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
+        myRobot->at(RobotsCountPlaced)->setX(x);
+        myRobot->at(RobotsCountPlaced)->setInitialX(x);
+        myRobot->at(RobotsCountPlaced)->setY(y);
+        myRobot->at(RobotsCountPlaced)->setInitialY(y);
+        myRobot->at(RobotsCountPlaced)->setColor((Color)(RobotsCountPlaced + 1));
 
-        this->board[x][y].setRobot(robots->at(RobotsCountPlaced));
+        this->board[x][y].setRobot(myRobot->at(RobotsCountPlaced));
 
         RobotsCountPlaced++;
     }
@@ -478,8 +476,9 @@ Board::~Board()
  * @param robot Robot à déplacer
  * @param direction Direction du déplacement (N, S, E, W)
  *
+ * @param return true si le robot à atteint l'objectif, sinon faux
  */
-void Board::moveRobot(Robot *robot, char direction)
+bool Board::moveRobot(Robot *robot, char direction)
 {
     int start_x = robot->getX();
     int start_y = robot->getY();
@@ -553,6 +552,15 @@ void Board::moveRobot(Robot *robot, char direction)
     default:
         break;
     }
+    if (this->board[end_x][end_y].getTarget() != nullptr)
+    {
+        if (this->targetReached(robot, this->board[end_x][end_y].getTarget()))
+        {
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 /**
@@ -567,16 +575,18 @@ bool Board::targetReached(Robot *robot, Target *target)
 {
     bool reach = false;
 
+    Target *objectif = this->getTargetObjectif();
+
     if (robot == nullptr && target == nullptr)
     {
         return reach;
     }
 
-    if (robot->getColor() == target->getColor())
+    if (robot->getColor() == target->getColor() || target->getColor() == objectif->getColor() || target->getShape() == objectif->getShape())
     {
         reach = true;
     }
-    else if (target->getColor() == Rainbow)
+    else if (target->getColor() == Rainbow || target->getColor() == objectif->getColor() || target->getShape() == objectif->getShape())
     {
         reach = true;
     }
