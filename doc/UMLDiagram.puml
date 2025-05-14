@@ -15,15 +15,36 @@ class Game {
     - Robot* robotHold
     - Board* board
     - Display* display
+    - bool refreshBoard
 
     + Game()
     + "Game(vector<Player *> players, vector<Robot *> robots)
     + ~Game()
 
+    - orderPlayersByScore() : void
+    - remainingPlayer() : void
+    - chooseInput() : void
+    - orderPlayersByNbCoupsAnnonce() : void
+    - displayScore() : void
+    - displayPlayers() : void
+    - initTargets() : void
+    - resetPlayersCoups() : void
+    - initPlayers() : bool
+    - playerExists(Player *p) : bool
+    - initRobots() : bool
+    - playersThink() : bool
+    - chooseFirstRobot() : bool
+    - findIndex(vector<Player *> players, Player *toFind) : int
+    - arrowHandler(string evt) : void
+    - digitHandler(string evt) : void
+    - nbUnannounced() : int
+    - whoFinds() : int
+    - findUnannounced() : Player*
+    - displayRobotInputs() : string
+
     + setPlayers(vector<Player *> players) : void
     + getPlayers() const : vector<Player*>
     + getRobots() const : vector<Robot*>
-
     + play() : bool
     + keepPlaying() : bool    
 }
@@ -141,7 +162,10 @@ class Timer << (S,#FF7700) Singleton >> {
 
     - atomic<bool> running
     - thread worker
-
+    - chrono::steady_clock::time_point startTime
+    - int delayMs
+    - mutex mtx
+    - condition_variable cv
     - Timer()
 
     + {static} Timer &getInstance();
