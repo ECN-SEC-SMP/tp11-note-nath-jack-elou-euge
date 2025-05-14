@@ -117,7 +117,8 @@ TEST_F(BoardTest, MoveRobotTest)
 
     // Vérifiez que le robot peut se déplacer vers le nord
     if (boardState[startX][startY].getNorth() == 0 &&
-        (startY > 0 && boardState[startX][startY - 1].getSouth() == 0))
+        (startY > 0 && boardState[startX][startY - 1].getSouth() == 0) &&
+        boardState[startX][startY - 1].getRobot() == nullptr) // Vérifie qu'il n'y a pas de robot
     {
         bool moved = board->moveRobot(this->robots.at(0), 'N');
         EXPECT_TRUE(moved);
@@ -137,7 +138,8 @@ TEST_F(BoardTest, MoveRobotTest)
     startY = this->robots.at(0)->getY();
 
     if (boardState[startX][startY].getSouth() == 0 &&
-        (startY < SIZE_BOARD - 1 && boardState[startX][startY + 1].getNorth() == 0))
+        (startY < SIZE_BOARD - 1 && boardState[startX][startY + 1].getNorth() == 0) &&
+        boardState[startX][startY + 1].getRobot() == nullptr) // Vérifie qu'il n'y a pas de robot
     {
         bool moved = board->moveRobot(this->robots.at(0), 'S');
         EXPECT_TRUE(moved);
@@ -157,7 +159,8 @@ TEST_F(BoardTest, MoveRobotTest)
     startY = this->robots.at(0)->getY();
 
     if (boardState[startX][startY].getEast() == 0 &&
-        (startX < SIZE_BOARD - 1 && boardState[startX + 1][startY].getWest() == 0))
+        (startX < SIZE_BOARD - 1 && boardState[startX + 1][startY].getWest() == 0) &&
+        boardState[startX + 1][startY].getRobot() == nullptr) // Vérifie qu'il n'y a pas de robot
     {
         bool moved = board->moveRobot(this->robots.at(0), 'E');
         EXPECT_TRUE(moved);
@@ -177,7 +180,8 @@ TEST_F(BoardTest, MoveRobotTest)
     startY = this->robots.at(0)->getY();
 
     if (boardState[startX][startY].getWest() == 0 &&
-        (startX > 0 && boardState[startX - 1][startY].getEast() == 0))
+        (startX > 0 && boardState[startX - 1][startY].getEast() == 0) &&
+        boardState[startX - 1][startY].getRobot() == nullptr) // Vérifie qu'il n'y a pas de robot
     {
         bool moved = board->moveRobot(this->robots.at(0), 'W');
         EXPECT_TRUE(moved);
