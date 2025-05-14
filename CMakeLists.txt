@@ -46,9 +46,6 @@ target_link_libraries(${PROJECT_NAME}.bin PRIVATE pthread)
 
 
 # === TESTING ===
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -56,6 +53,10 @@ FetchContent_Declare(
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+add_subdirectory(tests)
+
 
 # Add a message to indicate success
 message(STATUS "Compilation succeed")
