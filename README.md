@@ -444,6 +444,7 @@ La classe `Display` sert à générer un affichage visuel en console d’un plat
    - Constructeur et destructeur `Display()`: initialise l’affichage (mise en forme console avec ANSI) et réinitialise les couleurs et efface l’écran.
 
 ### Algorithmes classe Display
+
 ```algo
 fonction ø <- put_walls
     paramètre curCase, x, y
@@ -482,7 +483,7 @@ algorithme
         fin si
     fin pour
 fin fonction
-
+```
 
 ### Tests classe Display
 
@@ -514,6 +515,108 @@ fin fonction
 - Robot(Color c, Shape s)
 
 ### Algorithmes classe Game
+La fonction play() est celle qui orchestre le jeu, permet à tel ou tel joueur de jouer, de faire l'attribution des scores et de relancer une tuile.
+```
+fonction booléen <- play()
+    paramètre aucun
+    résultat booléen
+
+algorithme
+    créer une nouvelle interface d'affichage
+    initialiser le plateau temporaire de 16x16 cases
+    initialiser les joueurs, robots et cibles
+    sauvegarder l’état initial du plateau
+    initialiser l’index de la cible à -1
+
+    boucle faire tant que keepPlaying() retourne vrai
+        réinitialiser l'affichage des robots et du pseudo
+        désactiver les événements clavier
+
+        réinitialiser la position des robots sur le plateau
+        incrémenter l’index de la cible
+        définir la nouvelle cible sur le plateau
+        sauvegarder l’état actuel du plateau
+
+        afficher l’état du plateau
+        réinitialiser le nombre de coups des joueurs
+
+        si aucun joueur ne propose de solution alors
+            afficher un message d’échec collectif
+            retourner vrai
+        fin si
+
+        permettre au premier joueur d’annoncer son nombre de coups
+        donner aux autres joueurs une minute pour proposer le leur
+        ordonner les joueurs par ordre croissant de coups annoncés
+
+        activer la gestion des événements clavier pour les mouvements et la sélection des robots
+        sauvegarder les événements précédents
+
+        mettre à jour l’affichage des robots disponibles
+
+        démarrer la boucle de jeu joueur par joueur
+            pour chaque joueur
+                initialiser l’état du jeu pour ce joueur
+                afficher le plateau actuel
+
+                remettre les compteurs de mouvement à zéro
+                choisir le robot de départ
+                afficher l’indicateur de mouvements
+
+                si le joueur a annoncé un nombre de coups
+                    afficher à qui c’est le tour
+
+                    tant que le joueur joue
+                        attendre un petit délai
+                        si un nouvel événement de sélection de robot alors
+                            traiter l’événement
+                        sinon si un nouvel événement de mouvement alors
+                            traiter l’événement
+                        fin si
+
+                        si aucun mouvement n’a eu lieu alors
+                            continuer à la prochaine itération
+                        fin si
+
+                        désactiver le drapeau de rafraîchissement
+                        si le joueur a atteint le nombre de coups annoncés alors
+                            continuer à la prochaine itération
+                        fin si
+
+                        incrémenter le nombre de coups réalisés
+                        mettre à jour l'affichage des coups
+
+                        rafraîchir le plateau
+
+                        si la cible a été atteinte alors
+                            si c’est au 1er coup, alors
+                                annuler la victoire et réinitialiser la partie pour ce joueur
+                            sinon
+                                marquer le joueur comme gagnant
+                                mettre fin à son tour
+                                mettre à jour son score (2 si exact, 1 sinon)
+                                afficher le message de victoire
+                        sinon si le joueur a atteint son nombre de coups sans succès alors
+                            afficher le message d’échec
+                            mettre fin à son tour
+                        fin si
+                    fin tant que
+                fin si
+
+                si un joueur a gagné alors
+                    sortir de la boucle principale
+                fin si
+
+                réinitialiser le plateau
+            fin pour chaque joueur
+        fin de boucle joueur
+
+    fin faire tant que keepPlaying() est vrai
+
+    afficher le score final
+    retourner vrai
+fin fonction
+```
 
 ### Tests classe Game
 
