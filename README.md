@@ -438,18 +438,39 @@ fin fonction
 
 ```algo
 fonction ø <- put_walls
-    paramètre ø
+    paramètre curCase, x, y
     résultat ø
 algorithme
-    récupére une référence à l'instance unique du timer
-    t contient le temps restant en millisecondes
-    conversion de t en seconde
+    pour chaque case du plateau
+        curCase predn la valeur de la case actuelle
+        x et y prennent les coordonnées du plateau
 
-    timeStr est un temps formaté
+        si curCase est faux
+            continuer
+        si curcase.getNorth est vrai
+            afficher un mur horizontal au coordonnées : dispBoard[x - 1][y]
+        si curcase.getSouth 
+            afficher un mur horizontal au coordonnées : dispBoard[x + 1][y]
+        si curCase.getEast est vrai
+            afficher un mur horizontal au coordonnées : dispBoard[x][y + 1]
+        si curCase.getWest est vrai
+            afficher un mur horizontal au coordonnées : dispBoard[x][y - 1]
+        fin si
+    fin pour
 
-    assigne strLength à la taille de timeStr
-
-    pour i<nombre d'espaces à afficher avant timeStr pour centrer timeStr
-        affiche timeStr
+    initialisation des valeurs booléenne wbot, wtop, wrgt, wlft
+    pour chaque case
+        to_put prend un espace vide
+        si la case = coin supérieur gauche du plateau alors
+            wrgt : recherche d'un mur horizontal à droite de ce coin
+            wbot : recherche d'un mur vertical en dessous
+            si wrgt && wbot alors
+                affiche coin complet
+            si wbot alors
+                Un coin avec seulement un mur vertical
+            si wrgt alors
+                Un coin avec seulement un mur horizontal
+            fin si
+        fin si
     fin pour
 fin fonction

@@ -226,10 +226,10 @@ TermCtrl* TermCtrl::getInstance(void) {
 }
 
 void TermCtrl::begin(void) {
-    termios newt;
+    termios newt; // termios Contient les paramètres de configuration du terminal.
 
     // Clear all pending events
-    this->eventClearAll();
+    this->eventClearAll(); //Contient les paramètres de configuration du terminal.
 
     tcgetattr(STDIN_FILENO, &oldTerminal); // Sauvegarde de l'ancien mode
     newt = oldTerminal;
