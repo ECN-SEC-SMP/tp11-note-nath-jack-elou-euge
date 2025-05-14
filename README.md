@@ -26,25 +26,32 @@
 4. Les Classes
     - [Classe Board](#classe-board)
         - [Fonctionnement classe Board](#fonctionnement-classe-board)
-        - [Algorithmes de génération classe Board](#algorithmes-de-génération-classe-board)
+        - [Algorithmes classe Board](#algorithmes-classe-board)
+        - [Tests classe Board](#tests-classe-board)
     - [Classe Case](#classe-case)
         - [Fonctionnement classe Case](#fonctionnement-classe-case)
-        - [Algorithmes de génération classe Case](#algorithmes-de-génération-classe-case)
+        - [Algorithmes classe Case](#algorithmes-classe-case)
+        - [Tests classe Case](#tests-classe-case)
     - [Classe Display](#classe-display)
         - [Fonctionnement classe Display](#fonctionnement-classe-display)
-        - [Algorithmes de génération classe Display](#algorithmes-de-génération-classe-display)
+        - [Algorithmes classe Display](#algorithmes-classe-display)
+        - [Tests classe Display](#tests-classe-display)
     - [Classe Game](#classe-game)
         - [Fonctionnement classe Game](#fonctionnement-classe-game)
-        - [Algorithmes de génération classe Game](#algorithmes-de-génération-classe-game)
+        - [Algorithmes classe Game](#algorithmes-classe-game)
+        - [Tests classe Game](#tests-classe-game)
     - [Classe Player](#classe-player)
         - [Fonctionnement classe Player](#fonctionnement-classe-player)
-        - [Algorithmes de génération classe Player](#algorithmes-de-génération-classe-player)
+        - [Algorithmes classe Player](#algorithmes-classe-player)
+        - [Tests classe Player](#tests-classe-player)
     - [Classe Robot](#classe-robot)
         - [Fonctionnement classe Robot](#fonctionnement-classe-robot)
-        - [Algorithmes de génération classe Robot](#algorithmes-de-génération-classe-robot)
+        - [Algorithmes classe Robot](#algorithmes-classe-robot)
+        - [Tests classe Robot](#tests-classe-robot)
     - [Classe Target](#classe-target)
         - [Fonctionnement classe Target](#fonctionnement-classe-target)
-        - [Algorithmes de génération classe Target](#algorithmes-de-génération-classe-target)
+        - [Algorithmes classe Target](#algorithmes-classe-target)
+        - [Tests classe Target](#tests-classe-target)
 5. [Exemples d'utilisation](#exemples-dutilisation)
 
 ## Explication des règles
@@ -134,7 +141,7 @@ La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un
    - `getBoard` : Retourne la grille de jeu.
    - Constructeur et destructeur : Initialisent et nettoient la grille.
 
-### Algorithmes de génération classe Board
+### Algorithmes classe Board
 
 Voici l'algorithme en langage naturel pour générer une grille complète :
 
@@ -281,11 +288,15 @@ algorithme
 fin fonction
 ```
 
+### Tests classe Board
+
 ## Classe Case
 
 ### Fonctionnement classe Case
 
-### Algorithmes de génération classe Case
+### Algorithmes classe Case
+
+### Tests classe Case
 
 ## Classe Display
 
@@ -310,7 +321,9 @@ La classe `Display` sert à générer un affichage visuel en console d’un plat
    - `print` : Place aléatoirement 4 robots sur la grille, ainsi qu'une cible dans un angle de deux murs.
    - Constructeur et destructeur `Display()`: initialise l’affichage (mise en forme console avec ANSI) et réinitialise les couleurs et efface l’écran.
 
-### Algorithmes de génération classe Display
+### Algorithmes classe Display
+
+### Tests classe Display
 
 ## Classe Game
 
@@ -339,13 +352,17 @@ La classe `Display` sert à générer un affichage visuel en console d’un plat
 - Robot(Enum Colors) qui lui attribut une couleur
 - Robot(Color c, Shape s)
 
-### Algorithmes de génération classe Game
+### Algorithmes classe Game
+
+### Tests classe Game
 
 ## Classe Player
 
 ### Fonctionnement classe Player
 
-### Algorithmes de génération classe Player
+### Algorithmes classe Player
+
+### Tests classe Player
 
 ## Classe Robot
 
@@ -367,10 +384,14 @@ La classe `Robot` représente ses caractéristiques : couleur (Color), forme (Sh
    - `getColor()`, `getShape()`, `getX()`, `getY()` : Retourne respectivement la couleur, la forme, ses coordonnées en x et y.
    - `setColor(Color)`, `setShape(Shape)`, `setX(int)`, `setY(int)` : Change respectivement la couleur, la forme, ses coordonnées en x et y.
 
-### Algorithmes de génération classe Robot
+### Algorithmes classe Robot
+
+### Tests classe Robot
 
 ## Classe Target
 
 ### Fonctionnement classe Target
 
-### Algorithmes de génération classe Target
+### Algorithmes classe Target
+
+### Tests classe Target
