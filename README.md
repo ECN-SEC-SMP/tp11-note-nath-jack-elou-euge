@@ -339,4 +339,223 @@ fin fonction
 
 ### Fonctionnement classe Target
 
-### Algorithmes de génération classe Target
+### Algorithmes de génération classe Target### Fonctionnement de la classe Robot
+
+La classe `Robot` représente ses caractéristiques : couleur (Color), forme (Shape), coordonnées en 2D (x, y)
+
+#### Fonctionnement
+
+1. **Attributs principaux :**
+   -
+
+2. **Méthodes privées :**
+   - `color` :  couleur du robot
+   - `shape` : forme du robot
+   - `x` : position en x du robot
+   - `y` : position en y du robot
+
+3. **Méthodes publiques :**
+   - Constructeur et destructeur : `Robot()` : Crée un robot vert de forme RobotSign, `Robot(Color c)` crée le robot avec la couleur de notre choix.
+   - `getColor()`, `getShape()`, `getX()`, `getY()` : Retourne respectivement la couleur, la forme, ses coordonnées en x et y.
+   - `setColor(Color)`, `setShape(Shape)`, `setX(int)`, `setY(int)` : Change respectivement la couleur, la forme, ses coordonnées en x et y.
+
+### Fonctionnement de la classe Display
+
+La classe `Display` sert à générer un affichage visuel en console d’un plateau de jeu, avec une représentation graphique ASCII des murs, des robots et des cibles (les targets). Elle utilise des codes ANSI pour afficher les couleurs et des caractères Unicode pour les formes.
+
+#### Fonctionnement
+
+1. **Attributs principaux :**
+   - `board[SIZE_BOARD][SIZE_BOARD]` : Tableau 2D de cases représentant la grille de jeu. Chaque case peut contenir des murs, un robot, ou une cible. SIZE_BOARD = int(16)
+   - `dispBoard[BOARD_DISP_SIZE][BOARD_DISP_SIZE]` : Affichage visuel du plateau.
+   - `DispCaseDir_t` : enum privé pour gérer la direction des cases.
+
+2. **Méthodes privées :**
+   - `put_walls` : Parcourt chaque Case pour afficher les murs selon les directions -> Nord, Sud, Est, Ouest.
+   - `put_robots` : Vérifie si un robot est présent dans la case. Si oui, récupère sa couleur et sa forme, prépare une chaîne à afficher.
+   - `put_targets` : Affichage des cibles.
+
+3. **Méthodes publiques :**
+   - `update(Case board[SIZE_BOARD][SIZE_BOARD])` : Met à jour le plateau. Dans l'ordre :
+        1 - Génère ligne par ligne les caractères ASCII à afficher.
+        2 - Appelle trois fonctions privées pour : afficher les murs, afficher les robots, afficher les cibles.
+   - `print` : Place aléatoirement 4 robots sur la grille, ainsi qu'une cible dans un angle de deux murs.
+   - Constructeur et destructeur `Display()`: initialise l’affichage (mise en forme console avec ANSI) et réinitialise les couleurs et efface l’écran.
+
+### Algorithmes de génération
+
+Voici l'algorithme en langage naturel pour générer une grille complète :
+
+```algo
+type Case
+    entier nord
+    entier sud
+    entier est
+    entier ouest
+    lien Robot robot
+    lien Target cible
+fin type
+
+type Board
+    tableau[16][16] de Case grille
+fin type
+```
+
+```algo
+fonction ø <- update(Case board[SIZE_BOARD][SIZE_BOARD])
+    paramètre paramètre lien Board B
+    résultat ø
+algorithme
+    Copie les cases du plateau board dans this->board
+    Pour chaque quart de la grille Faire
+        Générer x aléatoire dans les limites du quart
+        Générer y aléatoire dans les limites du quart
+        si i et j sont nuls alors
+            Affiche un coin gauche/haut
+        fin si
+        si i = est nul et j = (SIZE_BOARD * 2) alors
+            Affiche un coin gauche/haut        
+        fin si
+        si i = (SIZE_BOARD * 2) et j est nul alors
+            Affiche un coin gauche/bas
+        fin si
+        si i = (SIZE_BOARD * 2) et j = (SIZE_BOARD * 2) alors
+            Affiche un coin droite/bas
+        fin si
+
+        si i est nul et j pair alors
+            Affiche mur horizontal
+        si i = (SIZE_BOARD * 2) et j pair alors
+            Affiche mur horizontal
+        si i est pair et j = (SIZE_BOARD * 2) alors
+            Affiche mur vertical
+        si i et j sont pairs alors
+            Affiche mur vertical
+        
+        si i est pair
+            Affiche ligne horizontale
+        Si j est pair
+            Affiche ligne verticale
+        Sinon mettre un espace
+
+        si l'élément affiché n'est pas un espace
+            Applique couleur gris aux lignes de la grille
+            Applique couleur noir clair au premier-plan
+            Enregistre dans la grille d'affichage dispBoard à la bonne position
+        fin si
+    fin pour
+    
+    Place les murs sur le plateau
+    Place les robots sur le plateau
+    Positionne les cibles surle plateau
+    Positionne le centre du plateau
+fin fonction
+
+
+```algo
+fonction ø <- print
+    paramètre ø
+    résultat ø
+algorithme
+    réinitialiser de l'affichage
+    affichage du temps de jeu écoulé
+    pour chaque case du plateau faire
+        affichage du plateau dans le terminal
+    fin pour
+    pour chaque case du plateau faire
+        affichage des lignes permanentes (textes en bas du plateau)
+    fin pour
+fin fonction
+
+```algo
+fonction ø <- printTime
+    paramètre ø
+    résultat ø
+algorithme
+    enregistrer la position du curseur
+    réinitialiser la couleur d'arrière-plan par défaut
+fin fonction
+
+```algo
+fonction ø <- addLine
+    paramètre line
+    résultat affiche la line
+algorithme
+    initailisation : i = 0
+    tant que permaLine est vide
+        i ++
+        si i > nombre de permaLine alors
+            i = -1
+        fin si
+    fin tant que
+fin fonction
+
+```algo
+fonction ø <- updateLine
+    paramètre indice de line, line
+    résultat affiche la line
+algorithme
+    si l'indice de la ligne >= nombre max de permaLine alors
+        on retourne rien
+    sinon
+        on modifie permaline à l'indice donné
+    fin si
+fin fonction
+
+```algo
+fonction ø <- clearLine
+    paramètre indice de line
+    résultat ø
+algorithme
+    si l'indice de la ligne >= nombre max de permaLine alors
+        on retourne rien
+    fin si
+    on met "" à l'indice donné dans le conteneur permaline
+fin fonction
+
+```algo
+fonction ø <- clearLine
+    paramètre indice de line
+    résultat ø
+algorithme
+    si l'indice de la ligne >= nombre max de permaLine alors
+        on retourne rien
+    fin si
+    on met "" à l'indice donné dans le conteneur permaline
+fin fonction
+
+```algo
+fonction ø <- put_time
+    paramètre ø
+    résultat ø
+algorithme
+    récupére une référence à l'instance unique du timer
+    t contient le temps restant en millisecondes
+    conversion de t en seconde
+
+    timeStr est un temps formaté
+
+    assigne strLength à la taille de timeStr
+
+    pour i<nombre d'espaces à afficher avant timeStr pour centrer timeStr
+        affiche timeStr
+    fin pour
+fin fonction
+
+```algo
+fonction ø <- put_walls
+    paramètre ø
+    résultat ø
+algorithme
+    récupére une référence à l'instance unique du timer
+    t contient le temps restant en millisecondes
+    conversion de t en seconde
+
+    timeStr est un temps formaté
+
+    assigne strLength à la taille de timeStr
+
+    pour i<nombre d'espaces à afficher avant timeStr pour centrer timeStr
+        affiche timeStr
+    fin pour
+fin fonction
