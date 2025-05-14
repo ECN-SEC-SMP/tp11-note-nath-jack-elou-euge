@@ -106,10 +106,7 @@ TEST_F(BoardTest, PlaceTargetsTest)
 // Test moveRobot
 TEST_F(BoardTest, MoveRobotTest)
 {
-    Robot *robot_1 = new Robot(Green);
-
-    this->robots.push_back(robot_1);
-
+    // Place the robots on the board
     this->board->placeRobots(&this->robots);
 
     int startX = this->robots.at(0)->getX();
@@ -124,61 +121,73 @@ TEST_F(BoardTest, MoveRobotTest)
     {
         bool moved = board->moveRobot(this->robots.at(0), 'N');
         EXPECT_TRUE(moved);
-        EXPECT_LT(this->robots.at(0)->getY(), startY);  // expect less than
+        EXPECT_LT(this->robots.at(0)->getY(), startY); // expect less than
     }
     else
     {
         bool moved = board->moveRobot(this->robots.at(0), 'N');
         EXPECT_FALSE(moved);
-        EXPECT_EQ(this->robots.at(0)->getY(), startY);  // expect equal
+        EXPECT_EQ(this->robots.at(0)->getY(), startY); // expect equal
     }
 
     // Vérifiez que le robot peut se déplacer vers le sud
     board->getBoard(boardState); // Met à jour l'état de la grille
+
+    startX = this->robots.at(0)->getX();
+    startY = this->robots.at(0)->getY();
+
     if (boardState[startX][startY].getSouth() == 0 &&
         (startY < SIZE_BOARD - 1 && boardState[startX][startY + 1].getNorth() == 0))
     {
         bool moved = board->moveRobot(this->robots.at(0), 'S');
         EXPECT_TRUE(moved);
-        EXPECT_GT(this->robots.at(0)->getY(), startY);  // expect greater than
+        EXPECT_GT(this->robots.at(0)->getY(), startY); // expect greater than
     }
     else
     {
         bool moved = board->moveRobot(this->robots.at(0), 'S');
         EXPECT_FALSE(moved);
-        EXPECT_EQ(this->robots.at(0)->getY(), startY);  // expect equal
+        EXPECT_EQ(this->robots.at(0)->getY(), startY); // expect equal
     }
 
     // Vérifiez que le robot peut se déplacer vers l'est
     board->getBoard(boardState); // Met à jour l'état de la grille
+
+    startX = this->robots.at(0)->getX();
+    startY = this->robots.at(0)->getY();
+
     if (boardState[startX][startY].getEast() == 0 &&
         (startX < SIZE_BOARD - 1 && boardState[startX + 1][startY].getWest() == 0))
     {
         bool moved = board->moveRobot(this->robots.at(0), 'E');
         EXPECT_TRUE(moved);
-        EXPECT_GT(this->robots.at(0)->getX(), startX);  // expect greater than
+        EXPECT_GT(this->robots.at(0)->getX(), startX); // expect greater than
     }
     else
     {
         bool moved = board->moveRobot(this->robots.at(0), 'E');
         EXPECT_FALSE(moved);
-        EXPECT_EQ(this->robots.at(0)->getX(), startX);  // expect equal
+        EXPECT_EQ(this->robots.at(0)->getX(), startX); // expect equal
     }
 
     // Vérifiez que le robot peut se déplacer vers l'ouest
     board->getBoard(boardState); // Met à jour l'état de la grille
+
+    startX = this->robots.at(0)->getX();
+    startY = this->robots.at(0)->getY();
+
     if (boardState[startX][startY].getWest() == 0 &&
         (startX > 0 && boardState[startX - 1][startY].getEast() == 0))
     {
         bool moved = board->moveRobot(this->robots.at(0), 'W');
         EXPECT_TRUE(moved);
-        EXPECT_LT(this->robots.at(0)->getX(), startX);  // expect less than
+        EXPECT_LT(this->robots.at(0)->getX(), startX); // expect less than
     }
     else
     {
         bool moved = board->moveRobot(this->robots.at(0), 'W');
         EXPECT_FALSE(moved);
-        EXPECT_EQ(this->robots.at(0)->getX(), startX);  // expect equal 
+        EXPECT_EQ(this->robots.at(0)->getX(), startX); // expect equal
     }
 }
 
