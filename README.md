@@ -105,7 +105,19 @@ Pour construire le projet, exécutez les commandes suivantes dans un terminal :
 mkdir build
 cd build
 cmake ..
-cd ..
+```
+
+### Lancer le jeu
+A la racine du projet, dans un terminale
+```bash
+make
+```
+
+### Lancer le jeu de test
+A la racine du projet, dans un terminale
+```bash
+cd ./build/
+ctest
 ```
 
 ### Compilation
