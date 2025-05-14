@@ -34,6 +34,8 @@
  */
 #define DISP_ROBOT_PLACE    0   // Robot place in a case
 #define DISP_TARGET_PLACE   2   // Target place in a case
+#define DISP_TARGET_OBJECTIF_X   16
+#define DISP_TARGET_OBJECTIF_Y   16
 
 #define CENTER_INDEX_START  15  // Start of center zone
 #define CENTER_INDEX_END    17  // End of center zone
@@ -687,15 +689,9 @@ void Display::put_targets(void) {
                 continue;
             }
             
-            Color clr = curTarget->getColor();
-            Shape shp = curTarget->getShape();
+            strTarget = this->getTargetStr(curTarget);
 
-            strTarget = "";
-            strTarget.append(COLOR_MAP[clr]);
-            strTarget.append(SHAPE_MAP[shp]);
-            strTarget.append(COLOR_MAP[Default]);
-
-            if ((shp == TargetRainbow)) {
+            if ((curTarget->getShape() == TargetRainbow)) {
                 if ((curCase.getRobot() != nullptr))
                 {
                     continue;
@@ -731,9 +727,19 @@ void Display::put_center(void) {
             }
         }   // Fin j
     }   // Fin i
-
+    
     // Put target in middle
-    // TODO : add center target
+    Target* targ = this->board[TARGET_OBJECTIF_X][TARGET_OBJECTIF_Y].getTarget();
+
+    if (targ == nullptr) {
+        return;
+    }
+
+    this->dispBoard[DISP_TARGET_OBJECTIF_X][DISP_TARGET_OBJECTIF_Y] = getTargetStr(targ);
+    
+    if (targ->getShape() == TargetRainbow) {
+        this->dispBoard[DISP_TARGET_OBJECTIF_X][DISP_TARGET_OBJECTIF_Y + 1] = "  ";
+    }
 
 }
 
@@ -745,6 +751,18 @@ void Display::put_center(void) {
  */
 std::string Display::getWallStr(std::string wall_chr) {
     return std::string(ANSI_CODE_WALL_COLOR) + wall_chr + std::string(ANSI_CODE_BACKGROUND_APP);
+}
+
+std::string Display::getTargetStr(Target* targ) {
+    std::string retStr = "";
+    Color clr = targ->getColor();
+    Shape shp = targ->getShape();
+
+    retStr.append(COLOR_MAP[clr]);
+    retStr.append(SHAPE_MAP[shp]);
+    retStr.append(COLOR_MAP[Default]);
+
+    return retStr;
 }
 
 // ================================================================================
@@ -781,6 +799,8 @@ void Display_Test(void) {
     plateau[4][6].setTarget(listTarg[2]);
     plateau[13][10].setTarget(listTarg[3]);
     plateau[7][3].setTarget(listTarg[4]);
+    // plateau[TARGET_OBJECTIF_X][TARGET_OBJECTIF_Y].setTarget(listTarg[4]);
+    plateau[TARGET_OBJECTIF_X][TARGET_OBJECTIF_Y].setTarget(listTarg[3]);
 
     disp.update(plateau);
 

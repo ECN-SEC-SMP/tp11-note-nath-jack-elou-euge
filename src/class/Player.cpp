@@ -17,6 +17,14 @@
 // ================================================================================
 // Public Fonctions definitions
 // ================================================================================
+
+Player::Player()
+{
+    this->pseudo = "";
+    this->nbCoupsAnnonce = -1;
+    this->nbCoupsReal = 0;
+    this->score = 0;
+}
 /**
  * @brief Construct a new Player:: Player object
  *
@@ -27,6 +35,7 @@ Player::Player(std::string pseudo)
     this->pseudo = pseudo;
     this->nbCoupsAnnonce = -1;
     this->nbCoupsReal = 0;
+    this->score = 0;
 }
 
 /**
@@ -62,7 +71,7 @@ int Player::getNbCoupsAnnonce() const
 
 void Player::setNbCoupsReal(int nCoups)
 {
-    if (nCoups > 0)
+    if (nCoups >= 0)
     {
         this->nbCoupsReal = nCoups;
     }
@@ -75,10 +84,7 @@ int Player::getNbCoupsReal() const
 
 void Player::setNbCoupsAnnonce(int nCoups)
 {
-    if (nCoups > 0)
-    {
-        this->nbCoupsAnnonce = nCoups;
-    }
+    this->nbCoupsAnnonce = nCoups;
 }
 
 bool Player::hasValidCoupsAnnonce() const
@@ -96,10 +102,7 @@ void Player::moveRobot(std::string evt)
 
 void Player::setScore(int newScore)
 {
-    if (newScore < 0)
-    {
-        this->score = newScore;
-    }
+    this->score = newScore;
 }
 
 int Player::getScore() const

@@ -37,6 +37,8 @@ private:
     int score;
 
 public:
+
+    Player();
     /**
      * @brief Construct a new Player:: Player object
      *
@@ -71,8 +73,6 @@ public:
     int getNbCoupsReal() const;
 
     bool hasValidCoupsAnnonce() const;
-
-    void play(std::vector<Robot *> *robots);
 
     void chooseRobot(std::string evt);
 

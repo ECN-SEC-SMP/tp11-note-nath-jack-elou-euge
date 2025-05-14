@@ -52,21 +52,6 @@
  * @param argv
  * @return int
  */
-// int main(int argc, char const *argv[])
-// {
-//     TermCtrl_Test();
-
-//     return 0;
-// }
-
-// int main()
-// {
-
-//     Game game = Game();
-//     game.test();
-
-//     return 0;
-// }
 int main(int argc, char const *argv[])
 {
 

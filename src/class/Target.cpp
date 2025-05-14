@@ -30,39 +30,11 @@ Target::Target(Color color, Shape shape)
 };
 
 /**
- * @brief Initialisation de Target : Construit une nouvelle Target
- *
- */
-Target::Target() {
-
-};
-
-/**
  * @brief Destroy the Target:: Target object
  *
  */
 Target::~Target()
 {
-}
-
-/**
- * @brief Fonction qui set la forme de la target
- *
- * @param Shape
- */
-void Target::setShape(Shape s)
-{
-    this->shape = s;
-}
-
-/**
- * @brief Fonction qui set la couleur de la target
- *
- * @param Couleur
- */
-void Target::setColor(Color c)
-{
-    this->color = c;
 }
 
 /**

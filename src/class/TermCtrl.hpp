@@ -149,6 +149,7 @@ public:
      *
      */
     void eventClearAll(void);
+
 };
 
 #endif // _TERM_CTRL_HPP_
