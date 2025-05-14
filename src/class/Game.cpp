@@ -19,6 +19,30 @@ Game::Game(std::vector<Player *> players, std::vector<Robot *> robots)
 
 Game::~Game()
 {
+    for (Player *p : this->players)
+    {
+        if (p != nullptr)
+        {
+            delete p;
+        }
+    }
+
+    for (Robot *r : this->robots)
+    {
+        if (r != nullptr)
+        {
+            delete r;
+        }
+    }
+
+    for (Target *t : this->targets)
+    {
+        if (t != nullptr)
+        {
+            delete t;
+        }
+    }
+
     delete this->board;
 }
 
@@ -129,17 +153,20 @@ bool Game::play()
     this->initTargets();
     this->board->saveBoard();
 
-    TermCtrl *term = TermCtrl::getInstance();
-    term->attach(TermEvents::DIGIT_INPUT, [this](std::string evt)
-                 { this->digitHandler(evt); });
-    term->attach(TermEvents::DIRECTIONAL_ARROW, [this](std::string evt)
-                 { this->arrowHandler(evt); });
-
     this->board->saveBoard();
     int indexTarget = -1; // Incrementé à chaque début de partie => [0, this->targets.size() - 1]
+    TermCtrl *term = TermCtrl::getInstance();
+    int dRobotListIndex = this->display->addLine(" ");
+    int dPseudoIndex = this->display->addLine(" ");
 
     do
     {
+        this->display->updateLine(dRobotListIndex, " ");
+        this->display->updateLine(dPseudoIndex, " ");
+        this->digitHandler("-1");
+        term->attach(TermEvents::DIGIT_INPUT, nullptr);
+        term->attach(TermEvents::DIRECTIONAL_ARROW, nullptr);
+
         this->board->reinitBoard(&this->robots);
         indexTarget = (indexTarget + 1) % this->targets.size(); // S'incrémente de 1 à chaque nouvelle tuile
         this->board->setTargetObjectif(this->targets.at(indexTarget));
@@ -165,10 +192,14 @@ bool Game::play()
         // Ordonne dans les joueurs dans l'ordre croissant de leur annonce de coups.
         this->orderPlayersByNbCoupsAnnonce();
 
+        term->attach(TermEvents::DIGIT_INPUT, [this](std::string evt)
+                     { this->digitHandler(evt); });
+        term->attach(TermEvents::DIRECTIONAL_ARROW, [this](std::string evt)
+                     { this->arrowHandler(evt); });
         int prevDigit = term->eventPending(TermEvents::DIGIT_INPUT);
         int prevArrow = term->eventPending(TermEvents::DIRECTIONAL_ARROW);
-        int dRobotListIndex = this->display->addLine(this->displayRobotInputs());
-        int dPseudoIndex = this->display->addLine("");
+
+        this->display->updateLine(dRobotListIndex, this->displayRobotInputs());
 
         term->begin();
         for (Player *player : this->players)
@@ -182,19 +213,19 @@ bool Game::play()
             this->display->update(plateau);
             this->display->print();
 
-            int dMoveRIndex = this->display->addLine(""); // Indique le nb de coups
+            this->digitHandler("-1");
 
             term->eventClearAll();
 
-            this->robotHold = this->robots.at(0);
-            // term->end();
-            // this->chooseFirstRobot();
-            // term->begin();
+            term->end();
+            this->chooseFirstRobot();
+            term->begin();
+            int dMoveRIndex = this->display->addLine(" "); // Indique le nb de coups
 
             this->currentPlayer = player;
-            if (player->hasValidCoupsAnnonce()) // Si coupAnnonce != -1 (s'il a saisit un nb de coup)
+            if (this->currentPlayer->hasValidCoupsAnnonce()) // Si coupAnnonce != -1 (s'il a saisit un nb de coup)
             {
-                this->display->updateLine(dPseudoIndex, "C'est le tour de: " + this->currentPlayer->getPseudo() + "\n");
+                this->display->updateLine(dPseudoIndex, "\tC'est le tour de: " + this->currentPlayer->getPseudo());
                 this->display->print();
                 while (isPlaying) // While someone is playing
                 {
@@ -218,13 +249,13 @@ bool Game::play()
 
                     // Si mouvement de robot, rafraichit la board et vérifie les conditions de victoire ou de défaite.
                     this->refreshBoard = false;
-                    if (this->currentPlayer->getNbCoupsReal() >= player->getNbCoupsAnnonce()) //  Si le joueur n'a pas pu déplacer son robot
+                    if (this->currentPlayer->getNbCoupsReal() >= this->currentPlayer->getNbCoupsAnnonce()) //  Si le joueur n'a pas pu déplacer son robot
                     {
                         continue;
                     }
 
                     this->currentPlayer->setNbCoupsReal(this->currentPlayer->getNbCoupsReal() + 1);
-                    this->display->updateLine(dMoveRIndex, this->currentPlayer->getPseudo() + ", tu es à: " + std::to_string(this->currentPlayer->getNbCoupsReal()) +
+                    this->display->updateLine(dMoveRIndex, "\t" + this->currentPlayer->getPseudo() + ", tu es à: " + std::to_string(this->currentPlayer->getNbCoupsReal()) +
                                                                "/" + std::to_string(this->currentPlayer->getNbCoupsAnnonce()) + " coups");
                     this->board->getBoard(plateau);
                     this->display->update(plateau);
@@ -234,7 +265,7 @@ bool Game::play()
                         // Vérifie qu'il n'a pas gagné en 1 coup
                         if (this->currentPlayer->getNbCoupsReal() == 1)
                         {
-                            std::cout << "Vous n'avez pas le droit de gagner en 1 coup, veuillez rejouer" << std::endl;
+                            std::cout << "\tVous n'avez pas le droit de gagner en 1 coup, veuillez rejouer" << std::endl;
                             this->currentPlayer->setNbCoupsReal(0);
                             this->board->reinitBoard(&this->robots);
                             std::this_thread::sleep_for(std::chrono::milliseconds(4000)); // Wait 4 secondes for people to read
@@ -246,13 +277,16 @@ bool Game::play()
                         {
                             hasSucceed = true; // Fin de partie, une solution a été trouvé
                             isPlaying = false;
-                            player->setScore(player->getScore() + (player->getNbCoupsAnnonce() == this->currentPlayer->getNbCoupsReal() ? 2
-                                                                                                                                        : 1));
-                            int dWinIndex = this->display->addLine(this->currentPlayer->getPseudo() + ", tu as gagné avec " + std::to_string(this->currentPlayer->getNbCoupsReal()) +
+
+                            int newScore = ((this->currentPlayer->getNbCoupsAnnonce() == this->currentPlayer->getNbCoupsReal()) ? 2 : 1);
+                            this->currentPlayer->setScore(newScore + this->currentPlayer->getScore());
+                            int dWinIndex = this->display->addLine("\t" + this->currentPlayer->getPseudo() + ", tu as gagné avec " + std::to_string(this->currentPlayer->getNbCoupsReal()) +
                                                                    "/" + std::to_string(this->currentPlayer->getNbCoupsAnnonce()) + " " +
                                                                    (this->currentPlayer->getNbCoupsAnnonce() == this->currentPlayer->getNbCoupsReal() ? " tu gagnes 2 points, continue !" : "tu gagnes 1 point, la prochaine fois devine mieux ;)"));
-                            this->display->print(); // Met à jour l'affichage
 
+                            // this->currentPlayer->setScore(this->currentPlayer->getScore() + (this->currentPlayer->getNbCoupsAnnonce() == this->currentPlayer->getNbCoupsReal() ? 2 : 1));
+                            this->display->clearLine(dMoveRIndex);
+                            this->display->print();                                       // Met à jour l'affichage
                             std::this_thread::sleep_for(std::chrono::milliseconds(4000)); // Wait 4 secondes for people to read
                             this->display->clearLine(dWinIndex);                          // Supprime le message de défaite
                             this->display->print();                                       // Met à jour l'affichage
@@ -264,7 +298,7 @@ bool Game::play()
                         {
                             this->display->clearLine(dMoveRIndex); // Supprime le nombre de coup de l'affichage
                             // Donne la raison
-                            int dLooseIndex = this->display->addLine(this->currentPlayer->getPseudo() + ", tu n'as pas réussi à finir en au moins: " +
+                            int dLooseIndex = this->display->addLine("\t" + this->currentPlayer->getPseudo() + ", tu n'as pas réussi à finir en au moins: " +
                                                                      std::to_string(this->currentPlayer->getNbCoupsAnnonce()) + " coups");
                             this->display->print();                                       // Met à jour l'affichage
                             std::this_thread::sleep_for(std::chrono::milliseconds(4000)); // Wait 4 secondes for people to read
@@ -392,6 +426,8 @@ int Game::whoFinds()
 
 bool Game::keepPlaying()
 {
+    this->digitHandler("-1");
+
     char input = '\0';
     std::cout << "Souhaitez vous rejouer ? (y/n)" << std::endl;
     while (input == '\0')
@@ -532,7 +568,7 @@ void Game::orderPlayersByScore()
             const Player *b = this->players.at(j + 1);
 
             // si score de a > score de b, ou scores égaux et pseudo de a > pseudo de b
-            if (a->getScore() > b->getScore() || (a->getScore() == b->getScore() && a->getPseudo() > b->getPseudo()))
+            if (a->getScore() < b->getScore() || (a->getScore() == b->getScore() && a->getPseudo() > b->getPseudo()))
             {
                 std::swap(this->players[j], this->players[j + 1]);
             }
@@ -543,18 +579,31 @@ void Game::digitHandler(std::string evt)
 {
     static int dChoiceRIndex = -1;
     int index = std::stoi(evt);
+
+    if (index == -1)
+    {
+        if (dChoiceRIndex == -1)
+        {
+            dChoiceRIndex = this->display->addLine(" ");
+        }
+        else
+        {
+            this->display->updateLine(dChoiceRIndex, " ");
+        }
+
+        this->display->print();
+    }
     if (index >= 1 && index <= 4)
     {
         this->robotHold = this->robots.at(index - 1);
         if (dChoiceRIndex == -1)
         {
-            dChoiceRIndex = this->display->addLine("Vous utilisez le robot: " + this->robotHold->getColorString());
+            dChoiceRIndex = this->display->addLine("\tVous utilisez le robot: " + this->robotHold->getColorString());
         }
         else
         {
-            this->display->updateLine(dChoiceRIndex, "Vous utilisez le robot: " + this->robotHold->getColorString());
+            this->display->updateLine(dChoiceRIndex, "\tVous utilisez le robot: " + this->robotHold->getColorString());
         }
-        std::cout << "ALED" << std::endl;
         this->display->print();
     }
 }
@@ -594,7 +643,7 @@ void Game::displayScore()
     this->orderPlayersByScore();
     for (int i = 0; i < this->players.size(); i++)
     {
-        resultat += "\t" + std::to_string(i + 1) + ": " + this->players.at(i)->getPseudo() + "\t\t score: " + std::to_string(this->players.at(i)->getScore()) + "\n";
+        resultat += "\t" + std::to_string(i + 1) + ": " + this->players.at(i)->getPseudo() + "\t score: " + std::to_string(this->players.at(i)->getScore()) + "\n";
     }
     std::cout << resultat << std::endl;
 }
@@ -644,14 +693,7 @@ Player *Game::findUnannounced()
 bool Game::chooseFirstRobot()
 {
 
-    std::cout << "Vous devez choisir votre robot de départ" << std::endl;
-    std::string resStr = "Pour choisir votre robot appuyez sur:\n";
-    for (int i = 0; i < this->robots.size(); i++)
-    {
-        resStr += "\t\t" + std::to_string(i + 1) + " : Robot " + this->robots.at(i)->getColorString() + "\n";
-    }
-    std::cout << resStr << std::endl;
-
+    std::cout << "\tVous devez choisir votre robot de départ" << std::endl;
     std::string idRobot = std::to_string(inputNumber(1, 4));
 
     this->digitHandler(idRobot);
