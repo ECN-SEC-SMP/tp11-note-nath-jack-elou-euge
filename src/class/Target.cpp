@@ -1,6 +1,6 @@
 /**
  * @file Target.cpp
- * @brief Target object that store color and shape
+ * @brief Model class for targets, with Color and Shape as main attribute.
  * @version 0.1
  * @date 2025-05-11
  *

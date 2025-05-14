@@ -1,0 +1,11 @@
+<map id="TargetTest" name="TargetTest">
+<area shape="rect" id="Node000001" title=" " alt="" coords="22,321,125,407"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,163,99,229"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,242,71,321,65,322,55,243"/>
+<area shape="rect" id="Node000003" href="$classTarget.html" title="Model class for targets." alt="" coords="123,133,223,259"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="138,260,109,309,105,306,134,258"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="112,5,160,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="139,71,144,109,146,117,141,119,139,110,134,71"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="185,5,239,71"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="207,71,195,118,190,117,202,70"/>
+</map>

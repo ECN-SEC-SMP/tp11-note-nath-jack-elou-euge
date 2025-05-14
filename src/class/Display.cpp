@@ -1,7 +1,6 @@
 /**
- * @file main.cpp
- * @author your name (you@domain.com)
- * @brief 
+ * @file Display.cpp
+ * @brief Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters.
  * @version 0.1
  * @date 2025-04-28
  * 

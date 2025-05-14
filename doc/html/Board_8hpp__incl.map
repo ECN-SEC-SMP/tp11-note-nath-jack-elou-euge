@@ -1,0 +1,27 @@
+<map id="src/class/Board.hpp" name="src/class/Board.hpp">
+<area shape="rect" id="Node000001" title="Manage the game&#39;s board. Place robots, targets and keep in memory initial state of board." alt="" coords="193,5,341,31"/>
+<area shape="rect" id="Node000002" href="$Case_8hpp.html" title="Case object is used to store walls, robots and targets." alt="" coords="77,79,160,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,33,156,75,154,70,242,28"/>
+<area shape="rect" id="Node000003" href="$Target_8hpp.html" title="Model class for targets, with Color and Shape as main attribute." alt="" coords="27,152,117,177"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="193,23,159,29,124,39,93,56,67,80,61,93,59,108,65,138,59,139,54,108,56,92,63,77,90,52,122,34,157,23,192,18"/>
+<area shape="rect" id="Node000004" href="$Color__Shape_8hpp.html" title="Define colors and shapes to use in the board." alt="" coords="5,225,136,251"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="193,27,121,45,86,60,54,81,30,102,16,124,11,148,17,176,29,197,46,214,42,218,25,200,12,178,5,148,11,122,26,99,50,77,83,55,119,40,192,22"/>
+<area shape="rect" id="Node000005" href="$Robot_8hpp.html" title="Model class for robots, with Color and Shape as main attribute." alt="" coords="144,152,232,177"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="259,33,226,80,199,140,194,137,222,77,255,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="235,79,298,104"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="269,31,269,65,264,65,264,31"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="322,79,387,104"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="282,29,331,68,328,72,279,33"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="412,79,471,104"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="296,28,401,71,399,76,294,33"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="495,79,575,104"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="310,28,481,73,480,78,309,33"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="599,79,671,104"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="334,28,586,76,585,81,333,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,106,89,142,85,139,109,103"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="132,102,169,140,165,144,128,106"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="74,178,74,212,68,212,69,178"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="171,180,103,220,100,216,168,175"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="160,225,219,251"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="191,178,192,212,186,212,186,178"/>
+</map>

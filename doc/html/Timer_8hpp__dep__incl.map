@@ -1,0 +1,23 @@
+<map id="src/utils/Timer.hpp" name="src/utils/Timer.hpp">
+<area shape="rect" id="Node000001" title="Singleton class to count time and indicate when timer as ended." alt="" coords="235,5,377,31"/>
+<area shape="rect" id="Node000002" href="$Display_8cpp.html" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="5,79,161,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="258,37,120,81,119,76,257,32"/>
+<area shape="rect" id="Node000003" href="$Game_8hpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="63,152,213,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="282,41,233,81,152,154,149,150,230,77,279,37"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main file for the game." alt="" coords="197,225,303,251"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="294,43,278,80,267,121,260,162,253,226,248,225,254,162,262,120,273,78,290,41"/>
+<area shape="rect" id="Node000006" href="$Player_8hpp.html" title="Player object are used to save players names and identify them." alt="" coords="288,79,439,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="326,40,356,77,352,80,322,43"/>
+<area shape="rect" id="Node000009" href="$Timer_8cpp.html" title="Singleton class to count time and indicate when timer as ended." alt="" coords="463,79,605,104"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="357,32,498,76,496,81,355,37"/>
+<area shape="rect" id="Node000010" href="$test__Timer_8cpp.html" title=" " alt="" coords="629,79,783,104"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="384,30,642,76,641,81,383,36"/>
+<area shape="rect" id="Node000004" href="$Game_8cpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="25,225,173,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="127,191,108,226,103,224,123,188"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="169,183,233,223,230,227,166,187"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="315,111,175,154,174,149,313,106"/>
+<area shape="rect" id="Node000007" href="$Player_8cpp.html" title="Player object are used to save players names and identify them." alt="" coords="289,152,438,177"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="366,118,366,152,361,152,361,118"/>
+<area shape="rect" id="Node000008" href="$test__Player_8cpp.html" title=" " alt="" coords="462,152,619,177"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="406,107,513,149,511,154,404,112"/>
+</map>

@@ -1,3 +1,12 @@
+/**
+ * @file Timer.cpp
+ * @brief Singleton class to count time and indicate when timer as ended.
+ * @version 0.1
+ * @date 2025-05-14
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #include "Timer.hpp"
 #include <sstream>
 #include <iomanip>

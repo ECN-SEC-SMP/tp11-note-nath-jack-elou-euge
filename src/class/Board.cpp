@@ -1,7 +1,7 @@
 /**
  * @file Board.cpp
  * @author Eloi Tourangin (eloi.tourangin@eleves.ec-nantes.fr)
- * @brief
+ * @brief Manage the game's board. Place robots, targets and keep in memory initial state of board.
  * @version 0.1
  * @date 28-04-2025
  *

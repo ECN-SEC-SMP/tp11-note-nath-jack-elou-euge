@@ -1,0 +1,32 @@
+<map id="src/class/Display.hpp" name="src/class/Display.hpp">
+<area shape="rect" id="Node000001" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="31,5,188,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,72,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,33,62,71,58,67,96,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="123,299,181,324"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,31,144,250,150,285,145,286,139,251,108,31"/>
+<area shape="rect" id="Node000004" href="$Board_8hpp.html" title="Manage the game&#39;s board. Place robots, targets and keep in memory initial state of board." alt="" coords="387,79,475,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,28,374,75,373,80,160,33"/>
+<area shape="rect" id="Node000005" href="$Case_8hpp.html" title="Case object is used to store walls, robots and targets." alt="" coords="197,152,280,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,107,284,149,282,144,399,102"/>
+<area shape="rect" id="Node000006" href="$Target_8hpp.html" title="Model class for targets, with Color and Shape as main attribute." alt="" coords="268,225,359,251"/>
+<area shape="poly" id="edge11_Node000004_Node000006" title=" " alt="" coords="408,106,376,126,346,154,330,183,321,213,316,211,325,181,342,150,372,122,405,102"/>
+<area shape="rect" id="Node000007" href="$Color__Shape_8hpp.html" title="Define colors and shapes to use in the board." alt="" coords="248,299,379,324"/>
+<area shape="poly" id="edge12_Node000004_Node000007" title=" " alt="" coords="475,90,558,93,657,102,747,120,782,133,805,150,811,165,805,179,777,203,736,224,685,243,626,259,502,285,392,303,392,298,502,280,625,254,683,238,734,219,774,198,801,176,805,165,801,154,779,138,746,125,656,107,558,99,475,96"/>
+<area shape="rect" id="Node000008" href="$Robot_8hpp.html" title="Model class for robots, with Color and Shape as main attribute." alt="" coords="153,225,241,251"/>
+<area shape="poly" id="edge10_Node000004_Node000008" title=" " alt="" coords="387,100,272,118,219,134,200,143,187,154,181,167,180,181,188,212,182,213,175,182,176,165,183,150,197,139,217,129,270,113,386,94"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="355,152,418,177"/>
+<area shape="poly" id="edge13_Node000004_Node000009" title=" " alt="" coords="426,106,403,142,399,139,421,103"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="442,152,507,177"/>
+<area shape="poly" id="edge14_Node000004_Node000010" title=" " alt="" coords="440,103,463,139,458,142,436,106"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="532,152,591,177"/>
+<area shape="poly" id="edge15_Node000004_Node000011" title=" " alt="" coords="453,102,529,143,527,148,450,106"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="615,152,695,177"/>
+<area shape="poly" id="edge16_Node000004_Node000012" title=" " alt="" coords="467,101,606,145,605,150,466,107"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="719,152,791,177"/>
+<area shape="poly" id="edge17_Node000004_Node000013" title=" " alt="" coords="475,99,706,149,705,154,474,104"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="252,175,293,214,289,218,249,179"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="234,179,213,215,209,212,230,176"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="316,251,316,285,311,285,311,251"/>
+<area shape="poly" id="edge9_Node000008_Node000003" title=" " alt="" coords="192,252,169,289,164,286,188,250"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="217,248,284,289,281,294,215,253"/>
+</map>

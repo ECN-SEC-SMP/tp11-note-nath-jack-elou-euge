@@ -1,3 +1,12 @@
+/**
+ * @file Timer.hpp
+ * @brief Singleton class to count time and indicate when timer as ended.
+ * @version 0.1
+ * @date 2025-05-14
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef _TIMER_HPP_
 #define _TIMER_HPP_
 
@@ -10,6 +19,10 @@
 #include <condition_variable>
 #include <mutex>
 
+/**
+ * @brief Singleton to start timers.
+ * 
+ */
 class Timer
 {
 private:

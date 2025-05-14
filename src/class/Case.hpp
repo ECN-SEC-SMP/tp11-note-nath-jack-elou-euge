@@ -19,6 +19,10 @@
 // Class declaration
 // ================================================================================
 
+/**
+ * @brief Model class for cases.
+ * 
+ */
 class Case
 {
 private:

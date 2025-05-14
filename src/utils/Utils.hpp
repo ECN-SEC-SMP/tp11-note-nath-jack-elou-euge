@@ -1,3 +1,12 @@
+/**
+ * @file Utils.hpp
+ * @brief Utils file.
+ * @version 0.1
+ * @date 2025-05-14
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #include <iostream>
 #include <limits>
 #include <vector>

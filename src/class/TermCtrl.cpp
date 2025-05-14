@@ -1,19 +1,9 @@
 /**
  * @file TermCtrl.cpp
- * @author Nathan ANDRE
- * @brief
+ * @author Nathan ANDRE, Eugenie ROQUAIN
+ * @brief Singleton to get and generate events on inputs from terminal
  * @version 0.1
  * @date 2025-05-06
- *
- * @copyright Copyright (c) 2025
- *
- */
-/**
- * @file main.cpp
- * @author your name (you@domain.com)
- * @brief
- * @version 0.1
- * @date 2025-04-28
  *
  * @copyright Copyright (c) 2025
  *

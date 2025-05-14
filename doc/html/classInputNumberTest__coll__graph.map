@@ -1,0 +1,9 @@
+<map id="InputNumberTest" name="InputNumberTest">
+<area shape="rect" id="Node000001" title=" " alt="" coords="107,133,232,219"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,99,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,79,135,131,131,135,86,83"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="123,5,215,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,71,172,117,167,117,167,71"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="240,5,341,71"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="270,72,238,111,226,124,223,120,234,108,266,69"/>
+</map>

@@ -1,7 +1,7 @@
 /**
  * @file TermCtrl.hpp
- * @author Nathan ANDRE
- * @brief
+ * @author Nathan ANDRE, Eugenie ROQUAIN
+ * @brief Singleton to get and generate events on inputs from terminal
  * @version 0.1
  * @date 2025-05-06
  *

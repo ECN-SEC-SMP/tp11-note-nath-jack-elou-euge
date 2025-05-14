@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['règles_0',['Explication des règles',['../md_README.html#autotoc_md4',1,'']]],
+  ['règles_20de_20déplacement_1',['Règles de déplacement',['../md_README.html#autotoc_md8',1,'']]],
+  ['réinitialisation_20de_20la_20grille_2',['Sauvegarde et réinitialisation de la grille',['../md_README.html#autotoc_md22',1,'']]],
+  ['réinitialisation_20de_20la_20grille_20tt_20saveandreinitboardtest_20tt_3',['4. Test de sauvegarde et réinitialisation de la grille (&lt;tt&gt;SaveAndReinitBoardTest&lt;/tt&gt;)',['../md_README.html#autotoc_md27',1,'']]],
+  ['rainbow_4',['Rainbow',['../Color__Shape_8hpp.html#ab87bacfdad76e61b9412d7124be44c1ca356ffd33d1f64e3a36395222767824e5',1,'Color_Shape.hpp']]],
+  ['reachtarget_5',['reachTarget',['../classRobot.html#a5115f131b98205a2f50867abf878c20f',1,'Robot']]],
+  ['readme_2emd_6',['README.md',['../README_8md.html',1,'']]],
+  ['red_7',['Red',['../Color__Shape_8hpp.html#ab87bacfdad76e61b9412d7124be44c1cad3163c1fcda01965b692ec2c3122b743',1,'Color_Shape.hpp']]],
+  ['refreshboard_8',['refreshBoard',['../classGame.html#ae7c6663311b7413fd2fc87a7f76eadd4',1,'Game']]],
+  ['reinitboard_9',['reinitBoard',['../classBoard.html#a1e06747221ac8ea7223504c2e2fec07c',1,'Board']]],
+  ['remainingplayer_10',['remainingPlayer',['../classGame.html#ada2ceb11984184d04f33dc06054e1447',1,'Game']]],
+  ['remarque_11',['Remarque',['../md_README.html#autotoc_md9',1,'']]],
+  ['resetplayerscoups_12',['resetPlayersCoups',['../classGame.html#a3243a69a99b7dd947804aa75aa6d0177',1,'Game']]],
+  ['ricochet_20robots_13',['TP 11 noté - Ricochet Robots',['../md_README.html',1,'']]],
+  ['robot_14',['robot',['../md_README.html#autotoc_md48',1,'Algorithmes classe Robot'],['../md_README.html#autotoc_md46',1,'Classe Robot'],['../md_README.html#autotoc_md47',1,'Fonctionnement classe Robot'],['../classRobot.html',1,'Robot'],['../classRobotTest.html#ad7a285141bdce2bdfba20e4b1cc9d3f6',1,'RobotTest::robot'],['../classCase.html#ae2005a9cb8ce4d9035fe5abec00420a5',1,'Case::robot'],['../classRobot.html#a81264c2e8ce4ac3dfe1fb0d813668da7',1,'Robot::Robot(Color c)'],['../classRobot.html#a4fc7c70ae20623f05e06f2ecb388b6c4',1,'Robot::Robot()'],['../md_README.html#autotoc_md49',1,'Tests classe Robot']]],
+  ['robot_2ecpp_15',['Robot.cpp',['../Robot_8cpp.html',1,'']]],
+  ['robot_2ehpp_16',['Robot.hpp',['../Robot_8hpp.html',1,'']]],
+  ['robothold_17',['robotHold',['../classGame.html#ad91886bab6167431598604a1bbbc9e66',1,'Game']]],
+  ['robots_18',['robots',['../md_README.html#autotoc_md20',1,'Déplacement des robots'],['../classBoardTest.html#a038a8c8abb45796517181307e5041526',1,'BoardTest::robots'],['../classGame.html#a92888c58cfb790afd3f380673aaa6148',1,'Game::robots'],['../md_README.html',1,'TP 11 noté - Ricochet Robots']]],
+  ['robots_20et_20des_20cibles_19',['Placement des robots et des cibles',['../md_README.html#autotoc_md19',1,'']]],
+  ['robots_20tt_20moverobottest_20tt_20',['3. Test du déplacement des robots (&lt;tt&gt;MoveRobotTest&lt;/tt&gt;)',['../md_README.html#autotoc_md26',1,'']]],
+  ['robotsign_21',['RobotSign',['../Color__Shape_8hpp.html#a55b506070847a13554f8b879c1bfb37ca90d0dec67fe563295d3a6e7f1526523e',1,'Color_Shape.hpp']]],
+  ['robottest_22',['RobotTest',['../classRobotTest.html',1,'']]],
+  ['runevents_23',['runEvents',['../classTermCtrl.html#ae970bd5e69043680f8998610eb8ee1a8',1,'TermCtrl']]],
+  ['running_24',['running',['../Display_8cpp.html#a36f7b6be7108281af77939ceaec42fd6',1,'running:&#160;Display.cpp'],['../classTimer.html#a7d51c46ee330517c53059bb91d1ef96d',1,'Timer::running']]]
+];

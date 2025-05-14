@@ -1,3 +1,13 @@
+/**
+ * @file Robot.cpp
+ * @brief Model class for robots, with Color and Shape as main attribute.
+ * @version 0.1
+ * @date 2025-05-14
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include "Robot.hpp"
 
 /**

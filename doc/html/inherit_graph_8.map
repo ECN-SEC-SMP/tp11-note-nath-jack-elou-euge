@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,129,107,155"/>
+<area shape="rect" id="Node000001" href="$classBoardTest.html" title=" " alt="" coords="178,5,265,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="73,117,108,78,153,40,177,28,179,33,156,44,111,82,77,120"/>
+<area shape="rect" id="Node000002" href="$classInputNumberTest.html" title=" " alt="" coords="155,55,288,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="90,120,154,89,182,78,184,83,156,94,93,125"/>
+<area shape="rect" id="Node000003" href="$classPlayerTest.html" title=" " alt="" coords="177,104,266,129"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="120,130,176,121,177,126,121,135"/>
+<area shape="rect" id="Node000004" href="$classRobotTest.html" title=" " alt="" coords="178,153,265,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="121,149,178,157,177,162,120,154"/>
+<area shape="rect" id="Node000005" href="$classTargetTest.html" title=" " alt="" coords="177,203,265,228"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="95,159,156,188,187,200,185,205,154,192,93,164"/>
+<area shape="rect" id="Node000006" href="$classTimerTest.html" title=" " alt="" coords="178,252,265,277"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="78,164,112,201,156,237,181,250,178,254,153,242,109,205,74,168"/>
+</map>

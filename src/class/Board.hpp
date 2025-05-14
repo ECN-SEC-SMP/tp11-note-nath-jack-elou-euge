@@ -1,7 +1,7 @@
 /**
  * @file Board.hpp
  * @author Eloi Tourangin (eloi.tourangin@eleves.ec-nantes.fr)
- * @brief
+ * @brief Manage the game's board. Place robots, targets and keep in memory initial state of board.
  * @version 0.1
  * @date 28-04-2025
  *
@@ -27,6 +27,10 @@
 #define TARGET_OBJECTIF_X (int)8
 #define TARGET_OBJECTIF_Y (int)8
 
+/**
+ * @brief Class to manage game board.
+ * 
+ */
 class Board
 {
 private:

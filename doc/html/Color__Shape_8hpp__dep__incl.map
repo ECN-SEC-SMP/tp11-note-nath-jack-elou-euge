@@ -1,0 +1,57 @@
+<map id="src/class/Color_Shape.hpp" name="src/class/Color_Shape.hpp">
+<area shape="rect" id="Node000001" title="Define colors and shapes to use in the board." alt="" coords="773,5,963,31"/>
+<area shape="rect" id="Node000002" href="$Board_8hpp.html" title="Manage the game&#39;s board. Place robots, targets and keep in memory initial state of board." alt="" coords="1038,225,1186,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="978,26,1104,42,1241,67,1305,83,1361,102,1406,125,1435,150,1441,165,1435,179,1419,192,1395,204,1331,220,1257,230,1187,236,1186,231,1256,225,1330,215,1393,198,1416,188,1431,176,1436,165,1431,154,1403,129,1359,107,1303,88,1240,72,1103,47,977,31"/>
+<area shape="rect" id="Node000006" href="$Game_8hpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="580,372,729,397"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="759,29,543,47,295,75,183,94,91,115,30,139,13,151,8,164,8,239,12,259,25,277,45,293,72,308,143,332,229,350,323,363,418,372,580,380,579,385,418,377,322,369,228,356,141,337,70,313,42,298,21,281,7,261,3,240,3,163,9,148,27,134,90,110,182,88,295,70,543,41,759,24"/>
+<area shape="rect" id="Node000009" href="$test__Board_8cpp.html" title=" " alt="" coords="677,299,832,324"/>
+<area shape="poly" id="edge35_Node000001_Node000009" title=" " alt="" coords="846,42,801,89,779,120,763,153,753,193,750,234,755,298,750,299,745,235,747,193,757,151,774,117,797,86,842,38"/>
+<area shape="rect" id="Node000010" href="$Robot_8hpp.html" title="Model class for robots, with Color and Shape as main attribute." alt="" coords="438,79,586,104"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="798,36,570,81,569,76,797,31"/>
+<area shape="rect" id="Node000018" href="$Target_8cpp.html" title="Model class for targets, with Color and Shape as main attribute." alt="" coords="1272,152,1421,177"/>
+<area shape="poly" id="edge28_Node000001_Node000018" title=" " alt="" coords="938,31,1024,51,1117,76,1230,115,1320,149,1318,154,1228,120,1115,81,1022,56,937,36"/>
+<area shape="rect" id="Node000019" href="$Target_8hpp.html" title="Model class for targets, with Color and Shape as main attribute." alt="" coords="953,79,1103,104"/>
+<area shape="poly" id="edge29_Node000001_Node000019" title=" " alt="" coords="907,34,1003,76,1001,81,905,39"/>
+<area shape="rect" id="Node000003" href="$Board_8cpp.html" title="Manage the game&#39;s board. Place robots, targets and keep in memory initial state of board." alt="" coords="907,299,1053,324"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1080,259,1003,301,1000,296,1078,255"/>
+<area shape="rect" id="Node000004" href="$Display_8hpp.html" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="1128,299,1285,324"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1140,257,1193,296,1190,301,1137,261"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="1046,256,973,276,896,301,845,326,768,354,699,374,697,369,766,349,843,322,894,296,972,270,1045,251"/>
+<area shape="rect" id="Node000008" href="$main_8cpp.html" title="Main file for the game." alt="" coords="1038,445,1143,471"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="1112,265,1094,445,1089,445,1107,265"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="1042,256,813,301,812,296,1041,251"/>
+<area shape="rect" id="Node000005" href="$Display_8cpp.html" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="1129,372,1285,397"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1209,338,1209,372,1204,372,1204,338"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1114,327,730,376,729,371,1114,322"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="1250,328,1274,341,1294,358,1305,377,1305,388,1299,399,1274,417,1235,431,1144,451,1143,446,1233,426,1272,412,1295,396,1300,387,1300,379,1290,361,1271,346,1247,332"/>
+<area shape="rect" id="Node000007" href="$Game_8cpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="581,445,729,471"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="657,411,657,445,652,445,652,411"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="738,397,1038,445,1038,451,738,402"/>
+<area shape="poly" id="edge14_Node000010_Node000002" title=" " alt="" coords="600,95,754,113,842,128,927,149,975,166,1022,186,1093,223,1091,228,1020,191,974,171,926,155,841,133,753,118,599,101"/>
+<area shape="poly" id="edge19_Node000010_Node000006" title=" " alt="" coords="513,118,515,147,521,176,549,237,584,293,646,370,642,374,580,296,544,240,516,178,510,147,508,118"/>
+<area shape="poly" id="edge26_Node000010_Node000009" title=" " alt="" coords="517,117,525,147,539,176,582,218,631,252,680,278,722,296,720,301,678,283,628,257,578,222,535,179,520,149,512,118"/>
+<area shape="rect" id="Node000011" href="$Case_8hpp.html" title="Case object is used to store walls, robots and targets." alt="" coords="771,152,914,177"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="579,104,790,149,789,154,578,109"/>
+<area shape="rect" id="Node000013" href="$Player_8cpp.html" title="Player object are used to save players names and identify them." alt="" coords="275,225,424,251"/>
+<area shape="poly" id="edge20_Node000010_Node000013" title=" " alt="" coords="490,115,444,154,364,227,360,223,441,150,486,111"/>
+<area shape="rect" id="Node000014" href="$Player_8hpp.html" title="Player object are used to save players names and identify them." alt="" coords="43,152,194,177"/>
+<area shape="poly" id="edge21_Node000010_Node000014" title=" " alt="" coords="436,109,183,155,182,149,435,104"/>
+<area shape="rect" id="Node000016" href="$Robot_8cpp.html" title="Model class for robots, with Color and Shape as main attribute." alt="" coords="549,152,696,177"/>
+<area shape="poly" id="edge25_Node000010_Node000016" title=" " alt="" coords="543,109,606,150,603,154,540,114"/>
+<area shape="rect" id="Node000017" href="$test__Robot_8cpp.html" title=" " alt="" coords="219,152,373,177"/>
+<area shape="poly" id="edge27_Node000010_Node000017" title=" " alt="" coords="465,111,332,154,330,149,463,106"/>
+<area shape="poly" id="edge16_Node000011_Node000002" title=" " alt="" coords="900,178,1069,223,1068,228,898,183"/>
+<area shape="poly" id="edge18_Node000011_Node000009" title=" " alt="" coords="882,182,904,196,922,212,932,231,931,242,926,252,907,272,884,287,833,305,831,300,882,283,904,268,922,249,926,241,926,232,918,216,901,200,879,186"/>
+<area shape="rect" id="Node000012" href="$Case_8cpp.html" title="Case object is used to store walls, robots and targets." alt="" coords="771,225,912,251"/>
+<area shape="poly" id="edge17_Node000011_Node000012" title=" " alt="" coords="845,191,844,225,839,225,840,191"/>
+<area shape="poly" id="edge22_Node000014_Node000006" title=" " alt="" coords="100,189,80,220,78,235,83,249,116,276,166,299,230,319,301,335,452,360,580,375,580,380,451,366,300,341,228,324,164,304,113,280,79,252,73,236,75,218,95,186"/>
+<area shape="poly" id="edge23_Node000014_Node000013" title=" " alt="" coords="170,179,313,223,311,228,168,184"/>
+<area shape="rect" id="Node000015" href="$test__Player_8cpp.html" title=" " alt="" coords="93,225,251,251"/>
+<area shape="poly" id="edge24_Node000014_Node000015" title=" " alt="" coords="138,187,165,224,161,227,133,190"/>
+<area shape="poly" id="edge30_Node000019_Node000002" title=" " alt="" coords="1044,115,1108,224,1103,226,1039,118"/>
+<area shape="poly" id="edge33_Node000019_Node000009" title=" " alt="" coords="1024,118,997,185,975,221,946,253,920,271,891,284,833,302,831,297,889,279,917,266,942,249,971,218,992,182,1019,116"/>
+<area shape="poly" id="edge31_Node000019_Node000011" title=" " alt="" coords="987,111,874,154,872,149,985,106"/>
+<area shape="poly" id="edge32_Node000019_Node000018" title=" " alt="" coords="1093,104,1296,149,1294,154,1092,110"/>
+<area shape="rect" id="Node000020" href="$test__Target_8cpp.html" title=" " alt="" coords="1091,152,1248,177"/>
+<area shape="poly" id="edge34_Node000019_Node000020" title=" " alt="" coords="1064,108,1147,149,1145,154,1061,112"/>
+</map>

@@ -1,6 +1,6 @@
 /**
- * @file main.cpp
- * @brief Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters
+ * @file Display.hpp
+ * @brief Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters.
  * @version 0.1
  * @date 2025-04-28
  * 
@@ -36,6 +36,10 @@ void Display_Test(void);
 // Class declaration
 // ================================================================================
 
+/**
+ * @brief Class to display the game.
+ * 
+ */
 class Display {
 private:
     Case board[SIZE_BOARD][SIZE_BOARD];

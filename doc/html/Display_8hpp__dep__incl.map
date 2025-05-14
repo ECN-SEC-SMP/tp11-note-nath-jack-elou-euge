@@ -1,0 +1,12 @@
+<map id="src/class/Display.hpp" name="src/class/Display.hpp">
+<area shape="rect" id="Node000001" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="182,5,339,31"/>
+<area shape="rect" id="Node000002" href="$Display_8cpp.html" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="5,79,161,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,38,113,81,111,76,218,33"/>
+<area shape="rect" id="Node000003" href="$Game_8hpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="186,79,335,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="263,44,263,79,258,79,258,44"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main file for the game." alt="" coords="320,152,425,177"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="299,35,326,53,349,77,360,96,367,117,374,151,369,152,362,118,355,98,345,80,323,57,296,39"/>
+<area shape="rect" id="Node000004" href="$Game_8cpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="148,152,296,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="250,118,231,153,226,151,245,115"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="292,109,356,150,353,154,289,114"/>
+</map>

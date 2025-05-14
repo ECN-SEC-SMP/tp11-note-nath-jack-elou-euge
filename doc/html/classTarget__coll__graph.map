@@ -1,0 +1,7 @@
+<map id="Target" name="Target">
+<area shape="rect" id="Node000001" title="Model class for targets." alt="" coords="17,133,117,259"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,53,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="32,71,37,109,39,117,34,119,32,110,27,71"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="78,5,133,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="100,71,88,118,83,117,95,70"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Player" name="Player">
+<area shape="rect" id="Node000001" title="Model class for players." alt="" coords="5,163,195,448"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="31,5,81,71"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,71,60,138,61,146,56,147,55,139,52,71"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="129,5,159,71"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,71,129,147,124,146,136,70"/>
+</map>

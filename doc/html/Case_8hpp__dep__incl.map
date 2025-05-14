@@ -1,0 +1,25 @@
+<map id="src/class/Case.hpp" name="src/class/Case.hpp">
+<area shape="rect" id="Node000001" title="Case object is used to store walls, robots and targets." alt="" coords="578,5,721,31"/>
+<area shape="rect" id="Node000002" href="$Board_8hpp.html" title="Manage the game&#39;s board. Place robots, targets and keep in memory initial state of board." alt="" coords="405,79,553,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="610,38,508,81,506,76,608,33"/>
+<area shape="rect" id="Node000009" href="$test__Board_8cpp.html" title=" " alt="" coords="632,152,787,177"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="658,44,677,103,704,151,699,153,672,105,653,45"/>
+<area shape="rect" id="Node000010" href="$Case_8cpp.html" title="Case object is used to store walls, robots and targets." alt="" coords="687,79,828,104"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="679,36,741,76,738,81,677,40"/>
+<area shape="rect" id="Node000003" href="$Board_8cpp.html" title="Manage the game&#39;s board. Place robots, targets and keep in memory initial state of board." alt="" coords="461,152,608,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="499,113,528,150,524,154,494,117"/>
+<area shape="rect" id="Node000004" href="$Display_8hpp.html" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="204,152,361,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="435,111,316,154,314,149,434,106"/>
+<area shape="rect" id="Node000006" href="$Game_8hpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="5,225,155,251"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="392,103,294,121,242,135,193,154,163,171,136,190,94,227,90,223,132,186,160,166,191,150,241,130,293,116,391,98"/>
+<area shape="rect" id="Node000008" href="$main_8cpp.html" title="Main file for the game." alt="" coords="321,299,426,324"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="469,117,452,153,381,300,376,297,447,151,465,115"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="530,106,673,149,671,154,528,111"/>
+<area shape="rect" id="Node000005" href="$Display_8cpp.html" title="Display class to print in the terminal using ANSI ESCAPE CODE and Code PAge 437 characters." alt="" coords="179,225,335,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="276,191,264,226,259,224,271,189"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="238,184,114,228,112,223,237,179"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="312,184,331,202,349,224,366,263,374,298,369,299,361,265,344,227,327,206,308,188"/>
+<area shape="rect" id="Node000007" href="$Game_8cpp.html" title="Control class to manage the game. Say who is playing and when. Create timers, change tiles and interf..." alt="" coords="6,299,154,324"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="83,264,83,299,77,299,77,264"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="141,251,326,296,325,301,140,256"/>
+</map>

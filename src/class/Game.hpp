@@ -1,3 +1,14 @@
+/**
+ * @file Game.hpp
+ * @brief Control class to manage the game. Say who is playing and when.
+ * Create timers, change tiles and interface between inputs and robot to move.
+ * 
+ * @version 0.1
+ * @date 2025-05-14
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef _GAME_HPP_
 #define _GAME_HPP_
 
@@ -14,6 +25,10 @@
 #include "Display.hpp"
 #include "TermCtrl.hpp"
 
+/**
+ * @brief Control class for the game.
+ * 
+ */
 class Game
 {
 
