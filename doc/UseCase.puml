@@ -1,0 +1,22 @@
+@startuml Use Case
+skinparam actorStyle Hollow 
+left to right direction
+
+rectangle "Robot Ricochet" {
+    "Jouer" as (play)
+    "Afficher" as (display)
+    "Récupérer entrée utilisateur" as (getInput)
+    
+}
+
+:Joueur: -- play
+
+actor Terminal
+
+play ..> display : "<<use>>"
+play ..> getInput : "<<use>>"
+
+getInput -- Terminal
+display -- Terminal
+
+@enduml

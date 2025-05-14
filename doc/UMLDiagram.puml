@@ -1,0 +1,184 @@
+@startuml UML Diagram
+
+skinparam nodesep 50
+skinparam ranksep 20
+
+top to bottom direction
+
+hide @unlinked
+
+class Game {
+    - vector<Player*> players
+    - vector<Robot*> robots
+    - vector<Target*> targets
+    - Player* currentPlayer
+    - Robot* robotHold
+    - Board* board
+    - Display* display
+
+    + Game()
+    + "Game(vector<Player *> players, vector<Robot *> robots)
+    + ~Game()
+
+    + setPlayers(vector<Player *> players) : void
+    + getPlayers() const : vector<Player*>
+    + getRobots() const : vector<Robot*>
+
+    + play() : bool
+    + keepPlaying() : bool
+    
+    + resetGame() : void
+}
+
+Game "1" *-left- "1" Board
+Game "1" *-right- "1" Display
+Game "1" o-- "1..16" Player
+Game "1" o-- "4" Robot
+Game "1" o-- "4..17" Target
+Game "1" o-- "1" TermCtrl
+Game "1" o-- "1" Timer
+
+class Player {
+    - string pseudo
+    - int nbCoupsAnnonce
+    - int nbCoupsReal
+    - int score
+    ---
+    + Player(string pseudo)
+    + hasValidCoupsAnnonce() const : bool
+    + play(vector<Robot*> *robots) : void
+    + chooseRobot(string evt) : void
+    + moveRobot(string evt) : void
+    .. getter ..
+    .. setter ..
+}
+
+class Board {
+    - Case board[16][16]
+    - ...
+
+    + Board()
+    + ~Board()
+    + getBoard(Case board[SIZE_BOARD][SIZE_BOARD]) const : void
+    + placeTargets(vector<Target *> *myTargets) : void
+    + placeRobots(vector<Robot *> *myRobot) : void
+    + moveRobot(Robot *robot, char direction) : bool
+    + saveBoard() : void
+    + reinitBoard(vector<Robot *> *myRobot) : void
+    + setTargetObjectif(Target *targetObjectif) : void
+    + getTargetObjectif() : Target*
+    + targetReached(Robot *robot) : bool
+}
+
+Board "1" *-left- "256" Case
+Board "*" <-down- "1" Robot
+Board "*" <-down- "1" Target
+
+class Case {
+    - bool north
+    - bool east
+    - bool south
+    - bool west
+    - Robot* robot
+    - Target* target
+    ---
+    + Case(Robot *robot, Target *target, bool n, bool e, bool s, bool w)
+    + isWall() : bool
+    .. getter ..
+    .. setter ..
+}
+
+Case o-- Robot
+Case o-- Target
+
+class Robot {
+    - Color color
+    - Shape shape
+    --
+    + Robot(Color c)
+    + getColorString() : string
+    .. getter ..
+    .. setter ..
+}
+
+class Target {
+    - Color color
+    - Shape shape
+    --
+    + Target(Color color, Shape shape)
+    .. getter ..
+}
+
+class Display {
+    - Case board[16][16]
+    - string dispBoard[33][33]
+    - string permaLines[10]
+    --
+    + Display()
+    + ~Display()
+    + update(Case board[SIZE_BOARD][SIZE_BOARD]) : void
+    + print() : void
+    + printTime() : void
+    + addLine(std::string line) : int8_t
+    + updateLine(uint8_t lineIndex, std::string line) : void
+    + clearLine(uint8_t lineIndex) : void
+}
+
+enum TermEvents {
+    DIRECTIONAL_ARROW
+    DIGIT_INPUT
+    SPACE_INPUT
+}
+
+class TermCtrl << (S,#FF7700) Singleton >> {
+    ~void TermCtrl()
+    + {static} TermCtrl *getInstance(void)
+}
+
+' TermCtrl::getInstance --> TermCtrl::TermCtrl
+
+TermCtrl <.. TermEvents : "<<use>>"
+
+class Timer << (S,#FF7700) Singleton >> {
+
+    - atomic<bool> running
+    - thread worker
+
+    - Timer()
+
+    + {static} Timer &getInstance();
+    + {static} std::string formatTime(int toFormat);
+
+    + getElapsedTimeMs() const : int
+    + getRemainingTimeMs() const : int
+    + isRunning() const : bool
+    + start(int ms, function<void()> callback) : void
+    + stop() : void
+
+}
+
+
+Target <.. Color : "<<use>>"
+Target <.. Shape : "<<use>>"
+Robot <.. Color : "<<use>>"
+Robot <.. Shape : "<<use>>"
+
+hide Color methods
+enum Color {
+    Red
+    Blue
+    Green
+    Yellow
+    Rainbow
+}
+
+hide Shape methods
+enum Shape {
+    Target1
+    Target2
+    Target3
+    Target4
+    TargetRainbow
+}
+
+@enduml
