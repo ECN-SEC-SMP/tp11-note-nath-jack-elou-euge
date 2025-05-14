@@ -22,8 +22,7 @@
 2. [Build & Compilation](#build--compilation)
     - [Build](#build)
     - [Compilation](#compilation)
-3. [Tests](#tests)
-4. Les Classes
+3. Les Classes
     - [Classe Board](#classe-board)
         - [Fonctionnement classe Board](#fonctionnement-classe-board)
         - [Algorithmes classe Board](#algorithmes-classe-board)
@@ -52,7 +51,7 @@
         - [Fonctionnement classe Target](#fonctionnement-classe-target)
         - [Algorithmes classe Target](#algorithmes-classe-target)
         - [Tests classe Target](#tests-classe-target)
-5. [Exemples d'utilisation](#exemples-dutilisation)
+4. [Exemples d'utilisation](#exemples-dutilisation)
 
 ## Explication des règles
 
@@ -127,10 +126,6 @@ Compiler et lancer le jeu
 ```bash
 make
 ```
-
-## Tests
-
-Tests must be done inside class file.
 
 ## Classe Board
 
@@ -371,6 +366,51 @@ algorithme
     fin pour
 fin fonction
 ```
+
+### Tests classe Board
+
+Les tests de la classe `Board` permettent de valider les fonctionnalités principales de cette classe, notamment la génération de la grille, le placement des éléments (robots et cibles), les déplacements des robots, et la gestion des objectifs.
+
+#### 1. Test du constructeur (`ConstructorTest`)
+- **Objectif** : Vérifier que la grille de jeu est correctement initialisée.
+- **Vérifications** :
+  - Les murs extérieurs sont correctement placés (les bords de la grille).
+  - Les murs formant le carré central sont correctement générés.
+  - Les cases sans murs ne contiennent ni robots ni cibles.
+
+#### 2. Test du placement des cibles (`PlaceTargetsTest`)
+- **Objectif** : Vérifier que les cibles sont placées correctement sur la grille.
+- **Vérifications** :
+  - Les cibles sont placées uniquement dans des angles valides (cases avec deux murs adjacents).
+  - Le nombre de cibles placées est compris entre 4 (minimum) et 17 (maximum, incluant la cible multicolore).
+
+#### 3. Test du déplacement des robots (`MoveRobotTest`)
+- **Objectif** : Vérifier que les robots se déplacent correctement selon les règles du jeu.
+- **Vérifications** :
+  - Un robot peut se déplacer dans une direction donnée (N, S, E, W) tant qu'il ne rencontre pas :
+    - Un mur.
+    - Un autre robot.
+    - Les bords de la grille.
+  - Si un déplacement est possible, les coordonnées du robot sont mises à jour.
+  - Si un déplacement n'est pas possible, les coordonnées du robot restent inchangées.
+
+#### 4. Test de sauvegarde et réinitialisation de la grille (`SaveAndReinitBoardTest`)
+- **Objectif** : Vérifier que la grille peut être sauvegardée et réinitialisée correctement.
+- **Vérifications** :
+  - Après avoir sauvegardé l'état initial de la grille, un robot est déplacé.
+  - Lors de la réinitialisation, le robot revient à sa position initiale, et la grille retrouve son état sauvegardé.
+
+#### 5. Test de la vérification de l'objectif (`TargetReachedTest`)
+- **Objectif** : Vérifier si un robot atteint une cible correspondant à l'objectif.
+- **Vérifications** :
+  - Si un robot est placé sur une case contenant une cible correspondant à l'objectif (même couleur et forme), la fonction retourne `true`.
+  - Sinon, la fonction retourne `false`.
+
+#### 6. Test des méthodes `setTargetObjectif` et `getTargetObjectif` (`TargetObjectifTest`)
+- **Objectif** : Vérifier que l'objectif (cible à atteindre) est correctement défini et récupéré.
+- **Vérifications** :
+  - La méthode `setTargetObjectif` permet de définir une cible comme objectif.
+  - La méthode `getTargetObjectif` retourne correctement la cible définie comme objectif.
 
 ## Classe Case
 
