@@ -178,9 +178,9 @@ private:
     int findIndex(std::vector<Player *> players, Player *toFind);
 
     /**
-     * @brief
+     * @brief Demande quel joueur à trouver
      *
-     * @return int
+     * @return int L'index du joueur
      */
     int whoFinds();
 
@@ -206,8 +206,24 @@ private:
     Player *findUnannounced();
 
 public:
+    /**
+     * @brief Construct a new Game object
+     *
+     */
     Game();
+
+    /**
+     * @brief Construct a new Game object
+     *
+     * @param players Vecteur de joueurs
+     * @param robots Vecteur de robots
+     */
     Game(std::vector<Player *> players, std::vector<Robot *> robots);
+
+    /**
+     * @brief Destroy the Game object
+     *
+     */
     ~Game();
 
     /**
@@ -230,12 +246,6 @@ public:
      * @param players
      */
     void setPlayers(std::vector<Player *> players);
-
-    /**
-     * @brief
-     *
-     */
-    void resetGame();
 
     /**
      * @brief Permet de jouer au jeu ricochet robot

@@ -8,6 +8,15 @@ set(SRC_DIR "./src")
 set(CLASS_DIR "./src/class")
 set(UTILS_DIR "./src/utils")
 
+# === TESTING ===
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
 
 # GoogleTest requires at least C++17
 # set(CMAKE_CXX_STANDARD 17)
@@ -44,18 +53,9 @@ add_executable(${PROJECT_NAME}.bin ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}.bin PRIVATE pthread)
 
-
-# === TESTING ===
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/refs/heads/main.zip
-)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
 enable_testing()
 add_subdirectory(tests)
+
 
 
 # Add a message to indicate success
