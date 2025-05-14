@@ -13,45 +13,44 @@
 
 ## Table des matières
 
-1. [Explication des règles](#explication-des-règles)
+- [TP 11 noté - Ricochet Robots](#tp-11-noté---ricochet-robots)
+  - [Contributeurs](#contributeurs)
+  - [Professeur](#professeur)
+  - [Table des matières](#table-des-matières)
+  - [Explication des règles](#explication-des-règles)
     - [Objectif du jeu](#objectif-du-jeu)
     - [Éléments du jeu](#éléments-du-jeu)
     - [Déroulement d’un tour](#déroulement-dun-tour)
     - [Règles de déplacement](#règles-de-déplacement)
     - [Remarque](#remarque)
-2. [Build & Compilation](#build--compilation)
+  - [Build \& Compilation](#build--compilation)
     - [Build](#build)
+    - [Lancer le jeu](#lancer-le-jeu)
+    - [Lancer le jeu de test](#lancer-le-jeu-de-test)
     - [Compilation](#compilation)
-3. Les Classes
-    - [Classe Board](#classe-board)
-        - [Fonctionnement classe Board](#fonctionnement-classe-board)
-        - [Algorithmes classe Board](#algorithmes-classe-board)
-        - [Tests classe Board](#tests-classe-board)
-    - [Classe Case](#classe-case)
-        - [Fonctionnement classe Case](#fonctionnement-classe-case)
-        - [Algorithmes classe Case](#algorithmes-classe-case)
-        - [Tests classe Case](#tests-classe-case)
-    - [Classe Display](#classe-display)
-        - [Fonctionnement classe Display](#fonctionnement-classe-display)
-        - [Algorithmes classe Display](#algorithmes-classe-display)
-        - [Tests classe Display](#tests-classe-display)
-    - [Classe Game](#classe-game)
-        - [Fonctionnement classe Game](#fonctionnement-classe-game)
-        - [Algorithmes classe Game](#algorithmes-classe-game)
-        - [Tests classe Game](#tests-classe-game)
-    - [Classe Player](#classe-player)
-        - [Fonctionnement classe Player](#fonctionnement-classe-player)
-        - [Algorithmes classe Player](#algorithmes-classe-player)
-        - [Tests classe Player](#tests-classe-player)
-    - [Classe Robot](#classe-robot)
-        - [Fonctionnement classe Robot](#fonctionnement-classe-robot)
-        - [Algorithmes classe Robot](#algorithmes-classe-robot)
-        - [Tests classe Robot](#tests-classe-robot)
-    - [Classe Target](#classe-target)
-        - [Fonctionnement classe Target](#fonctionnement-classe-target)
-        - [Algorithmes classe Target](#algorithmes-classe-target)
-        - [Tests classe Target](#tests-classe-target)
-4. [Exemples d'utilisation](#exemples-dutilisation)
+  - [Classe Board](#classe-board)
+    - [Fonctionnement classe Board](#fonctionnement-classe-board)
+    - [Algorithmes classe Board](#algorithmes-classe-board)
+      - [Génération de la grille](#génération-de-la-grille)
+      - [Placement des robots et des cibles](#placement-des-robots-et-des-cibles)
+      - [Déplacement des robots](#déplacement-des-robots)
+      - [Vérification de l'objectif](#vérification-de-lobjectif)
+      - [Sauvegarde et réinitialisation de la grille](#sauvegarde-et-réinitialisation-de-la-grille)
+    - [Tests classe Board](#tests-classe-board)
+      - [1. Test du constructeur (`ConstructorTest`)](#1-test-du-constructeur-constructortest)
+      - [2. Test du placement des cibles (`PlaceTargetsTest`)](#2-test-du-placement-des-cibles-placetargetstest)
+      - [3. Test du déplacement des robots (`MoveRobotTest`)](#3-test-du-déplacement-des-robots-moverobottest)
+      - [4. Test de sauvegarde et réinitialisation de la grille (`SaveAndReinitBoardTest`)](#4-test-de-sauvegarde-et-réinitialisation-de-la-grille-saveandreinitboardtest)
+      - [5. Test de la vérification de l'objectif (`TargetReachedTest`)](#5-test-de-la-vérification-de-lobjectif-targetreachedtest)
+      - [6. Test des méthodes `setTargetObjectif` et `getTargetObjectif` (`TargetObjectifTest`)](#6-test-des-méthodes-settargetobjectif-et-gettargetobjectif-targetobjectiftest)
+  - [Classe Display](#classe-display)
+    - [Fonctionnement classe Display](#fonctionnement-classe-display)
+    - [Algorithmes classe Display](#algorithmes-classe-display)
+  - [Classe Game](#classe-game)
+    - [Fonctionnement classe Game](#fonctionnement-classe-game)
+    - [Algorithmes classe Game](#algorithmes-classe-game)
+  - [Classe Robot](#classe-robot)
+    - [Fonctionnement classe Robot](#fonctionnement-classe-robot)
 
 ## Explication des règles
 
@@ -412,14 +411,6 @@ Les tests de la classe `Board` permettent de valider les fonctionnalités princi
   - La méthode `setTargetObjectif` permet de définir une cible comme objectif.
   - La méthode `getTargetObjectif` retourne correctement la cible définie comme objectif.
 
-## Classe Case
-
-### Fonctionnement classe Case
-
-### Algorithmes classe Case
-
-### Tests classe Case
-
 ## Classe Display
 
 La classe `Display` sert à générer un affichage visuel en console d’un plateau de jeu, avec une représentation graphique ASCII des murs, des robots et des cibles (les targets). Elle utilise des codes ANSI pour afficher les couleurs et des caractères Unicode pour les formes.
@@ -484,8 +475,6 @@ algorithme
     fin pour
 fin fonction
 ```
-
-### Tests classe Display
 
 ## Classe Game
 
@@ -618,16 +607,6 @@ algorithme
 fin fonction
 ```
 
-### Tests classe Game
-
-## Classe Player
-
-### Fonctionnement classe Player
-
-### Algorithmes classe Player
-
-### Tests classe Player
-
 ## Classe Robot
 
 La classe `Robot` représente ses caractéristiques : couleur (Color), forme (Shape), coordonnées en 2D (x, y)
@@ -648,14 +627,3 @@ La classe `Robot` représente ses caractéristiques : couleur (Color), forme (Sh
    - `getColor()`, `getShape()`, `getX()`, `getY()` : Retourne respectivement la couleur, la forme, ses coordonnées en x et y.
    - `setColor(Color)`, `setShape(Shape)`, `setX(int)`, `setY(int)` : Change respectivement la couleur, la forme, ses coordonnées en x et y.
 
-### Algorithmes classe Robot
-
-### Tests classe Robot
-
-## Classe Target
-
-### Fonctionnement classe Target
-
-### Algorithmes classe Target
-
-### Tests classe Target
