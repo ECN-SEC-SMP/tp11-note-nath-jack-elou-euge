@@ -143,7 +143,7 @@ La classe `Board` représente une grille de jeu de 16x16 cases utilisée pour un
 
 ### Algorithmes classe Board
 
-Voici l'algorithme en langage naturel pour générer une grille complète :
+Voici l'algorithme en langage naturel pour générer une grille complète et gérer les fonctionnalités de la classe `Board` :
 
 ```algo
 type Case
@@ -157,8 +157,13 @@ fin type
 
 type Board
     tableau[16][16] de Case grille
+    tableau[16][16] de Case grilleInitiale
+    tableau dynamique de paires (entier, entier) anglesCoordinates
+    Target objectifCible
 fin type
 ```
+
+#### Génération de la grille
 
 ```algo
 fonction ø <- generateBoard(B)
@@ -202,23 +207,9 @@ fonction ø <- generateBoardStep2(B)
     résultat ø
 algorithme
     pour chaque quart de la grille faire
-        générer x aléatoire dans les limites du quart
-        générer y aléatoire dans les limites du quart
-
-        si le mur ouest est dans le quart alors
-            B.grille[x][0].ouest <- 1
-        fin si
-
-        si le mur est est dans le quart alors
-            B.grille[x][15].est <- 1
-        fin si
-
-        si le mur nord est dans le quart alors
-            B.grille[0][y].nord <- 1
-        fin si
-
-        si le mur sud est dans le quart alors
-            B.grille[15][y].sud <- 1
+        générer x et y aléatoires dans les limites du quart
+        si les murs générés ne touchent pas d'autres murs alors
+            placer un mur vertical ou horizontal
         fin si
     fin pour
 fin fonction
@@ -237,6 +228,7 @@ algorithme
                 générer un type d'angle aléatoire
                 si l'angle est valide (ne touche pas un autre angle ou mur extérieur) alors
                     placer l'angle en activant deux murs adjacents
+                    ajouter (x, y) à anglesCoordinates
                     incrémenter compteur angles
                 fin si
             fin si
@@ -256,12 +248,15 @@ algorithme
             générer un type d'angle aléatoire
             si l'angle est valide (ne touche pas un autre angle ou mur extérieur) alors
                 placer l'angle en activant deux murs adjacents
+                ajouter (x, y) à anglesCoordinates
                 arrêter la boucle
             fin si
         fin si
     jusqu'à ce qu'un angle soit placé
 fin fonction
 ```
+
+#### Placement des robots et des cibles
 
 ```algo
 fonction ø <- placeRobots(B, robots)
@@ -274,21 +269,96 @@ algorithme
         générer x et y aléatoires dans toute la grille (hors carré central)
         si la case (x, y) est libre (pas de robot, pas de cible) alors
             placer un robot sur la case
+            mettre à jour ses coordonnées initiales
             incrémenter compteur robots placés
         fin si
     fin tant que
-
-    répéter
-        générer x et y aléatoires dans toute la grille
-        si la case (x, y) contient un angle et est libre alors
-            placer une cible sur la case
-            arrêter la boucle
-        fin si
-    jusqu'à ce qu'une cible soit placée
 fin fonction
 ```
 
-### Tests classe Board
+```algo
+fonction ø <- placeTargets(B, targets)
+    paramètre lien Board B
+    paramètre tableau dynamique de Target targets
+    résultat ø
+algorithme
+    pour chaque couleur de cible faire
+        pour chaque cible de cette couleur faire
+            choisir un angle aléatoire dans anglesCoordinates
+            si l'angle est libre (pas de robot, pas de cible) alors
+                placer la cible sur la case
+            fin si
+        fin pour
+    fin pour
+
+    si une cible multicolore doit être placée alors
+        choisir un angle aléatoire dans anglesCoordinates
+        si l'angle est libre alors
+            placer la cible multicolore
+        fin si
+    fin si
+fin fonction
+```
+
+#### Déplacement des robots
+
+```algo
+fonction booléen <- moveRobot(B, robot, direction)
+    paramètre lien Board B
+    paramètre Robot robot
+    paramètre caractère direction
+    résultat booléen
+algorithme
+    récupérer les coordonnées actuelles du robot
+    tant que le robot peut avancer dans la direction donnée faire
+        vérifier les murs, les bords du plateau et les autres robots
+        mettre à jour les coordonnées du robot
+    fin tant que
+    retourner vrai si le robot a bougé, sinon faux
+fin fonction
+```
+
+#### Vérification de l'objectif
+
+```algo
+fonction booléen <- targetReached(B, robot)
+    paramètre lien Board B
+    paramètre Robot robot
+    résultat booléen
+algorithme
+    récupérer la cible sur la case actuelle du robot
+    si la cible existe et correspond à l'objectif alors
+        retourner vrai
+    sinon
+        retourner faux
+    fin si
+fin fonction
+```
+
+#### Sauvegarde et réinitialisation de la grille
+
+```algo
+fonction ø <- saveBoard(B)
+    paramètre lien Board B
+    résultat ø
+algorithme
+    copier la grille actuelle dans grilleInitiale
+fin fonction
+```
+
+```algo
+fonction ø <- reinitBoard(B, robots)
+    paramètre lien Board B
+    paramètre tableau dynamique de Robot robots
+    résultat ø
+algorithme
+    restaurer grilleInitiale dans grille
+    pour chaque robot faire
+        réinitialiser ses coordonnées à ses coordonnées initiales
+        remettre le robot sur la grille
+    fin pour
+fin fonction
+```
 
 ## Classe Case
 
