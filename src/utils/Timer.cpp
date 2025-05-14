@@ -2,19 +2,38 @@
 #include <sstream>
 #include <iomanip>
 
+/**
+ * @brief  Constructeur privé (singleton). Empêche l'instanciation externe
+ *
+ */
 Timer::Timer() : running(false), delayMs(0) {}
 
+/**
+ * @brief  Destructeur : appelle stop() et nettoie les ressources
+ *
+ */
 Timer::~Timer()
 {
     stop();
 }
 
+/**
+ * @brief Retourne l'instance unique de Timer (singleton)
+ *
+ * @return Timer&
+ */
 Timer &Timer::getInstance()
 {
     static Timer instance;
     return instance;
 }
 
+/**
+ * @brief Démarre le minuteur pour ms millisecondes et exécute le callback à la fin
+ *
+ * @param ms Valeur en milisec
+ * @param callback callback de la fonction
+ */
 void Timer::start(int delay_ms, std::function<void()> callback)
 {
     stop();
@@ -24,7 +43,7 @@ void Timer::start(int delay_ms, std::function<void()> callback)
     this->running = true;
 
     this->worker = std::thread([this, callback]()
-                         {
+                               {
         // Verrouille l'accès aux ressources partagées
         std::unique_lock<std::mutex> lock(this->mtx);
 
@@ -39,6 +58,10 @@ void Timer::start(int delay_ms, std::function<void()> callback)
         } });
 }
 
+/**
+ * @brief Arrête le minuteur prématurément et interrompt le thread
+ *
+ */
 void Timer::stop()
 {
     {
@@ -52,11 +75,22 @@ void Timer::stop()
     }
 }
 
+/**
+ * @brief Retourne true si le minuteur est actif
+ *
+ * @return true
+ * @return false
+ */
 bool Timer::isRunning() const
 {
     return this->running;
 }
 
+/**
+ * @brief Renvoie le temps écoulé depuis start() en ms
+ *
+ * @return int
+ */
 int Timer::getElapsedTimeMs() const
 {
     if (!this->running)
@@ -66,6 +100,11 @@ int Timer::getElapsedTimeMs() const
         std::chrono::duration_cast<std::chrono::milliseconds>(now - startTime).count());
 }
 
+/**
+ * @brief Renvoie le temps restant jusqu’à l’expiration
+ *
+ * @return int
+ */
 int Timer::getRemainingTimeMs() const
 {
     if (!this->running)
@@ -74,6 +113,12 @@ int Timer::getRemainingTimeMs() const
     return remaining > 0 ? remaining : 0;
 }
 
+/**
+ * @brief Convertit un temps en secondes vers un format "M:SS" (ex: 65 => "1:05")
+ *
+ * @param toFormat Valeur à convertir
+ * @return std::string
+ */
 std::string Timer::formatTime(int toFormat)
 {
     int minutes = toFormat / 60;

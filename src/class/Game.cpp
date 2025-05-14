@@ -1,12 +1,5 @@
 #include "Game.hpp"
 
-void Game::resetGame()
-{
-    this->board = new Board();
-    this->players = {};
-    this->robots = {};
-}
-
 Game::Game() : players{}, robots{}, board(new Board()), refreshBoard{false}
 {
 }
@@ -46,21 +39,42 @@ Game::~Game()
     delete this->board;
 }
 
+/**
+ * @brief Set the Players object
+ *
+ * @param players
+ */
 void Game::setPlayers(std::vector<Player *> players)
 {
     this->players = players;
 }
 
+/**
+ * @brief Get the Players object
+ *
+ * @return std::vector<Player *>
+ */
 std::vector<Player *> Game::getPlayers() const
 {
     return this->players;
 }
 
+/**
+ * @brief Get the Robots object
+ *
+ * @return std::vector<Robot *>
+ */
 std::vector<Robot *> Game::getRobots() const
 {
     return this->robots;
 }
 
+/**
+ * @brief Initialise les robots
+ *
+ * @return true
+ * @return false
+ */
 bool Game::initRobots()
 {
     Robot *robot_1 = new Robot(Green);
@@ -77,6 +91,13 @@ bool Game::initRobots()
     return true;
 }
 
+/**
+ * @brief Vérifie si le joueur existe dans this->players
+ *
+ * @param p Pointeur sur le joueur à vérifier
+ * @return true s'il existe
+ * @return false sinon
+ */
 bool Game::playerExists(Player *p)
 {
     for (Player *player : this->players)
@@ -89,6 +110,12 @@ bool Game::playerExists(Player *p)
     return false;
 }
 
+/**
+ * @brief Initialise les joueurs
+ *
+ * @return true
+ * @return false
+ */
 bool Game::initPlayers()
 {
     std::cout << "Choisissez un nombre de joueurs inférieur ou égale à 16." << std::endl;
@@ -114,6 +141,10 @@ bool Game::initPlayers()
     return true;
 }
 
+/**
+ * @brief Initialise les cibles du jeu
+ *
+ */
 void Game::initTargets()
 {
     this->targets = {};
@@ -142,7 +173,12 @@ void Game::initTargets()
 
     this->board->placeTargets(&this->targets);
 }
-
+/**
+ * @brief Permet de jouer au jeu ricochet robot
+ *
+ * @return true
+ * @return false
+ */
 bool Game::play()
 {
     this->display = new Display();
@@ -324,6 +360,12 @@ bool Game::play()
     return true;
 }
 
+/**
+ * @brief Fait réfléchir les joueurs pendant 1h sur une solution
+ *
+ * @return true
+ * @return false
+ */
 bool Game::playersThink()
 {
     const int timeToThinkSec = 60 * 60;
@@ -351,6 +393,10 @@ bool Game::playersThink()
     return true;
 }
 
+/**
+ * @brief Affiche les noms des joueurs
+ *
+ */
 void Game::displayPlayers()
 {
     size_t i = 0;
@@ -376,6 +422,13 @@ void Game::displayPlayers()
     }
 }
 
+/**
+ * @brief Trouve l'index d'un joueur dans le tableau
+ *
+ * @param players Liste des joueurs
+ * @param toFind Pointeur sur le joueur à trouver
+ * @return int L'index du joueur dans le tableau
+ */
 int Game::findIndex(std::vector<Player *> vPlayers, Player *toFind)
 {
 
@@ -395,6 +448,12 @@ int Game::findIndex(std::vector<Player *> vPlayers, Player *toFind)
 
     return find ? idJoueur : -1;
 }
+
+/**
+ * @brief Demande quel joueur à trouver
+ *
+ * @return int L'index du joueur
+ */
 int Game::whoFinds()
 {
     Player player = Player();
@@ -424,6 +483,12 @@ int Game::whoFinds()
     return this->findIndex(this->players, &player);
 }
 
+/**
+ * @brief Demande aux utilisateurs s'ils veulent jouer sur la tuile suivante
+ *
+ * @return true
+ * @return false
+ */
 bool Game::keepPlaying()
 {
     this->digitHandler("-1");
@@ -451,6 +516,10 @@ bool Game::keepPlaying()
     return false;
 }
 
+/**
+ * @brief Les joueurs restants annonces leur coup
+ *
+ */
 void Game::remainingPlayer()
 {
     // Si tout le monde a annoncé
@@ -513,6 +582,10 @@ void Game::remainingPlayer()
     timer.stop();
 }
 
+/**
+ * @brief Annonce du coups
+ *
+ */
 void Game::chooseInput()
 {
 
@@ -521,6 +594,10 @@ void Game::chooseInput()
     this->players.at(index)->setNbCoupsAnnonce(inputNumber(0, 10000));
 }
 
+/**
+ * @brief Bubble sort pour tier les joueurs par coups annonces (ASC)
+ *
+ */
 void Game::orderPlayersByNbCoupsAnnonce()
 {
     size_t n = players.size();
@@ -557,6 +634,10 @@ void Game::orderPlayersByNbCoupsAnnonce()
     }
 }
 
+/**
+ * @brief Bubble sort pour trier les joueurs par score (ASC)
+ *
+ */
 void Game::orderPlayersByScore()
 {
     size_t n = this->players.size();
@@ -575,6 +656,12 @@ void Game::orderPlayersByScore()
         }
     }
 }
+
+/**
+ * @brief Gère les évènmenent sur une pression clavier des chiffres
+ *
+ * @param evt string de la touche
+ */
 void Game::digitHandler(std::string evt)
 {
     static int dChoiceRIndex = -1;
@@ -608,6 +695,11 @@ void Game::digitHandler(std::string evt)
     }
 }
 
+/**
+ * @brief Gère les évènmenent sur une pression clavier des flèches directionnelles
+ *
+ * @param evt string de la touche
+ */
 void Game::arrowHandler(std::string evt)
 {
     char direction = '\0';
@@ -634,6 +726,10 @@ void Game::arrowHandler(std::string evt)
     }
 }
 
+/**
+ * @brief Affiche le score finale des joueurs
+ *
+ */
 void Game::displayScore()
 {
 
@@ -648,6 +744,11 @@ void Game::displayScore()
     std::cout << resultat << std::endl;
 }
 
+/**
+ * @brief Affiche les inputs des robots
+ *
+ * @return std::string
+ */
 std::string Game::displayRobotInputs()
 {
     std::string resStr = "\tPour changer de robot appuyez sur:\n";
@@ -658,7 +759,11 @@ std::string Game::displayRobotInputs()
 
     return resStr;
 }
-
+/**
+ * @brief Compte le nombre de joueur qui n'ont pas annoncé leur coup
+ *
+ * @return int
+ */
 int Game::nbUnannounced()
 {
 
@@ -673,7 +778,11 @@ int Game::nbUnannounced()
 
     return remainingPlayerToAnnounce;
 }
-
+/**
+ * @brief Trouve le premier joueur qui n'a pas annoncé de coup
+ *
+ * @return Player*
+ */
 Player *Game::findUnannounced()
 {
 
@@ -690,6 +799,12 @@ Player *Game::findUnannounced()
     return res;
 }
 
+/**
+ * @brief Permet au joueur de choisir le premier robot à bouger
+ *
+ * @return true
+ * @return false
+ */
 bool Game::chooseFirstRobot()
 {
 
@@ -701,6 +816,10 @@ bool Game::chooseFirstRobot()
     return true;
 }
 
+/**
+ * @brief Réinitialise les coups des joueurs
+ *
+ */
 void Game::resetPlayersCoups()
 {
     for (Player *p : this->players)

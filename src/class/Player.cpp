@@ -64,11 +64,19 @@ std::string Player::getPseudo() const
     return this->pseudo;
 }
 
+/**
+ * @brief Récupère le nombre de coups annoncés
+ * @return int
+ */
 int Player::getNbCoupsAnnonce() const
 {
     return this->nbCoupsAnnonce;
 }
 
+/**
+ * @brief Définit le nombre de coups réellement joués
+ * @param nCoups Nombre de coups joués
+ */
 void Player::setNbCoupsReal(int nCoups)
 {
     if (nCoups >= 0)
@@ -77,34 +85,46 @@ void Player::setNbCoupsReal(int nCoups)
     }
 }
 
+/**
+ * @brief Récupère le nombre de coups réellement joués
+ * @return int
+ */
 int Player::getNbCoupsReal() const
 {
     return this->nbCoupsReal;
 }
 
+/**
+ * @brief Définit le nombre de coups annoncés
+ * @param nCoups Nombre de coups annoncés
+ */
 void Player::setNbCoupsAnnonce(int nCoups)
 {
     this->nbCoupsAnnonce = nCoups;
 }
 
+/**
+ * @brief Vérifie si le joueur a annoncé un nombre de coups valide
+ * @return true si nbCoupsAnnonce != -1
+ */
 bool Player::hasValidCoupsAnnonce() const
 {
     return this->nbCoupsAnnonce != -1;
 }
 
-void Player::chooseRobot(std::string evt)
-{
-}
-
-void Player::moveRobot(std::string evt)
-{
-}
-
+/**
+ * @brief Définit le score du joueur
+ * @param newS Score à affecter
+ */
 void Player::setScore(int newScore)
 {
     this->score = newScore;
 }
 
+/**
+ * @brief Récupère le score du joueur
+ * @return int
+ */
 int Player::getScore() const
 {
     return this->score;

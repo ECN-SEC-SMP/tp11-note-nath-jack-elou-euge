@@ -25,9 +25,7 @@ class Game {
     + getRobots() const : vector<Robot*>
 
     + play() : bool
-    + keepPlaying() : bool
-    
-    + resetGame() : void
+    + keepPlaying() : bool    
 }
 
 Game "1" *-left- "1" Board

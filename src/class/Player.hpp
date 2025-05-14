@@ -29,15 +29,31 @@ class Player
 {
 
 private:
-    /// @brief Pseudo of the player
+    /**
+     * @brief Pseudo du joueur
+     *
+     */
     std::string pseudo;
 
+    /**
+     * @brief Nombre de coups annoncés par le joueur
+     *
+     */
     int nbCoupsAnnonce;
+
+    /**
+     * @brief Nombre de coups réellement effectués
+     *
+     */
     int nbCoupsReal;
+
+    /**
+     * @brief Score du joueur
+     *
+     */
     int score;
 
 public:
-
     Player();
     /**
      * @brief Construct a new Player:: Player object
@@ -61,22 +77,48 @@ public:
      */
     std::string getPseudo() const;
 
+    /**
+     * @brief Récupère le score du joueur
+     * @return int
+     */
     int getScore() const;
+
+    /**
+     * @brief Définit le score du joueur
+     * @param newS Score à affecter
+     */
     void setScore(int newS);
 
+    /**
+     * @brief Définit le nombre de coups annoncés
+     * @param nCoups Nombre de coups annoncés
+     */
     void setNbCoupsAnnonce(int nCoups);
 
+    /**
+     * @brief Récupère le nombre de coups annoncés
+     * @return int
+     */
     int getNbCoupsAnnonce() const;
 
+    /**
+     * @brief Définit le nombre de coups réellement joués
+     * @param nCoups Nombre de coups joués
+     */
     void setNbCoupsReal(int nCoups);
 
+    /**
+     * @brief Récupère le nombre de coups réellement joués
+     * @return int
+     */
     int getNbCoupsReal() const;
 
+    /**
+     * @brief Vérifie si le joueur a annoncé un nombre de coups valide
+     * @return true si nbCoupsAnnonce != -1
+     */
     bool hasValidCoupsAnnonce() const;
 
-    void chooseRobot(std::string evt);
-
-    void moveRobot(std::string evt);
 };
 
 #endif
