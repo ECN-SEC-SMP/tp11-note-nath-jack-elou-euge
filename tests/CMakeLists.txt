@@ -1,5 +1,6 @@
 add_executable(tests
     test_Player.cpp
+    test_Board.cpp
     test_Robot.cpp
     test_Target.cpp
     test_Timer.cpp
